@@ -9,7 +9,8 @@
     "react-router": "^4.0.0",
     "react-scripts": "1.0.17",
     "redux": "latest",
-    "react-router-dom": "latest"
+    "react-router-dom": "latest",
+    "redux-promise": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
