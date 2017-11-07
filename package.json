@@ -10,7 +10,8 @@
     "react-scripts": "1.0.17",
     "redux": "latest",
     "react-router-dom": "latest",
-    "redux-promise": "latest"
+    "redux-promise": "latest",
+    "axios": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
