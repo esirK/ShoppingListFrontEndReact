@@ -8,7 +8,7 @@ export function registerUser(details) {
     console.log(details);
     const request = axios.post(URL, {
         "email": details['email'],
-        "name": details['name'],
+        "name": details['username'],
         "password": details['password']
     });
     return{

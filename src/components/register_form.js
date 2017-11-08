@@ -10,11 +10,24 @@ class RegisterForm extends Component {
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            conf_password: '',
+            pwd_match:false
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
     }
 
+    onInputChange(e){
+        var newState = {};
+        newState[e.target.name] = e.target.value;
+        if (typeof e.target.name !== 'undefined' && e.target.name === 'conf_password') {
+            if (this.state.password === this.state.conf_password) {
+                newState[this.state.pwd_match] = true
+            }
+        }
+        this.setState(newState);
+    }
     render() {
         return (
             <div className="row">
@@ -38,6 +51,7 @@ class RegisterForm extends Component {
                                         className="form-control"
                                         id='inputUsername'
                                         name="username"
+                                        onChange={this.onInputChange}
                                         value={this.state.username}
                                     />
                                 </div>
@@ -50,6 +64,8 @@ class RegisterForm extends Component {
                                     <input
                                         className="form-control"
                                         placeholder="example@example.com"
+                                        name="email"
+                                        onChange={this.onInputChange}
                                         value={this.state.email}
                                         type="email"
                                         id='inputEmail'
@@ -63,7 +79,9 @@ class RegisterForm extends Component {
                                     </div>
                                     <input
                                         placeholder="Password"
+                                        name="password"
                                         value={this.state.password}
+                                        onChange={this.onInputChange}
                                         type="password"
                                         className="form-control"
                                     />
@@ -75,11 +93,15 @@ class RegisterForm extends Component {
                                         <span className="icon-dots"/>
                                     </div>
                                     <input
+                                        name="conf_password"
                                         placeholder="Confirm Password"
                                         type="password"
+                                        value={this.state.conf_password}
+                                        onChange={this.onInputChange}
                                         className="form-control"
                                     />
                                 </div>
+                                <label ref="message" style={{display: this.state.pwd_match ?'none': "block"}} className="clearflex alert alert-warning" >Passwords Don't Match</label>
                             </div>
                             <div className="clearfix">
                                 <button type="submit" className="btn btn-lg btn-primary pull-right"> Submit </button>
