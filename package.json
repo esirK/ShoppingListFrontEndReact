@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "latest",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "latest",
     "react-router": "^4.0.0",
+    "react-router-dom": "latest",
     "react-scripts": "1.0.17",
     "redux": "latest",
-    "react-router-dom": "latest",
-    "redux-promise": "latest",
-    "axios": "latest"
+    "redux-form": "^6.6.3",
+    "redux-promise": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
