@@ -12,7 +12,8 @@
     "react-scripts": "1.0.17",
     "redux": "latest",
     "redux-form": "^6.6.3",
-    "redux-promise": "latest"
+    "redux-promise": "latest",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

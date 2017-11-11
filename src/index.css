@@ -6,8 +6,11 @@ body {
 .shoppinglist-dialog{
     background: #FFF;
     padding: 2em;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 .dialog-body{
     margin: 24px 0;
+}
+form a{
+    margin-left: 5px;
 }

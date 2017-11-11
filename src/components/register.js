@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {Link} from 'react-router-dom'
-
+import {connect} from 'react-redux'
+import {registerUser} from '../actions'
 
 class RegisterForm extends Component {
     renderField(field){
@@ -22,11 +23,14 @@ class RegisterForm extends Component {
         );
     }
     onFormSubmit(values){
-        console.log(values)
-
+        this.props.registerUser(values
+            ,() =>{
+            this.props.history.push("/login");
+            }
+        );
     }
     render(){
-        const {handleSubmit} = this.props;
+        const {handleSubmit, submitting} = this.props;
         return(
             <div className="row">
                 <div className="col-sm-6 col-sm-offset-3">
@@ -64,6 +68,7 @@ class RegisterForm extends Component {
                             />
                             <button type="submit" className="btn btn-primary">Register</button>
                             <Link className="btn btn-danger" to="/login">Cancel</Link>
+
                         </form>
                     </div>
                 </div>
@@ -98,4 +103,7 @@ function validate(values){
 export default reduxForm({
     validate,
     form: 'registrationform'
-})(RegisterForm)
+})
+(
+    connect(null, {registerUser})(RegisterForm)
+)
