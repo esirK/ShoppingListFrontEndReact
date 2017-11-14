@@ -1,31 +1,44 @@
 import axios from 'axios';
+
 import * as types from '../constants/actiontypes'
 
 
-const URL = `http://127.0.0.1:5000/v1/register`;
+const URL = `http://127.0.0.1:5000/v1/`;
 
-export function startRegisteing(){
+export function startSubmitting(){
     console.log("started....");
     return {
-        type: types.REGISTRATION_STARTED
+        type: types.SUBMITTING_STARTED
     };
 }
-export function RegistrationSuccessfull(res){
+export function submissionSuccessful(message){
     return {
-      type: types.REGISTRATION_SUCCESSFUL,
-        payload: res
+      type: types.SUBMISSION_SUCCESSFUL,
+        message
     };
 }
-export function registerUser(details, callback) {
-    return(dispatch) =>{
-        dispatch(startRegisteing());
-        axios.post(URL, {
+export function submissionFailed(error) {
+    return{
+        type: types.SUBMISSION_ERROR,
+        error
+    }
+}
+export function submitDetails(details, callback, route) {
+    return (dispatch) => {
+        return axios.post(`${URL}${route}`, {
             "email": details['email'],
             "name": details['username'],
             "password": details['password']
-        }).then((data) =>{
+        }).then((data) => {
+            console.log("Success", data.data.message);
             callback();
-            dispatch(RegistrationSuccessfull(data))
-        }).catch((err) => console.log('error', err))
+            dispatch(submissionSuccessful(data.data.message))
+            // resolve(data);
+        }).catch((error) => {
+            // console.log('error here', error.response.data.message);
+            console.log('error', error.response);
+            dispatch(submissionFailed(error.response));
+        })
+
     }
 }

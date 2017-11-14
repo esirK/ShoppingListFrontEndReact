@@ -8,14 +8,17 @@ const initState = {
 };
 export default function(state = initState, action) {
     switch (action.type){
-        case types.REGISTRATION_SUCCESSFUL:
-		console.log("nanana too ", action);
+        case types.SUBMISSION_SUCCESSFUL:
+            console.log("Success", action.data);
 		return{
             ...state, isRegisteringUser:false,
             data:action.data
         };
-    case types.REGISTRATION_ERROR:
-        console.log("here too ", action);
+        case types.SUBMISSION_ERROR:
+        console.log("current state before", state);
+        return{
+            ...state, error: action.error.data.message
+        }
 	}
 	return state;
 }
