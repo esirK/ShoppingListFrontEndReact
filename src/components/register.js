@@ -1,37 +1,28 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {registerUser} from '../actions'
+import {connect } from 'react-redux'
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
+import {submitDetails} from '../actions'
+import {validate} from './helpers'
 class RegisterForm extends Component {
-    renderField(field){
-        const { meta: { touched, error } } = field;
-        const className = `form-group ${touched && error ? 'has-danger': ''}`;
-        return(
-            <div className={className}>
-                <label>{field.lable}</label>
-                <input
-                    className="form-control"
-                    type={field.type}
-                    {...field.input}
-                />
-                <div className="text-help">
-                    {touched ? error: ''}
-                </div>
-            </div>
-        );
+    constructor(){
+        super();
+        this.renderField = this.renderField.bind(this)
     }
-    onFormSubmit(values){
-        this.props.registerUser(values
-            ,() =>{
-            this.props.history.push("/login");
-            }
-        );
+
+    onFormSubmit(values) {
+        this.props.submitDetails(values,() => {
+            this.props.history.push("/login")
+        }, "register");
     }
-    render(){
-        const {handleSubmit, submitting} = this.props;
-        return(
+
+    render() {
+        const {error, submitting, handleSubmit} = this.props;
+        console.log("All form State", this.props);
+        return (
             <div className="row">
                 <div className="col-sm-6 col-sm-offset-3">
                     <div className="shoppinglist-dialog">
@@ -44,66 +35,64 @@ class RegisterForm extends Component {
                         <form onSubmit={handleSubmit(this.onFormSubmit.bind(this))}>
                             <Field
                                 name="username"
-                                lable="Username"
+                                label="Username"
                                 type="text"
-                                component={ this.renderField }
+                                component={this.renderField}
                             />
                             <Field
                                 name="email"
                                 type="email"
-                                lable="Email"
-                                component={ this.renderField }
+                                label="Email"
+                                component={this.renderField}
                             />
+                            <span className= "text-danger">{error}</span>
                             <Field
                                 name="password"
                                 type="password"
-                                lable="Password"
-                                component={ this.renderField }
+                                label="Password"
+                                component={this.renderField}
                             />
                             <Field
                                 name="confirm_password"
                                 type="password"
-                                lable="Confirm Password"
-                                component={ this.renderField }
+                                label="Confirm Password"
+                                component={this.renderField}
                             />
-                            <button type="submit" className="btn btn-primary">Register</button>
+                            <RaisedButton label="Register" type="submit" />
                             <Link className="btn btn-danger" to="/login">Cancel</Link>
-
                         </form>
                     </div>
                 </div>
             </div>
         );
     }
+
+    renderField(field){
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger': ''}`;
+        return(
+            <div className={className}>
+                <TextField
+                    type={field.type}
+                    floatingLabelText={field.label}
+                    {...field.input}
+                    fullWidth={true}
+                />
+                <div className="text-help">
+                    {touched ? error: ''}
+                </div>
+            </div>
+        );
+    }
 }
-function validate(values){
-    const errors = {};
-    if (!values.username){
-        errors.username = "Username Required";
+
+function mapStateToProps(state){
+    return {
+        error: state.register.error,
+        isRegisteringUser: state.form.isRegisteringUser
     }
-    if (!values.email){
-        errors.email = "Email Required"
-    }
-    if (!values.password){
-        errors.password = "Password Required"
-    }
-    if (values.password && values.password.length < 6){
-        errors.password = "Passwords must be at least 6 Characters Long"
-    }
-    if (!values.confirm_password){
-        errors.confirm_password = "Enter confirmation Password"
-    }
-    if(values.password !== values.confirm_password){
-        console.log(values.password);
-        console.log("Look at me ",values.confirm_password);
-        errors.confirm_password = "Passwords do not match"
-    }
-    return errors;
 }
-export default reduxForm({
-    validate,
-    form: 'registrationform'
-})
+export default reduxForm({ validate, form: 'registrationform' })
 (
-    connect(null, {registerUser})(RegisterForm)
-)
+    connect(mapStateToProps, {submitDetails})(RegisterForm)
+);
