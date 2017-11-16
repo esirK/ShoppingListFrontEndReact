@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "latest",
+    "jsonwebtoken": "^8.1.0",
+    "material-ui": "latest",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "latest",
@@ -14,7 +16,7 @@
     "redux-form": "latest",
     "redux-promise": "latest",
     "redux-thunk": "^2.2.0",
-    "material-ui": "latest"
+    "lodash": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "eslint": "^4.11.0",
-    "eslint-plugin-react": "^7.4.0"
+    "eslint-plugin-react": "^7.4.0",
+    "redux-devtools-extension": "^2.13.2"
   }
 }

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function validate(values){
 	const errors = {};
 	if (!values.username){
@@ -20,4 +22,10 @@ export function validate(values){
 		errors.confirm_password = 'Passwords do not match';
 	}
 	return errors;
+}
+
+export function setAthorizationToken(token){
+	if(token){
+		axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
+	}
 }
