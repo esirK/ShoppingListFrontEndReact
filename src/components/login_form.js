@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -10,12 +11,15 @@ import {submitDetails, resetErrors} from '../actions';
 
 
 class LoginForm extends Component{
-
-	constructor(){
-		super();
+	componentWillMount() {
+		    console.log('AM HERERRERERE', this.props.isAuthenticated, this.props);
 		resetErrors();
+		if(this.props.isAuthenticated){
+		  	return () =>{
+				console.log('executing');
+			};
+		}
 	}
-
 	onFormSubmit(values) {
 		this.props.submitDetails(values,() => {
 			this.props.history.push('/');
@@ -79,7 +83,8 @@ function renderField(field){
 function mapStateToProps(state) {
 	return {
 		error: state.register.error,
-		isSubmitting: state.register.isSubmitting
+		isSubmitting: state.register.isSubmitting,
+		isAuthenticated: state.authentication.isAuthenticated,
 	};
 }
 export default reduxForm({

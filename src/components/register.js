@@ -4,16 +4,16 @@ import {Link} from 'react-router-dom';
 import {connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import LinearProgress from 'material-ui/LinearProgress';
 
 
 
-import {submitDetails} from '../actions';
+import {submitDetails, resetErrors} from '../actions';
 import {validate} from './helpers';
 class RegisterForm extends Component {
 	constructor(){
 		super();
 		this.renderField = this.renderField.bind(this);
+		resetErrors();
 	}
 
 	onFormSubmit(values) {
@@ -61,7 +61,6 @@ class RegisterForm extends Component {
 								label="Confirm Password"
 								component={this.renderField}
 							/>
-							<LinearProgress mode="indeterminate" visibility={false}/>
 							<br/>
 							<RaisedButton label="Register" disabled={this.props.isSubmitting} type="submit" />
 							<Link className="btn btn-danger" to="/login">Cancel</Link>

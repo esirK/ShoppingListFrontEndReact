@@ -5,17 +5,15 @@ const initialState = {
 	user: {}
 };
 
-export default function authentication(state = initialState, action){
+export default function (state = initialState, action){
 	switch (action.type){
 	    case SWITCH_USER_AUTH_STATUS:
 	        return{
 	            isAuthenticated: !_.isEmpty(action.user),
 			    user: action.user
-		};
-	    default:
-		    return{
-			    state
-		    };
+	        };
+	default:
+		return state;
 	}
 
 }

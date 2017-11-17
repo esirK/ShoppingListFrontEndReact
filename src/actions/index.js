@@ -1,7 +1,5 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import {setAthorizationToken} from '../components/helpers';
-
 import * as types from '../constants/actiontypes';
 
 
@@ -27,6 +25,7 @@ export function submissionSuccessful(message){
 	};
 }
 export function submissionFailed(error) {
+	console.log('Submission Failed', error);
 	return{
 		type: types.SUBMISSION_ERROR,
 		error
@@ -51,7 +50,6 @@ export function submitDetails(details, callback, route) {
 			console.log('Success2 Token', data.data.token);
 			if (data.data.token !== undefined){
 				localStorage.setItem('jwt',data.data.token);
-				setAthorizationToken(data.data.token);
 				dispatch(setAuthStatusOfUser(jwt.decode(data.data.token)));
 				console.log('Decoded Token', jwt.decode(data.data.token));
 			}
@@ -59,8 +57,10 @@ export function submitDetails(details, callback, route) {
 			dispatch(submissionSuccessful(data.data.message));
 
 		}).catch((error) => {
-			console.log('error', error.response);
-			dispatch(submissionFailed(error.response));
+			console.log('error', error);
+			if(error.response != null) {
+				dispatch(submissionFailed(error.response));
+			}
 		});
 
 	};

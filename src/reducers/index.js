@@ -5,8 +5,8 @@ import authentication from './authentication';
 
 const rootReducer = combineReducers({
 	register: RegisterReducer,
-	form: formReducer,
-	authentication
+	authentication,
+	form: formReducer
 });
 
 export default rootReducer;
