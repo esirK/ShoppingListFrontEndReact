@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-//import { composeWithDevTools } from 'redux-devtools-extension';
 
 import thunk from 'redux-thunk';
 import reduxPromise from 'redux-promise';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
@@ -19,9 +18,9 @@ import LoginForm from './components/login_form';
 import ShoppingLists from './components/shoppinglists';
 
 import NotFound from './components/not_found';
-import {setAthorizationToken} from './components/helpers';
 import {setAuthStatusOfUser} from './actions';
 import jwt from 'jsonwebtoken';
+import {checkAuthenticationToken} from './utils';
 
 const createStoreWithMiddleware = applyMiddleware(reduxPromise, thunk)(createStore);
 
@@ -34,10 +33,35 @@ const muiTheme = getMuiTheme({
 	},
 });
 const store = createStoreWithMiddleware(reducers);
-if(localStorage.getItem('jwt')){
-	setAthorizationToken(localStorage.getItem('jwt'));
+
+console.log('getting JWT Token', checkAuthenticationToken(), this.props);
+if(checkAuthenticationToken()){
+	//If Token is valid
 	store.dispatch(setAuthStatusOfUser(jwt.decode(localStorage.getItem('jwt'))));
+}else{
+	store.dispatch(setAuthStatusOfUser({}));
 }
+
+const requireLogin = ()=>{
+	//blablah
+	if(checkAuthenticationToken()){
+		return <ShoppingLists/>;
+	}else {
+		return <Redirect
+			to={{pathname: '/login'}}
+		/>;
+	}
+};
+const isLoggedIn = ()=>{
+	if(checkAuthenticationToken()){
+		return <Redirect
+			to={{pathname: '/'}}
+		/>;
+	}else {
+		return <LoginForm/>;
+	}
+};
+
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
@@ -45,10 +69,10 @@ ReactDOM.render(
 				<AppBar title="Shopping List App" showMenuIconButton={false}/>
 				<div className="container">
 					<Switch>
-						<Route exact path="/" component={ShoppingLists}/>
-						<Route path="/login" component={LoginForm}/>
+						<Route exact path="/" render={requireLogin}/>
+						<Route path="/login" render={isLoggedIn}/>
 						<Route path="/register" component={RegisterForm}/>
-						<Route path="/shoppinglists" component={ShoppingLists}/>
+						<Route path="/shoppinglists" render={requireLogin}/>
 						<Route component={NotFound}/>
 					</Switch>
 				</div>

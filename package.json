@@ -16,7 +16,9 @@
     "redux-form": "latest",
     "redux-promise": "latest",
     "redux-thunk": "^2.2.0",
-    "lodash": "latest"
+    "lodash": "latest",
+    "jwt-decode": "latest",
+    "history": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
