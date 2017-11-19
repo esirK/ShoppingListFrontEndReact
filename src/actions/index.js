@@ -88,9 +88,7 @@ export function errorEncountered(error){
 	};
 }
 export function getShoppingLists(){
-	console.log('Awsome Outside.');
 	return (dispatch) => {
-		console.log('Awsome Inside.');
 		dispatch(getShoppingListStarted());
 		return axios({
 			method: 'get',
@@ -115,4 +113,29 @@ export function getShoppingLists(){
 //Add a new shopping list function
 export function addNewShoppingList(details){
 	console.log('Got ShoppingList You wanna create');
+	return (dispatch) =>{
+		//Notify that adding a shopping list action has been dispatched
+		dispatch(addingShoppinglistStarted());
+		return axios({
+			method: 'post',
+			url: `${URL}${'shoppinglists'}`,
+			data: {
+				name: 'Back to school',
+				description: 'Things To buy before going back to school'
+			  },
+			auth: {
+				username: localStorage.getItem('jwt'),
+				password: ''
+			}
+		})
+			.then(function (response){
+				//Dispatch shoppinglist created successfully
+				console.log('Got response', response.data);
+				dispatch(shoppinglistCreated());
+			})
+			.catch(function (error){
+				//Dispatch shoppinglist creation failed
+				dispatch(errorEncountered(error.message));
+			});
+	};
 }
