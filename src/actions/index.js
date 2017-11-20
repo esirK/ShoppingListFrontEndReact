@@ -81,6 +81,19 @@ export function shoppinglistsRecieved(response){
 		response
 	};
 }
+
+export function addingShoppinglistStarted(){
+	return {
+		type: types.CREATING_SHOPPINGLISTS_STARTED,
+	};
+}
+
+export function shoppinglistCreated(response){
+	return {
+		type: types.SHOPPINGLISTS_CREATED_SUCCESSFULY,
+		response
+	};
+}
 export function errorEncountered(error){
 	return{
 		type: types.ERROR_ENCOUNTERED,
@@ -89,6 +102,7 @@ export function errorEncountered(error){
 }
 export function getShoppingLists(){
 	return (dispatch) => {
+		dispatch(resetErrors());
 		dispatch(getShoppingListStarted());
 		return axios({
 			method: 'get',
@@ -115,13 +129,14 @@ export function addNewShoppingList(details){
 	console.log('Got ShoppingList You wanna create');
 	return (dispatch) =>{
 		//Notify that adding a shopping list action has been dispatched
+		dispatch(resetErrors());
 		dispatch(addingShoppinglistStarted());
 		return axios({
 			method: 'post',
 			url: `${URL}${'shoppinglists'}`,
 			data: {
-				name: 'Back to school',
-				description: 'Things To buy before going back to school'
+				name: details['name'],
+				description: details['description']
 			  },
 			auth: {
 				username: localStorage.getItem('jwt'),
@@ -131,11 +146,16 @@ export function addNewShoppingList(details){
 			.then(function (response){
 				//Dispatch shoppinglist created successfully
 				console.log('Got response', response.data);
-				dispatch(shoppinglistCreated());
+				dispatch(shoppinglistCreated(response.data.data));
 			})
 			.catch(function (error){
-				//Dispatch shoppinglist creation failed
-				dispatch(errorEncountered(error.message));
+			    //Dispatch shoppinglist creation failed
+				if(error.response.data.message !== 'undefined'){
+					console.log('Got errorx', error.response.data.message);
+				    dispatch(errorEncountered(error.response.data.message));
+				}else{
+					dispatch(errorEncountered(error.message));	
+				}
 			});
 	};
 }
