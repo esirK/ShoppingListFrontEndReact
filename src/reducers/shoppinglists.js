@@ -2,8 +2,9 @@ import * as types from '../constants/actiontypes';
 
 const initState = {
 	isLoading: false,
+	isCreatingNewShoppingList: false,
 	shoppinglists: [],
-	error: false
+	error: false,
 };
 
 export default function(state = initState, action){
@@ -17,6 +18,17 @@ export default function(state = initState, action){
 		return{
 			...state, shoppinglists:action.response,
 			isLoading:false
+		};
+	case types.CREATING_SHOPPINGLISTS_STARTED:
+	    console.log('Creation of a new shoppinglist started');
+		return {
+			...state, isCreatingNewShoppingList:true,
+			open: true
+		};
+	case types.SHOPPINGLISTS_CREATED_SUCCESSFULY:
+		return {
+			...state, shoppinglists:action.response,
+			isCreatingNewShoppingList:false, open: false
 		};
 	case types.ERROR_ENCOUNTERED:
 		return{
