@@ -8,7 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
 
-import {addNewShoppingList, getShoppingLists} from '../actions';
+import {addNewShoppingList, getShoppingLists, resetErrors} from '../actions';
 
 class ShoppingLists extends Component{
 	constructor(props){
@@ -35,6 +35,7 @@ class ShoppingLists extends Component{
 		this.setState({ addOpen: true });
 	}
 	handleClose(){
+		console.log('Clicked Cancel');
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 		this.setState({ addOpen: false });
@@ -53,6 +54,9 @@ class ShoppingLists extends Component{
 	}
 	handleDescChange(e){
 		this.setState({ description: e.target.value });
+	}
+	deleteList(id){
+		console.log('deleting...', id);
 	}
 	render(){
 		let cards = [];
@@ -117,7 +121,7 @@ class ShoppingLists extends Component{
 						</CardText>
 						<CardActions>
 							<FlatButton label="View" primary={true}/>
-							<FlatButton label="Delete" secondary={true}/>
+							<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
 						</CardActions>
 					</Card>
 				)
@@ -128,7 +132,6 @@ class ShoppingLists extends Component{
 						title="Add Shoppinglist"
 						actions={actions}
 						children={children}
-						autoDetectWindowHeight
 					>
 					</Dialog>
 			    {cards}
@@ -149,4 +152,4 @@ function mapStateToProps(state){
 		error: state.shoppinglists.error,
 	};
 }
-export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists}) (ShoppingLists);
+export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, resetErrors}) (ShoppingLists);
