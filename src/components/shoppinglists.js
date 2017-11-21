@@ -38,6 +38,7 @@ class ShoppingLists extends Component{
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 		this.setState({ addOpen: false });
+		this.props.resetErrors();
 	}
 	handleSubmit(){
 		this.props.addNewShoppingList({
@@ -72,13 +73,16 @@ class ShoppingLists extends Component{
       			hintText="Shoppinglist Name"
 				errorText={this.props.error}
 				value={this.state.name}
+				fullWidth={true}
 				key='name'
 				onChange={this.handleTitleChange}
 			/>,
 			<TextField
 				hintText="Description of the shopping list"
 				multiLine={true}
+				rows={2}
 				rowsMax={4}
+				fullWidth={true}
 				value={this.state.description}
 				key='desc'
 				onChange={this.handleDescChange}

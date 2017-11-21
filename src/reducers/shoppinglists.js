@@ -34,6 +34,11 @@ export default function(state = initState, action){
 		return{
 			...state, isLoading:false, error: action.error
 		};
+	case types.CLEAR_ERRORS:
+		console.log('Clearing errors', state);
+		return{
+			...state, error:false
+		};
 	default:
 		return state;
 	}
