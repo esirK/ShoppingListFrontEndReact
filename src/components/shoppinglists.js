@@ -6,9 +6,11 @@ import {connect} from 'react-redux';
 
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import Snackbar from 'material-ui/Snackbar';
 
 
-import {addNewShoppingList, getShoppingLists, resetErrors} from '../actions';
+
+import {addNewShoppingList, getShoppingLists, deleteShoppingList, resetErrors} from '../actions';
 
 class ShoppingLists extends Component{
 	constructor(props){
@@ -18,13 +20,16 @@ class ShoppingLists extends Component{
 			addOpen: false,
 			name: '',
 			description: '',
-			error: props.error
+			error: props.error,
+			open: false,
+			message: ''
 		};
 		this.handleFabClick = this.handleFabClick.bind(this);
 		this.handleClose = this.handleClose.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
 		this.handleDescChange = this.handleDescChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleRequestClose = this.handleRequestClose.bind(this);
 	}
 	componentDidMount(){
 		console.log('state ',this.state);
@@ -35,7 +40,6 @@ class ShoppingLists extends Component{
 		this.setState({ addOpen: true });
 	}
 	handleClose(){
-		console.log('Clicked Cancel');
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 		this.setState({ addOpen: false });
@@ -57,6 +61,10 @@ class ShoppingLists extends Component{
 	}
 	deleteList(id){
 		console.log('deleting...', id);
+		this.props.deleteShoppingList(id, this.setState({open: true}));
+	}
+	handleRequestClose(){
+		this.setState({open: false});
 	}
 	render(){
 		let cards = [];
@@ -140,6 +148,12 @@ class ShoppingLists extends Component{
 							<ContentAdd />
 						</FloatingActionButton>
 					</div>
+					<Snackbar
+						open={this.state.open}
+						message={this.props.message}
+						autoHideDuration={4000}
+						onRequestClose={this.handleRequestClose}
+					/>
 				</div>
 			);
 		}
@@ -150,6 +164,7 @@ function mapStateToProps(state){
 		isLoading: state.shoppinglists.isLoading,
 		shoppinglists: state.shoppinglists.shoppinglists,
 		error: state.shoppinglists.error,
+		message: state.shoppinglists.message,
 	};
 }
-export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, resetErrors}) (ShoppingLists);
+export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, deleteShoppingList, resetErrors}) (ShoppingLists);

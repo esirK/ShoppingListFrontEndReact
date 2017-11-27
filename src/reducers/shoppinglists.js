@@ -5,6 +5,8 @@ const initState = {
 	isCreatingNewShoppingList: false,
 	shoppinglists: [],
 	error: false,
+	message: '',
+	openSb: false
 };
 
 export default function(state = initState, action){
@@ -30,6 +32,10 @@ export default function(state = initState, action){
 			...state, shoppinglists:action.response,
 			isCreatingNewShoppingList:false, open: false
 		};
+	case types.SHOPPINGLISTS_DELETED_SUCCESSFULY:
+		return {
+			...state, message: action.message, openSb: true
+		};
 	case types.ERROR_ENCOUNTERED:
 		return{
 			...state, isLoading:false, error: action.error
@@ -37,7 +43,7 @@ export default function(state = initState, action){
 	case types.CLEAR_ERRORS:
 		console.log('Clearing errors', state);
 		return{
-			...state, error:false
+			...state, error:false, message: '', openSb: false
 		};
 	default:
 		return state;
