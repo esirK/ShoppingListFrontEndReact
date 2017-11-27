@@ -48,13 +48,13 @@ export function submitDetails(details, callback, route) {
 			console.log('Success1', data.data.message);
 			console.log('Success2 Token', data.data.token);
 			if (data.data.token !== undefined){
+				//Response has token its a login i.e save the token
 				localStorage.setItem('jwt',data.data.token);
 				dispatch(setAuthStatusOfUser(jwt.decode(data.data.token)));
 				console.log('Decoded Token', jwt.decode(data.data.token));
 			}
 			callback();
 			dispatch(submissionSuccessful(data.data.message));
-
 		}).catch((error) => {
 			if(error.response != null) {
 				return dispatch(submissionFailed(error.response.data.message));
@@ -94,6 +94,12 @@ export function shoppinglistCreated(response){
 		response
 	};
 }
+export function shoppinglistDeleted(message){
+	return {
+		type: types.SHOPPINGLISTS_DELETED_SUCCESSFULY,
+		message
+	};
+}
 export function errorEncountered(error){
 	return{
 		type: types.ERROR_ENCOUNTERED,
@@ -128,8 +134,9 @@ export function getShoppingLists(){
 export function addNewShoppingList(details){
 	console.log('Got ShoppingList You wanna create');
 	return (dispatch) =>{
-		//Notify that adding a shopping list action has been dispatched
+		//clear all errors first
 		dispatch(resetErrors());
+		//Notify that adding a shopping list action has been dispatched
 		dispatch(addingShoppinglistStarted());
 		return axios({
 			method: 'post',
@@ -157,5 +164,28 @@ export function addNewShoppingList(details){
 					dispatch(errorEncountered(error.message));	
 				}
 			});
+	};
+}
+//Delete an existing shoppinglist function
+export function deleteShoppingList(id){
+	return (dispatch)=>{
+		//clear all errors first
+		dispatch(resetErrors());
+		dispatch(startSubmitting);
+		return axios({
+			method: 'delete',
+			url: `${URL}${'shoppinglists/'}${id}`,
+			auth: {
+				username: localStorage.getItem('jwt'),
+				password: ''
+			}
+		}).then((response)=>{
+			//Dispatch shoppinglist DELETION Successfully
+			dispatch(shoppinglistDeleted(response.data.message));
+			console.log('Got response', response.data.message);
+		}).catch((error)=>{
+			//Dispatch shoppinglist DELETION Failed
+			dispatch(errorEncountered(error.message));
+		});
 	};
 }
