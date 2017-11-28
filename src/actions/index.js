@@ -94,10 +94,10 @@ export function shoppinglistCreated(response){
 		response
 	};
 }
-export function shoppinglistDeleted(message){
+export function shoppinglistDeleted(message, response){
 	return {
 		type: types.SHOPPINGLISTS_DELETED_SUCCESSFULY,
-		message
+		message, response
 	};
 }
 export function shoppinglistUpdated(message, response){
@@ -187,7 +187,7 @@ export function deleteShoppingList(id){
 			}
 		}).then((response)=>{
 			//Dispatch shoppinglist DELETION Successfully
-			dispatch(shoppinglistDeleted(response.data.message));
+			dispatch(shoppinglistDeleted(response.data.message, response.data.data));
 			console.log('Got response', response.data.message);
 		}).catch((error)=>{
 			//Dispatch shoppinglist DELETION Failed

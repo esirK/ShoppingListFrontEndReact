@@ -34,7 +34,7 @@ export default function(state = initState, action){
 		};
 	case types.SHOPPINGLISTS_DELETED_SUCCESSFULY:
 		return {
-			...state, message: action.message
+			...state, shoppinglists:action.response, message: action.message
 		};
 	case types.SHOPPINGLISTS_UPDATED_SUCCESSFULY:
 		return {
