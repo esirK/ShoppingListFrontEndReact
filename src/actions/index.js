@@ -100,6 +100,12 @@ export function shoppinglistDeleted(message){
 		message
 	};
 }
+export function shoppinglistUpdated(message, response){
+	return {
+		type: types.SHOPPINGLISTS_UPDATED_SUCCESSFULY,
+		message, response
+	};
+}
 export function errorEncountered(error){
 	return{
 		type: types.ERROR_ENCOUNTERED,
@@ -185,6 +191,35 @@ export function deleteShoppingList(id){
 			console.log('Got response', response.data.message);
 		}).catch((error)=>{
 			//Dispatch shoppinglist DELETION Failed
+			dispatch(errorEncountered(error.message));
+		});
+	};
+}
+
+export function updateShoppingList(id, details){
+	//Updates an existing shoppinglist
+	return (dispatch) =>{
+		//clear all errors first
+		dispatch(resetErrors());
+		return axios({
+			method: 'put',
+			url: `${URL}${'shoppinglists/'}${id}`,
+			data: {
+				new_name: details['new_name'],
+				description: details['description']
+			  },
+			auth: {
+				username: localStorage.getItem('jwt'),
+				password: ''
+			}
+		}).then((response)=>{
+			if((response.data.message).includes('Nothing was provided')){
+				dispatch(errorEncountered(response.data.message));
+			}else{
+				dispatch(shoppinglistUpdated(response.data.message, response.data.data));
+			}
+		}).catch((error)=>{
+			console.log('Got Meso', error);
 			dispatch(errorEncountered(error.message));
 		});
 	};
