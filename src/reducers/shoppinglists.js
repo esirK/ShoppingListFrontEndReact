@@ -34,7 +34,12 @@ export default function(state = initState, action){
 		};
 	case types.SHOPPINGLISTS_DELETED_SUCCESSFULY:
 		return {
-			...state, message: action.message, openSb: true
+			...state, message: action.message
+		};
+	case types.SHOPPINGLISTS_UPDATED_SUCCESSFULY:
+		return {
+			...state, shoppinglists:action.response,
+			message: action.message
 		};
 	case types.ERROR_ENCOUNTERED:
 		return{
@@ -45,6 +50,7 @@ export default function(state = initState, action){
 		return{
 			...state, error:false, message: '', openSb: false
 		};
+
 	default:
 		return state;
 	}
