@@ -10,7 +10,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 
-import {addNewShoppingList, getShoppingLists, deleteShoppingList, resetErrors} from '../actions';
+import {addNewShoppingList, getShoppingLists, deleteShoppingList, updateShoppingList, resetErrors} from '../actions';
 
 class ShoppingLists extends Component{
 	constructor(props){
@@ -22,7 +22,8 @@ class ShoppingLists extends Component{
 			description: '',
 			error: props.error,
 			open: false,
-			message: ''
+			message: '',
+			openUpdate: false
 		};
 		this.handleFabClick = this.handleFabClick.bind(this);
 		this.handleClose = this.handleClose.bind(this);
@@ -30,6 +31,8 @@ class ShoppingLists extends Component{
 		this.handleDescChange = this.handleDescChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
+		this.handleUpdate = this.handleUpdate.bind(this);
+		this.handleUpdateShoppingList = this.handleUpdateShoppingList.bind(this);
 	}
 	componentDidMount(){
 		console.log('state ',this.state);
@@ -43,6 +46,7 @@ class ShoppingLists extends Component{
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 		this.setState({ addOpen: false });
+		this.setState({openUpdate: false});
 		this.props.resetErrors();
 	}
 	handleSubmit(){
@@ -53,6 +57,7 @@ class ShoppingLists extends Component{
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 	}
+
 	handleTitleChange(e){
 		this.setState({ name: e.target.value });
 	}
@@ -62,6 +67,18 @@ class ShoppingLists extends Component{
 	deleteList(id){
 		console.log('deleting...', id);
 		this.props.deleteShoppingList(id, this.setState({open: true}));
+	}
+	handleUpdateShoppingList(id){
+		this.setState({ openUpdate: true, id});
+	}
+	handleUpdate(){
+		this.props.updateShoppingList(this.state.id, {
+			'new_name': this.state.name,
+			'description': this.state.description
+		}, this.setState({open: true}));
+		this.setState({ name: '' });
+		this.setState({ description: ''});
+		// this.setState({ openUpdate: false});
 	}
 	handleRequestClose(){
 		this.setState({open: false});
@@ -99,7 +116,39 @@ class ShoppingLists extends Component{
 				key='desc'
 				onChange={this.handleDescChange}
 			/>
-		  ];  
+		  ];
+		  const update_actions = [
+			<FlatButton
+			  label="Cancel"
+			  primary={true}
+			  onClick={this.handleClose}
+			/>,
+			<FlatButton
+			  label="Update"
+			  primary={true}
+			  onClick={this.handleUpdate}
+			/>,
+		  ];	
+		  const update_children = [
+			  <TextField
+      			hintText="New Shoppinglist Name"
+				errorText={this.props.error}
+				value={this.state.name}
+				fullWidth={true}
+				key='name'
+				onChange={this.handleTitleChange}
+			/>,
+			<TextField
+				hintText="New Description of the shopping list"
+				multiLine={true}
+				rows={2}
+				rowsMax={4}
+				fullWidth={true}
+				value={this.state.description}
+				key='desc'
+				onChange={this.handleDescChange}
+			/>
+		  ];
 		if(this.state.error && !this.state.addOpen){
 			return(
 				<div id="cards">
@@ -129,6 +178,7 @@ class ShoppingLists extends Component{
 						</CardText>
 						<CardActions>
 							<FlatButton label="View" primary={true}/>
+							<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}/>
 							<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
 						</CardActions>
 					</Card>
@@ -142,6 +192,12 @@ class ShoppingLists extends Component{
 						children={children}
 					>
 					</Dialog>
+					<Dialog open={this.state.openUpdate}
+						title="Update Shoppinglist"
+						actions={update_actions}
+						children={update_children}
+					>
+					</Dialog>
 			    {cards}
 					<div id="fab">
 						<FloatingActionButton secondary={true} onClick={this.handleFabClick}>
@@ -150,7 +206,7 @@ class ShoppingLists extends Component{
 					</div>
 					<Snackbar
 						open={this.state.open}
-						message={this.props.message}
+						message={this.props.message||this.props.error }
 						autoHideDuration={4000}
 						onRequestClose={this.handleRequestClose}
 					/>
@@ -167,4 +223,4 @@ function mapStateToProps(state){
 		message: state.shoppinglists.message,
 	};
 }
-export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, deleteShoppingList, resetErrors}) (ShoppingLists);
+export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, deleteShoppingList, updateShoppingList, resetErrors}) (ShoppingLists);
