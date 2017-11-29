@@ -165,26 +165,37 @@ class ShoppingLists extends Component{
 			);
 		}
 		else{
-			this.props.shoppinglists.map((shoppinglist)=>
+			console.log('Length is', (this.props.shoppinglists.message));
+			if(this.props.shoppinglists.message !== undefined){
+				console.log('Wabudabu is', (this.props.shoppinglists.message));
 				cards.push(
-					<Card key={shoppinglist.id}  onExpandChange={this.handleExpandChange}>
-						<CardHeader
-							title={shoppinglist.name}
-							subtitle={shoppinglist.items.length+' Items Available'}
-							actAsExpander={true}
-							showExpandableButton={true}
-						/>
-						<CardText expandable={true}>
-        				{shoppinglist.description}
+					<Card key='1'>
+						<CardText>
+							{this.props.shoppinglists.message}
 						</CardText>
-						<CardActions>
-							<FlatButton label="View" primary={true}/>
-							<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}/>
-							<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
-						</CardActions>
 					</Card>
-				)
-			);
+				);
+			}else{
+				this.props.shoppinglists.map((shoppinglist)=>
+					cards.push(
+						<Card key={shoppinglist.id}  onExpandChange={this.handleExpandChange}>
+							<CardHeader
+								title={shoppinglist.name}
+								subtitle={shoppinglist.items.length+' Items Available'}
+								actAsExpander={true}
+								showExpandableButton={true}
+							/>
+							<CardText expandable={true}>
+        				{shoppinglist.description}
+							</CardText>
+							<CardActions>
+								<FlatButton label="View" primary={true}/>
+								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}/>
+								<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
+							</CardActions>
+						</Card>
+					)
+				);};
 			return(
 				<div id="cards">
 					<Dialog open={this.state.addOpen}
