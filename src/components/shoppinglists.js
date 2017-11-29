@@ -54,6 +54,7 @@ class ShoppingLists extends Component{
 			'name': this.state.name,
 			'description': this.state.description
 		});
+		this.setState({ open: true});
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 	}
@@ -149,7 +150,7 @@ class ShoppingLists extends Component{
 				onChange={this.handleDescChange}
 			/>
 		  ];
-		if(this.state.error && !this.state.addOpen){
+		if(this.props.error && !this.state.addOpen){
 			return(
 				<div id="cards">
 					<p>Got a {this.props.error} while Loading Your Shoppinglists</p>

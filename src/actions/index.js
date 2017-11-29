@@ -88,10 +88,10 @@ export function addingShoppinglistStarted(){
 	};
 }
 
-export function shoppinglistCreated(response){
+export function shoppinglistCreated(response, message){
 	return {
 		type: types.SHOPPINGLISTS_CREATED_SUCCESSFULY,
-		response
+		response, message
 	};
 }
 export function shoppinglistDeleted(message, response){
@@ -129,7 +129,7 @@ export function getShoppingLists(){
 				dispatch(shoppinglistsRecieved(response.data));
 			})
 			.catch(function (error) {
-				console.log(error.message);
+				console.log('wahhh', error);
 				dispatch(errorEncountered(error.message));
 			});
 
@@ -159,15 +159,17 @@ export function addNewShoppingList(details){
 			.then(function (response){
 				//Dispatch shoppinglist created successfully
 				console.log('Got response', response.data);
-				dispatch(shoppinglistCreated(response.data.data));
+				dispatch(shoppinglistCreated(response.data.data, response.data.message));
 			})
 			.catch(function (error){
-			    //Dispatch shoppinglist creation failed
+				//Dispatch shoppinglist creation failed
+				console.log(error);
+				if(error.message){
+					dispatch(errorEncountered(error.message));
+				}
 				if(error.response.data.message !== 'undefined'){
-					console.log('Got errorx', error.response.data.message);
+					console.log('Got errorx', error );
 				    dispatch(errorEncountered(error.response.data.message));
-				}else{
-					dispatch(errorEncountered(error.message));	
 				}
 			});
 	};

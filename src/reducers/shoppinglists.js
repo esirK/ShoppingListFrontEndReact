@@ -30,7 +30,7 @@ export default function(state = initState, action){
 	case types.SHOPPINGLISTS_CREATED_SUCCESSFULY:
 		return {
 			...state, shoppinglists:action.response,
-			isCreatingNewShoppingList:false, open: false
+			isCreatingNewShoppingList:false, open: false, message: action.message
 		};
 	case types.SHOPPINGLISTS_DELETED_SUCCESSFULY:
 		return {
