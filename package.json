@@ -4,21 +4,23 @@
   "private": true,
   "dependencies": {
     "axios": "latest",
+    "history": "latest",
     "jsonwebtoken": "^8.1.0",
+    "jwt-decode": "latest",
+    "lodash": "latest",
     "material-ui": "latest",
+    "npm": "^5.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "latest",
-    "react-router": "^4.0.0",
+    "react-router": "^4.2.0",
     "react-router-dom": "latest",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.17",
     "redux": "latest",
     "redux-form": "latest",
     "redux-promise": "latest",
-    "redux-thunk": "^2.2.0",
-    "lodash": "latest",
-    "jwt-decode": "latest",
-    "history": "latest"
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
