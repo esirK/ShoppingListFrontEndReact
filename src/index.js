@@ -16,6 +16,7 @@ import reducers from './reducers';
 import RegisterForm from './components/register';
 import LoginForm from './components/login_form';
 import ShoppingLists from './components/shoppinglists';
+import ShoppingListItems from './components/shoppinglist_items';
 
 import NotFound from './components/not_found';
 import {setAuthStatusOfUser} from './actions';
@@ -42,23 +43,34 @@ if(checkAuthenticationToken()){
 	store.dispatch(setAuthStatusOfUser({}));
 }
 
-const requireLogin = ()=>{
+const requireLogin = (props)=>{
 	//blablah
 	if(checkAuthenticationToken()){
-		return <ShoppingLists/>;
-	}else {
+		return <ShoppingLists {...props}/>;
+	}
+	else {
 		return <Redirect
 			to={{pathname: '/login'}}
 		/>;
 	}
 };
-const isLoggedIn = ()=>{
+const itemsRequireLogin = (props)=>{
+	if(checkAuthenticationToken()){
+		return <ShoppingListItems {...props}/>;
+	}
+	else {
+		return <Redirect
+			to={{pathname: '/login'}}
+		/>;
+	}
+};
+const isLoggedIn = (props)=>{
 	if(checkAuthenticationToken()){
 		return <Redirect
 			to={{pathname: '/'}}
 		/>;
 	}else {
-		return <LoginForm/>;
+		return <LoginForm{...props}/>;
 	}
 };
 
@@ -73,6 +85,7 @@ ReactDOM.render(
 						<Route path="/login" render={isLoggedIn}/>
 						<Route path="/register" component={RegisterForm}/>
 						<Route path="/shoppinglists" render={requireLogin}/>
+						<Route path="/:id/shoppinglist_items" render={itemsRequireLogin}/>
 						<Route component={NotFound}/>
 					</Switch>
 				</div>
