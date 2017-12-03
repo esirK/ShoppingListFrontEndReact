@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+
 import * as types from '../constants/actiontypes';
 
 
@@ -68,7 +69,9 @@ export function submitDetails(details, callback, route) {
 
 	};
 }
-
+/**
+ * ShoppingLists
+ */
 export function getShoppingListStarted(){
 	console.log('Getting started');
 	return{
@@ -135,7 +138,6 @@ export function getShoppingLists(){
 
 	};
 }
-
 //Add a new shopping list function
 export function addNewShoppingList(details){
 	console.log('Got ShoppingList You wanna create');
@@ -224,5 +226,38 @@ export function updateShoppingList(id, details){
 			console.log('Got Meso', error);
 			dispatch(errorEncountered(error.message));
 		});
+	};
+}
+
+/**
+ * ShoppingList items
+ */
+
+//View Selected Shoppinglist
+export function viewShoppingList(id){
+	console.log('Looking for the shoppinglist ', id);
+	return (dispatch) =>{
+		//clear all errors first
+		dispatch(resetErrors());
+		return axios({
+			method: 'get',
+			url: `${URL}${'shoppinglists/'}${id}`,
+			auth: {
+				username: localStorage.getItem('jwt'),
+				password: ''
+			}
+		}).then((response)=>{
+			console.log('Got catcha ', response.data.items);
+			dispatch(shoppinglistItemsRecieved(response.data.items));
+		}).catch((error)=>{
+			console.log('Got error ', error);
+			dispatch(errorEncountered(error.message));
+		});
+	};
+}
+export function shoppinglistItemsRecieved(items){
+	return {
+		type: types.SHOPPINGLIST_ITEMS_LOADED_SUCCESSFULLY,
+		items
 	};
 }
