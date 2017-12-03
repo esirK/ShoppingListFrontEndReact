@@ -12,7 +12,6 @@ import {submitDetails, resetErrors} from '../actions';
 
 class LoginForm extends Component{
 	componentWillMount() {
-		    console.log('AM HERERRERERE', this.props.isAuthenticated, this.props);
 		resetErrors();
 		if(this.props.isAuthenticated){
 		  	return () =>{
@@ -22,7 +21,7 @@ class LoginForm extends Component{
 	}
 	onFormSubmit(values) {
 		this.props.submitDetails(values,() => {
-			this.props.history.push('/');
+			this.props.history.replace('/');
 		},'user');
 	}
 
