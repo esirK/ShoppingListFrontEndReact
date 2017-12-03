@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+
 import {Card, CardActions, CardHeader, CardText, FlatButton} from 'material-ui';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -10,12 +12,13 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 
-import {addNewShoppingList, getShoppingLists, deleteShoppingList, updateShoppingList, resetErrors} from '../actions';
+import {addNewShoppingList, getShoppingLists, deleteShoppingList,
+	 updateShoppingList, resetErrors} from '../actions';
 
 class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
-		console.log('starting again');
+		console.log('starting again', this.props);
 		this.state = {
 			addOpen: false,
 			name: '',
@@ -23,7 +26,8 @@ class ShoppingLists extends Component{
 			error: props.error,
 			open: false,
 			message: '',
-			openUpdate: false
+			openUpdate: false,
+			id: false
 		};
 		this.handleFabClick = this.handleFabClick.bind(this);
 		this.handleClose = this.handleClose.bind(this);
@@ -33,6 +37,7 @@ class ShoppingLists extends Component{
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleUpdateShoppingList = this.handleUpdateShoppingList.bind(this);
+		this.viewShoppingList = this.viewShoppingList.bind(this);
 	}
 	componentDidMount(){
 		console.log('state ',this.state);
@@ -64,6 +69,10 @@ class ShoppingLists extends Component{
 	}
 	handleDescChange(e){
 		this.setState({ description: e.target.value });
+	}
+	viewShoppingList(id){
+		console.log('Waht..', id);
+		this.props.history.push(`${id}/shoppinglist_items`);
 	}
 	deleteList(id){
 		console.log('deleting...', id);
@@ -189,7 +198,7 @@ class ShoppingLists extends Component{
         				{shoppinglist.description}
 							</CardText>
 							<CardActions>
-								<FlatButton label="View" primary={true}/>
+								<FlatButton label="View" primary={true} onClick={()=>{this.viewShoppingList(shoppinglist.id);}}/>
 								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}/>
 								<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
 							</CardActions>
@@ -235,4 +244,5 @@ function mapStateToProps(state){
 		message: state.shoppinglists.message,
 	};
 }
-export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, deleteShoppingList, updateShoppingList, resetErrors}) (ShoppingLists);
+export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, 
+	deleteShoppingList, updateShoppingList, resetErrors}) (ShoppingLists);
