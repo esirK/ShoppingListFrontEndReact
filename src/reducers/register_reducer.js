@@ -9,6 +9,7 @@ const initState = {
 export default function(state = initState, action) {
 	switch (action.type){
 	case types.SUBMITTING_STARTED:
+		console.log('submission started');
 		return{
 			...state, isSubmitting:true
 		};
@@ -23,13 +24,9 @@ export default function(state = initState, action) {
 		console.log('current state before', state);
 		console.log(action);
 		return{
-			...state, error: action.error.data.message,
+			// ...state, error: action.error.data.message,
+			...state, error: action.error,
 			isSubmitting:false
-		};
-	case types.CLEAR_ERRORS:
-		console.log('Clearing errors');
-		return{
-			...state, error:false
 		};
 	default:
 	    return state;
