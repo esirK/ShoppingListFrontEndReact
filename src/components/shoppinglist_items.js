@@ -50,10 +50,10 @@ class ShoppingListItems extends Component{
 							}}
 						/>
 						<CardText>
-							Price:{item.price}
+							Price KSH: {item.price} /=
 						</CardText>
 						<CardText>
-							Quantity:{item.quantity}
+							Quantity: {item.quantity}
 						</CardText>
 						<CardActions>
 							<FlatButton label="Update" primary={true}/>
