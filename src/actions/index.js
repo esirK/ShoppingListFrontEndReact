@@ -237,8 +237,10 @@ export function updateShoppingList(id, details){
 export function viewShoppingList(id){
 	console.log('Looking for the shoppinglist ', id);
 	return (dispatch) =>{
+		console.log('Clear errors first');
 		//clear all errors first
 		dispatch(resetErrors());
+		dispatch(loadingShoppingListItems());
 		return axios({
 			method: 'get',
 			url: `${URL}${'shoppinglists/'}${id}`,
@@ -249,10 +251,21 @@ export function viewShoppingList(id){
 		}).then((response)=>{
 			console.log('Got catcha ', response.data.items);
 			dispatch(shoppinglistItemsRecieved(response.data.items));
-		}).catch((error)=>{
-			console.log('Got error ', error);
-			dispatch(errorEncountered(error.message));
+		}).catch(error=>{
+			console.log('Got f** error ', error.response.data.message);
+			dispatch(loadingShoppingListItemsFailed());
+			dispatch(errorEncountered(error.response.data.message));
 		});
+	};
+}
+export function loadingShoppingListItems(){
+	return {
+		type: types.SHOPPINGLIST_ITEMS_LOADING,
+	};
+}
+function loadingShoppingListItemsFailed(){
+	return {
+		type: types.SHOPPINGLIST_ITEMS_FAILED,
 	};
 }
 export function shoppinglistItemsRecieved(items){
