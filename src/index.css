@@ -23,3 +23,10 @@ form a{
 .not_found{
     text-align: center;
 }
+div#cards {
+    height: inherit;
+}
+div#fab{
+    position: fixed;
+    bottom: 20px;
+}
