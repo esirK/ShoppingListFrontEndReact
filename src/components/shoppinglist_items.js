@@ -6,7 +6,7 @@ import { Card, CardHeader, CardText, CardActions, FlatButton } from 'material-ui
 class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
-		console.log('Hey.. ', this.props);
+		console.log('Hey.. ', this.props.location);
 	}
 	componentDidMount(){
 		console.log('am at the Items Component');
@@ -28,7 +28,7 @@ class ShoppingListItems extends Component{
 						title="No Items"
 					/>
 					<CardText>
-						You currently Have No Items on this Shoppinglist
+						You currently Have No Items in Shoppinglist '{this.props.location.state.shoppinglist.name}'
 					</CardText>
 				</Card>
 			);
@@ -45,8 +45,8 @@ class ShoppingListItems extends Component{
 							title={item.name}
 							style={{
 								textAlign: 'center',
-								'font-style': 'italic',
-								'font-weight': 'bold',
+								'fontStyle': 'italic',
+								'fontWeight': 'bold',
 							}}
 						/>
 						<CardText>
@@ -63,7 +63,10 @@ class ShoppingListItems extends Component{
 				));
 			return(
 				<div id="cards">
-                	{cards}
+					<div>
+							Shoppinglist '{this.props.location.state.shoppinglist.name}'
+					</div>
+					{cards}
 				</div>
 			);
 		}
@@ -72,7 +75,7 @@ class ShoppingListItems extends Component{
 function mapStateToProps(state){
 	return {
 		items: state.shoppinglist_items.items,
-		isLoading: state.shoppinglist_items.isLoading
+		isLoading: state.shoppinglist_items.isLoading,
 	};
 }
 export default connect(mapStateToProps, {viewShoppingList})(ShoppingListItems);

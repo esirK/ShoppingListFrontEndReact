@@ -70,9 +70,13 @@ class ShoppingLists extends Component{
 	handleDescChange(e){
 		this.setState({ description: e.target.value });
 	}
-	viewShoppingList(id){
-		console.log('Waht..', id);
-		this.props.history.push(`${id}/shoppinglist_items`);
+	viewShoppingList(shoppinglist){
+		//Moves to selected shoppinglist items passing the shoppinglist as a state
+		console.log('Waht..', this.props.shoppinglists);
+		this.props.history.push({
+			pathname:`${shoppinglist.id}/shoppinglist_items`,
+			state:{shoppinglist: shoppinglist}
+		});
 	}
 	deleteList(id){
 		console.log('deleting...', id);
@@ -198,7 +202,7 @@ class ShoppingLists extends Component{
         				{shoppinglist.description}
 							</CardText>
 							<CardActions>
-								<FlatButton label="View" primary={true} onClick={()=>{this.viewShoppingList(shoppinglist.id);}}/>
+								<FlatButton label="View" primary={true} onClick={()=>{this.viewShoppingList(shoppinglist);}}/>
 								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}/>
 								<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
 							</CardActions>
