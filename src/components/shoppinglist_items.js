@@ -51,14 +51,16 @@ class ShoppingListItems extends Component{
 				</Card>
 			);
 		}
+		if(this.props.data.items.length === 0){
 			return(
 				<Card key='1'>
 					<CardHeader
 						title="No Items"
 					/>
 					<CardText>
-						You currently Have No Items in Shoppinglist '{this.props.location.state.shoppinglist.name}'
+						You currently Have No Items in Shoppinglist '{this.props.data.name}'
 					</CardText>
+					{fab}
 				</Card>
 			);
 		}
