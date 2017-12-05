@@ -237,7 +237,6 @@ export function updateShoppingList(id, details){
 export function viewShoppingList(id){
 	console.log('Looking for the shoppinglist ', id);
 	return (dispatch) =>{
-		console.log('Clear errors first');
 		//clear all errors first
 		dispatch(resetErrors());
 		dispatch(loadingShoppingListItems());
@@ -249,28 +248,30 @@ export function viewShoppingList(id){
 				password: ''
 			}
 		}).then((response)=>{
-			console.log('Got catcha ', response.data.items);
-			dispatch(shoppinglistItemsRecieved(response.data.items));
+			console.log('Got catcha ', response, response.data);
+			dispatch(shoppinglistItemsRecieved(response.data));
 		}).catch(error=>{
 			console.log('Got f** error ', error.response.data.message);
-			dispatch(loadingShoppingListItemsFailed());
+			dispatch(loadingShoppingListItemsFailed(error.response.data.message));
 			dispatch(errorEncountered(error.response.data.message));
 		});
 	};
 }
 export function loadingShoppingListItems(){
+	console.log('Loading items dispatched');
 	return {
 		type: types.SHOPPINGLIST_ITEMS_LOADING,
 	};
 }
-function loadingShoppingListItemsFailed(){
+function loadingShoppingListItemsFailed(error){
 	return {
 		type: types.SHOPPINGLIST_ITEMS_FAILED,
+		error
 	};
 }
-export function shoppinglistItemsRecieved(items){
+export function shoppinglistItemsRecieved(data){
 	return {
 		type: types.SHOPPINGLIST_ITEMS_LOADED_SUCCESSFULLY,
-		items
+		data
 	};
 }
