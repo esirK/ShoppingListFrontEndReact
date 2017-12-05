@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { viewShoppingList } from '../actions/index';
 import { Card, CardHeader, CardText, CardActions, FlatButton } from 'material-ui';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class ShoppingListItems extends Component{
 	constructor(props){
@@ -13,7 +15,18 @@ class ShoppingListItems extends Component{
 		this.props.viewShoppingList(this.props.match.params.id);
 	}
 	render(){
+		//Initialize empty cards to hold the shoppinglist items
 		let cards = [];
+		let fab = (
+			<div id="cards">
+				{cards}
+				<div id="fab">
+					<FloatingActionButton secondary={true} onClick={this.handleFabClick}>
+						<ContentAdd />
+					</FloatingActionButton>
+				</div>
+			</div>
+		);
 		if(this.props.isLoading){
 			return(
 				<div>
