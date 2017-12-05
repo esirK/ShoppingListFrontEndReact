@@ -8,11 +8,15 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
-		console.log('Hey.. ', this.props.location);
+		this.handleFabClick = this.handleFabClick.bind();
 	}
 	componentDidMount(){
 		console.log('am at the Items Component');
 		this.props.viewShoppingList(this.props.match.params.id);
+	}
+	handleFabClick(){
+		//Open a Dialog to add a new shoppinglist Item
+		console.log('Fabed Me...');
 	}
 	render(){
 		//Initialize empty cards to hold the shoppinglist items
