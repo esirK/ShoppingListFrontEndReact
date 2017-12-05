@@ -65,7 +65,7 @@ class ShoppingListItems extends Component{
 			);
 		}
 		else{
-			this.props.items.map((item)=>
+			this.props.data.items.map((item)=>
 				cards.push(
 					<Card key={item.id}
 						style={{
@@ -105,7 +105,7 @@ class ShoppingListItems extends Component{
 }
 function mapStateToProps(state){
 	return {
-		items: state.shoppinglist_items.items,
+		data: state.shoppinglist_items.data,
 		isLoading: state.shoppinglist_items.isLoading,
 	};
 }
