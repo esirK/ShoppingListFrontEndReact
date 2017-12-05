@@ -93,11 +93,11 @@ class ShoppingListItems extends Component{
 					</Card>
 				));
 			return(
-				<div id="cards">
+				<div>
 					<div>
-							Shoppinglist '{this.props.location.state.shoppinglist.name}'
+					    Shoppinglist '{this.props.data.name}'
 					</div>
-					{cards}
+					{fab}
 				</div>
 			);
 		}
