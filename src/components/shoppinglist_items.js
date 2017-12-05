@@ -34,7 +34,23 @@ class ShoppingListItems extends Component{
 				</div>
 			);
 		}
-		if(this.props.items.length === 0){
+		/*
+		If the Redux error state has changed(Default: false)
+		Then Api returned response with an error 
+		*/
+		if(this.props.error !== false){
+			return (
+				<Card key='1'>
+					<CardHeader
+						title="No Shoppinglist Items"
+					/>
+					<CardText>
+						{this.props.error}
+					</CardText>
+					{fab}
+				</Card>
+			);
+		}
 			return(
 				<Card key='1'>
 					<CardHeader
