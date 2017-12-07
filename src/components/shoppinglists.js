@@ -53,7 +53,7 @@ class ShoppingLists extends Component{
 	handleRequestClose(){
 		// Call resetErrors to remove a any error or message available 
 		//and reset the SnackBar too
-		this.props.resetErrors();
+		this.props.hideSnackBar();
 	}
 	render(){
 		let cards = [];
@@ -149,4 +149,4 @@ function mapStateToProps(state){
 	};
 }
 export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, 
-	deleteShoppingList, updateShoppingList, activateFab, resetErrors}) (ShoppingLists);
+	deleteShoppingList, updateShoppingList, activateFab, openUpdateDialog, closeUpdateDialog, hideSnackBar, resetErrors}) (ShoppingLists);

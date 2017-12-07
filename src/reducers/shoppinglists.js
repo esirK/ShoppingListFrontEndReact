@@ -59,6 +59,10 @@ export default function(state = initState, action){
 		return{
 			...state, error:false, message: '', openSb: false, shoppinglistCreated: false,
 		};
+	case types.HIDE_SNACK_BAR:
+		return{
+			...state,  openSb: false,
+		};
 
 	default:
 		return state;

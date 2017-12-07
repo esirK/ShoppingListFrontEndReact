@@ -26,6 +26,11 @@ export function errorEncountered(error){
 	};
 }
 
+export function hideSnackBar(dispatch){
+	return(dispatch)=>{
+		dispatch({type: types.HIDE_SNACK_BAR});
+	};
+}
 /**
  * ShoppingList items
  */
