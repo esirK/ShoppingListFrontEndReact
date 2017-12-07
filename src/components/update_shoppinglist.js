@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FlatButton} from 'material-ui';
 import {connect} from 'react-redux';
 
+import CircularProgress from 'material-ui/CircularProgress';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
@@ -41,12 +42,12 @@ class UpdateShoppingList extends Component{
 		});
 		this.setState({ name: '' });
 		this.setState({ description: ''});
-		// this.setState({ openUpdate: false});
 	}
 
 	handleClose(){
 		//reset openUpdate state on close of update dialog
 		this.props.closeUpdateDialog();
+		this.props.resetErrors();
 	}
 	render(){
 		if(!this.props.openUpdate){
@@ -65,7 +66,12 @@ class UpdateShoppingList extends Component{
 				primary={true}
 				onClick={this.handleUpdate}
 			/>,
-		];	
+		];
+		if(this.props.isUpdatingShoppingList)
+		{
+			//add a circular progress bar bettween the 2 buttons
+			actions.splice(1, 0, <CircularProgress/>);
+		}
 		const children = [
 			<TextField
 			  hintText="New Shoppinglist Name"

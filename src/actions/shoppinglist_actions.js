@@ -96,6 +96,7 @@ export function updateShoppingList(id, details){
 	return (dispatch) =>{
 		//clear all errors first
 		dispatch(resetErrors());
+		dispatch(updatingShoppinglistStarted());
 		return axios({
 			method: 'put',
 			url: `${URL}${'shoppinglists/'}${id}`,
@@ -149,6 +150,11 @@ function shoppinglistDeleted(message, response){
 	return {
 		type: types.SHOPPINGLISTS_DELETED_SUCCESSFULY,
 		message, response
+	};
+}
+function updatingShoppinglistStarted(){
+	return {
+		type: types.UPDATING_SHOPPINGLIST_STARTED,
 	};
 }
 function shoppinglistUpdated(message, response){

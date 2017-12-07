@@ -54,14 +54,18 @@ export default function(state = initState, action){
 		return {
 			...state, shoppinglists:action.response, message: action.message, openSb: true,
 		};
+	case types.UPDATING_SHOPPINGLIST_STARTED:
+		return{
+			...state, isUpdatingShoppingList:true
+		};
 	case types.SHOPPINGLISTS_UPDATED_SUCCESSFULY:
 		return {
 			...state, shoppinglists:action.response,
-			message: action.message, openSb: true,
+			message: action.message, openSb: true,isUpdatingShoppingList:false
 		};
 	case types.ERROR_ENCOUNTERED:
 		return{
-			...state, isLoading:false, isCreatingNewShoppingList:false, error: action.error, openSb: true,
+			...state, isLoading:false, isCreatingNewShoppingList:false, isUpdatingShoppingList:false, error: action.error, openSb: true,
 		};
 	case types.CLEAR_ERRORS:
 		return{
