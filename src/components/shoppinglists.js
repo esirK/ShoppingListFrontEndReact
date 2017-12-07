@@ -28,6 +28,7 @@ class ShoppingLists extends Component{
 			id: false,
 			conf_delete: false
 		};
+		//Bind methods to this class
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.viewShoppingList = this.viewShoppingList.bind(this);
 		this.handleFabClick = this.handleFabClick.bind(this);
@@ -50,7 +51,6 @@ class ShoppingLists extends Component{
 	}
 	viewShoppingList(shoppinglist){
 		//Moves to selected shoppinglist items passing the shoppinglist as a state
-		console.log('Waht..', this.props.shoppinglists);
 		this.props.history.push({
 			pathname:`${shoppinglist.id}/shoppinglist_items`,
 			state:{shoppinglist: shoppinglist}
@@ -75,17 +75,19 @@ class ShoppingLists extends Component{
 		//Read fab status from react state
 		if(this.props.addFab){
 			return(
-				/*Return an adding shoppinglist*/
+				/*Return an adding shoppinglist component*/
 				<AddShoppingList {...this.props}/>
 			);
 		}
 		if(this.props.openUpdate){
+			//if the user has pressed the shoppinglist update button
 			return(
 				/*Return a component where Updating
 				 a new shaoppinglist will happen*/
 				<UpdateShoppingList {...this.state}/>
 			);
 		}
+		//if errors exist and no dialog is floating then show this paragraph
 		if(this.props.error && !this.props.addFab){
 			return(
 				<div id="cards">
@@ -134,6 +136,10 @@ class ShoppingLists extends Component{
 						</Card>
 					)
 				);};
+			
+			/**
+			 * Shoppinglist Delete confirmation
+			 */
 			let actions = [
 				<FlatButton
 					label="Cancel"
@@ -146,6 +152,7 @@ class ShoppingLists extends Component{
 					onClick={this.handleDelete}
 				/>,
 			];
+			/** */
 			return(
 				<div id="cards">
 			    {cards}
@@ -157,7 +164,7 @@ class ShoppingLists extends Component{
 					<Snackbar
 						open={this.props.openSb}
 						message={this.props.message||this.props.error }
-						autoHideDuration={4000}
+						autoHideDuration={3000}
 						onRequestClose={this.handleRequestClose}
 					/>
 					<Dialog

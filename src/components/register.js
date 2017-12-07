@@ -18,7 +18,7 @@ class RegisterForm extends Component {
 
 	onFormSubmit(values) {
 		this.props.submitDetails(values,() => {
-			this.props.history.push('/login');
+			this.props.history.replace('/login');
 		}, 'register');
 	}
 
