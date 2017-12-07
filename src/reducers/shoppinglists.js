@@ -21,6 +21,15 @@ export default function(state = initState, action){
 			...state, shoppinglists:action.response,
 			isLoading:false
 		};
+	case types.ACTIVATE_FAB:
+		return{
+			...state, addFab:true,
+		};
+	case types.DEACTIVATE_FAB:
+		return{
+			...state, addFab:false,
+		};
+
 	case types.CREATING_SHOPPINGLISTS_STARTED:
 	    console.log('Creation of a new shoppinglist started');
 		return {

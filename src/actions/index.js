@@ -7,7 +7,6 @@ import * as types from '../constants/actiontypes';
 const URL = 'http://127.0.0.1:5000/v1/';
 
 export function resetErrors() {
-	console.log('Clearing...');
 	return{
 		type: types.CLEAR_ERRORS
 	};
@@ -72,6 +71,20 @@ export function submitDetails(details, callback, route) {
 /**
  * ShoppingLists
  */
+export function activateFab(){
+	return(dispatch)=>{
+		dispatch(
+		 {type: types.ACTIVATE_FAB}
+		);
+	};
+}
+export function closeFab(){
+	return(dispatch)=>{
+		dispatch(
+		 {type: types.DEACTIVATE_FAB}
+		);
+	};
+}
 export function getShoppingListStarted(){
 	console.log('Getting started');
 	return{
@@ -117,7 +130,6 @@ export function errorEncountered(error){
 }
 export function getShoppingLists(){
 	return (dispatch) => {
-		dispatch(resetErrors());
 		dispatch(getShoppingListStarted());
 		return axios({
 			method: 'get',
@@ -160,7 +172,7 @@ export function addNewShoppingList(details){
 		})
 			.then(function (response){
 				//Dispatch shoppinglist created successfully
-				console.log('Got response', response.data);
+				console.log('Got response when adding', response.data);
 				dispatch(shoppinglistCreated(response.data.data, response.data.message));
 			})
 			.catch(function (error){

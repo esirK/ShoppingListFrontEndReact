@@ -6,14 +6,11 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {connect} from 'react-redux';
 
-import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
 
 
-
 import {addNewShoppingList, getShoppingLists, deleteShoppingList,
-	 updateShoppingList, resetErrors} from '../actions';
+	 updateShoppingList, activateFab, resetErrors} from '../actions';
 
 import AddShoppingList from './new_shoppinglist';
 import UpdateShoppingList from './update_shoppinglist';
@@ -21,57 +18,23 @@ import UpdateShoppingList from './update_shoppinglist';
 class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
-		console.log('starting again', this.props);
 		this.state = {
-			addOpen: false,
 			name: '',
 			description: '',
 			error: props.error,
-			open: false,
 			message: '',
 			openUpdate: false,
 			id: false
 		};
-		this.handleFabClick = this.handleFabClick.bind(this);
-		this.handleClose = this.handleClose.bind(this);
-		this.handleTitleChange = this.handleTitleChange.bind(this);
-		this.handleDescChange = this.handleDescChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
-		this.handleUpdate = this.handleUpdate.bind(this);
-		this.handleUpdateShoppingList = this.handleUpdateShoppingList.bind(this);
 		this.viewShoppingList = this.viewShoppingList.bind(this);
+		this.handleFabClick = this.handleFabClick.bind(this);
 	}
 	componentDidMount(){
-		console.log('state ',this.state);
 		this.props.getShoppingLists();
 	}
 	handleFabClick(){
-		console.log('Clicked Fab', this.state.addOpen);
-		this.setState({ addOpen: true });
-	}
-	handleClose(){
-		this.setState({ name: '' });
-		this.setState({ description: ''});
-		this.setState({ addOpen: false });
-		this.setState({openUpdate: false});
-		this.props.resetErrors();
-	}
-	handleSubmit(){
-		this.props.addNewShoppingList({
-			'name': this.state.name,
-			'description': this.state.description
-		});
-		this.setState({ open: true});
-		this.setState({ name: '' });
-		this.setState({ description: ''});
-	}
-
-	handleTitleChange(e){
-		this.setState({ name: e.target.value });
-	}
-	handleDescChange(e){
-		this.setState({ description: e.target.value });
+		this.props.activateFab();
 	}
 	viewShoppingList(shoppinglist){
 		//Moves to selected shoppinglist items passing the shoppinglist as a state
@@ -82,23 +45,15 @@ class ShoppingLists extends Component{
 		});
 	}
 	deleteList(id){
-		console.log('deleting...', id);
-		this.props.deleteShoppingList(id, this.setState({open: true}));
+		this.props.deleteShoppingList(id);
 	}
 	handleUpdateShoppingList(id){
 		this.setState({ openUpdate: true, id});
 	}
-	handleUpdate(){
-		this.props.updateShoppingList(this.state.id, {
-			'new_name': this.state.name,
-			'description': this.state.description
-		}, this.setState({open: true}));
-		this.setState({ name: '' });
-		this.setState({ description: ''});
-		// this.setState({ openUpdate: false});
-	}
 	handleRequestClose(){
-		this.setState({open: false});
+		// Call resetErrors to remove a any error or message available 
+		//and reset the SnackBar too
+		this.props.resetErrors();
 	}
 	render(){
 		let cards = [];
@@ -131,7 +86,6 @@ class ShoppingLists extends Component{
 			);
 		}
 		else{
-			console.log('Length is', (this.props.shoppinglists.message));
 			if(this.props.shoppinglists.message !== undefined){
 				console.log('Wabudabu is', (this.props.shoppinglists.message));
 				cards.push(
@@ -142,6 +96,9 @@ class ShoppingLists extends Component{
 					</Card>
 				);
 			}else{
+				/**
+				 * Loop through shoppinglists while adding them to display cards
+				 */
 				this.props.shoppinglists.map((shoppinglist)=>
 					cards.push(
 						<Card key={shoppinglist.id}  onExpandChange={this.handleExpandChange}>
@@ -164,18 +121,6 @@ class ShoppingLists extends Component{
 				);};
 			return(
 				<div id="cards">
-					<Dialog open={this.state.addOpen}
-						title="Add Shoppinglist"
-						actions={actions}
-						children={children}
-					>
-					</Dialog>
-					<Dialog open={this.state.openUpdate}
-						title="Update Shoppinglist"
-						actions={update_actions}
-						children={update_children}
-					>
-					</Dialog>
 			    {cards}
 					<div id="fab">
 						<FloatingActionButton secondary={true} onClick={this.handleFabClick}>
@@ -183,7 +128,7 @@ class ShoppingLists extends Component{
 						</FloatingActionButton>
 					</div>
 					<Snackbar
-						open={this.state.open}
+						open={this.props.openSb}
 						message={this.props.message||this.props.error }
 						autoHideDuration={4000}
 						onRequestClose={this.handleRequestClose}
@@ -199,7 +144,9 @@ function mapStateToProps(state){
 		shoppinglists: state.shoppinglists.shoppinglists,
 		error: state.shoppinglists.error,
 		message: state.shoppinglists.message,
+		openSb: state.shoppinglists.openSb,
+		addFab: state.shoppinglists.addFab,
 	};
 }
 export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, 
-	deleteShoppingList, updateShoppingList, resetErrors}) (ShoppingLists);
+	deleteShoppingList, updateShoppingList, activateFab, resetErrors}) (ShoppingLists);
