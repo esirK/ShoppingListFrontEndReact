@@ -10,7 +10,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 import {addNewShoppingList, getShoppingLists, deleteShoppingList,
-	 updateShoppingList, activateFab, resetErrors} from '../actions';
+	 updateShoppingList, activateFab, openUpdateDialog, closeUpdateDialog, hideSnackBar, resetErrors} from '../actions';
 
 import AddShoppingList from './new_shoppinglist';
 import UpdateShoppingList from './update_shoppinglist';
@@ -23,7 +23,6 @@ class ShoppingLists extends Component{
 			description: '',
 			error: props.error,
 			message: '',
-			openUpdate: false,
 			id: false
 		};
 		this.handleRequestClose = this.handleRequestClose.bind(this);
@@ -48,11 +47,13 @@ class ShoppingLists extends Component{
 		this.props.deleteShoppingList(id);
 	}
 	handleUpdateShoppingList(id){
-		this.setState({ openUpdate: true, id});
+		this.setState({id});
+		this.props.openUpdateDialog();
 	}
 	handleRequestClose(){
 		// Call resetErrors to remove a any error or message available 
 		//and reset the SnackBar too
+		this.props.closeUpdateDialog();
 		this.props.hideSnackBar();
 	}
 	render(){
@@ -64,7 +65,7 @@ class ShoppingLists extends Component{
 				<AddShoppingList {...this.props}/>
 			);
 		}
-		if(this.state.openUpdate){
+		if(this.props.openUpdate){
 			return(
 				/*Return a component where Updating
 				 a new shaoppinglist will happen*/
@@ -146,6 +147,7 @@ function mapStateToProps(state){
 		message: state.shoppinglists.message,
 		openSb: state.shoppinglists.openSb,
 		addFab: state.shoppinglists.addFab,
+		openUpdate: state.shoppinglists.openUpdate,
 	};
 }
 export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, 

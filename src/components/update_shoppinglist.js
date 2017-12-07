@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
 import ShoppingLists from './shoppinglists';
-import {updateShoppingList, resetErrors} from '../actions';
+import {updateShoppingList, resetErrors, closeUpdateDialog} from '../actions';
 
 
 class UpdateShoppingList extends Component{
@@ -17,7 +17,6 @@ class UpdateShoppingList extends Component{
 		this.state = {
 			name: '',
 			'description': '',
-			open: true,
 		};
 		this.handleTitleChange = this.handleTitleChange.bind(this);
 		this.handleDescChange = this.handleDescChange.bind(this);
@@ -39,18 +38,18 @@ class UpdateShoppingList extends Component{
 		this.props.updateShoppingList(this.props.id, {
 			'new_name': this.state.name,
 			'description': this.state.description
-		}, this.setState({open: true}));
+		});
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 		// this.setState({ openUpdate: false});
 	}
 
 	handleClose(){
-		//Resetes state on close of update dialog
-		this.setState({open: false});
+		//reset openUpdate state on close of update dialog
+		this.props.closeUpdateDialog();
 	}
 	render(){
-		if(!this.state.open){
+		if(!this.props.openUpdate){
 			return(
 				<ShoppingLists/>
 			);
@@ -88,7 +87,7 @@ class UpdateShoppingList extends Component{
 			/>
 		];
 		return(
-			<Dialog open={this.state.open}
+			<Dialog open={this.props.openUpdate}
 				title="Update Shoppinglist"
 				actions={actions}
 				children={children}
@@ -101,7 +100,8 @@ function mapStateToProps(state){
 	return{
 		isUpdatingShoppingList: state.shoppinglists.isUpdatingShoppingList,
 		error: state.shoppinglists.error,
+		openUpdate: state.shoppinglists.openUpdate,
 	};
 }
-export default connect(mapStateToProps, {updateShoppingList, 
+export default connect(mapStateToProps, {updateShoppingList, closeUpdateDialog,
 	resetErrors}) (UpdateShoppingList);

@@ -111,6 +111,7 @@ export function updateShoppingList(id, details){
 			if((response.data.message).includes('Nothing was provided')){
 				dispatch(errorEncountered(response.data.message));
 			}else{
+				dispatch(closeUpdateDialog());
 				dispatch(shoppinglistUpdated(response.data.message, response.data.data));
 			}
 		}).catch((error)=>{
@@ -168,5 +169,19 @@ export function closeFab(){
 		dispatch(
 		 {type: types.DEACTIVATE_FAB}
 		);
+	};
+}
+export function openUpdateDialog(){
+	return(dispatch)=>{
+		dispatch(
+			{type: types.OPEN_UPDATE_DIALOG}
+		   );
+	};
+}
+export function closeUpdateDialog(){
+	return(dispatch)=>{
+		dispatch(
+			{type: types.CLOSE_UPDATE_DIALOG}
+		   );
 	};
 }

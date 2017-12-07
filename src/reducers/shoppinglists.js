@@ -9,7 +9,8 @@ const initState = {
 	error: false,
 	message: '',
 	openSb: false,
-	addFab: false
+	addFab: false,
+	openUpdate: false
 };
 
 export default function(state = initState, action){
@@ -31,7 +32,14 @@ export default function(state = initState, action){
 		return{
 			...state, addFab:false,
 		};
-
+	case types.OPEN_UPDATE_DIALOG:
+		return{
+			...state, openUpdate:true,
+		};
+	case types.CLOSE_UPDATE_DIALOG:
+		return{
+			...state, openUpdate:false,
+		};
 	case types.CREATING_SHOPPINGLISTS_STARTED:
 	    return {
 			...state, isCreatingNewShoppingList:true,
@@ -49,7 +57,7 @@ export default function(state = initState, action){
 	case types.SHOPPINGLISTS_UPDATED_SUCCESSFULY:
 		return {
 			...state, shoppinglists:action.response,
-			message: action.message
+			message: action.message, openSb: true,
 		};
 	case types.ERROR_ENCOUNTERED:
 		return{
