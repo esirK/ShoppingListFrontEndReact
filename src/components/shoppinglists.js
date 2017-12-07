@@ -6,6 +6,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {connect} from 'react-redux';
 
+
+import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
 
@@ -23,17 +25,28 @@ class ShoppingLists extends Component{
 			description: '',
 			error: props.error,
 			message: '',
-			id: false
+			id: false,
+			conf_delete: false
 		};
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.viewShoppingList = this.viewShoppingList.bind(this);
 		this.handleFabClick = this.handleFabClick.bind(this);
+		this.handleClose = this.handleClose.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 	}
 	componentDidMount(){
+		this.setState({conf_delete: false});
 		this.props.getShoppingLists();
 	}
 	handleFabClick(){
 		this.props.activateFab();
+	}
+	handleDelete(){
+		this.props.deleteShoppingList(this.state.id);
+		this.setState({conf_delete: false});
+	}
+	handleClose(){
+		this.setState({conf_delete: false});
 	}
 	viewShoppingList(shoppinglist){
 		//Moves to selected shoppinglist items passing the shoppinglist as a state
@@ -44,7 +57,8 @@ class ShoppingLists extends Component{
 		});
 	}
 	deleteList(id){
-		this.props.deleteShoppingList(id);
+		this.setState({conf_delete: true});
+		this.setState({id});
 	}
 	handleUpdateShoppingList(id){
 		this.setState({id});
@@ -120,6 +134,18 @@ class ShoppingLists extends Component{
 						</Card>
 					)
 				);};
+			let actions = [
+				<FlatButton
+					label="Cancel"
+					primary={true}
+					onClick={this.handleClose}
+				/>,
+				<FlatButton
+					label="OK"
+					primary={true}
+					onClick={this.handleDelete}
+				/>,
+			];
 			return(
 				<div id="cards">
 			    {cards}
@@ -134,6 +160,14 @@ class ShoppingLists extends Component{
 						autoHideDuration={4000}
 						onRequestClose={this.handleRequestClose}
 					/>
+					<Dialog
+						actions={actions}
+						modal={false}
+						open={this.state.conf_delete}
+						onRequestClose={this.handleClose}
+					>
+         			Confirm Delete?
+					</Dialog>
 				</div>
 			);
 		}
