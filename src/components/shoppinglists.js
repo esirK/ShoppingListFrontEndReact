@@ -15,6 +15,9 @@ import Snackbar from 'material-ui/Snackbar';
 import {addNewShoppingList, getShoppingLists, deleteShoppingList,
 	 updateShoppingList, resetErrors} from '../actions';
 
+import AddShoppingList from './new_shoppinglist';
+import UpdateShoppingList from './update_shoppinglist';
+
 class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
@@ -99,71 +102,21 @@ class ShoppingLists extends Component{
 	}
 	render(){
 		let cards = [];
-		const actions = [
-			<FlatButton
-			  label="Cancel"
-			  primary={true}
-			  onClick={this.handleClose}
-			/>,
-			<FlatButton
-			  label="Submit"
-			  primary={true}
-			  onClick={this.handleSubmit}
-			/>,
-		  ];	
-		  const children = [
-			  <TextField
-      			hintText="Shoppinglist Name"
-				errorText={this.props.error}
-				value={this.state.name}
-				fullWidth={true}
-				key='name'
-				onChange={this.handleTitleChange}
-			/>,
-			<TextField
-				hintText="Description of the shopping list"
-				multiLine={true}
-				rows={2}
-				rowsMax={4}
-				fullWidth={true}
-				value={this.state.description}
-				key='desc'
-				onChange={this.handleDescChange}
-			/>
-		  ];
-		  const update_actions = [
-			<FlatButton
-			  label="Cancel"
-			  primary={true}
-			  onClick={this.handleClose}
-			/>,
-			<FlatButton
-			  label="Update"
-			  primary={true}
-			  onClick={this.handleUpdate}
-			/>,
-		  ];	
-		  const update_children = [
-			  <TextField
-      			hintText="New Shoppinglist Name"
-				errorText={this.props.error}
-				value={this.state.name}
-				fullWidth={true}
-				key='name'
-				onChange={this.handleTitleChange}
-			/>,
-			<TextField
-				hintText="New Description of the shopping list"
-				multiLine={true}
-				rows={2}
-				rowsMax={4}
-				fullWidth={true}
-				value={this.state.description}
-				key='desc'
-				onChange={this.handleDescChange}
-			/>
-		  ];
-		if(this.props.error && !this.state.addOpen){
+		//Read fab status from react state
+		if(this.props.addFab){
+			return(
+				/*Return an adding shoppinglist*/
+				<AddShoppingList {...this.props}/>
+			);
+		}
+		if(this.state.openUpdate){
+			return(
+				/*Return a component where Updating
+				 a new shaoppinglist will happen*/
+				<UpdateShoppingList {...this.state}/>
+			);
+		}
+		if(this.props.error && !this.props.addFab){
 			return(
 				<div id="cards">
 					<p>Got a {this.props.error} while Loading Your Shoppinglists</p>
