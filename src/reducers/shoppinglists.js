@@ -3,18 +3,20 @@ import * as types from '../constants/actiontypes';
 const initState = {
 	isLoading: false,
 	isCreatingNewShoppingList: false,
+	shoppinglistCreated: false,
+	isUpdatingShoppingList: false,
 	shoppinglists: [],
 	error: false,
 	message: '',
-	openSb: false
+	openSb: false,
+	addFab: false
 };
 
 export default function(state = initState, action){
 	switch(action.type){
 	case types.GETTING_SHOPPINGLISTS_STARTED:
-		console.log('getting shoppinglist started');
 		return{
-			...state, isLoading:true
+			...state, isLoading:true, openSb: false,
 		};
 	case types.SHOPPINGLISTS_LOADED_SUCCESSFULLY:
 		return{
@@ -31,19 +33,18 @@ export default function(state = initState, action){
 		};
 
 	case types.CREATING_SHOPPINGLISTS_STARTED:
-	    console.log('Creation of a new shoppinglist started');
-		return {
+	    return {
 			...state, isCreatingNewShoppingList:true,
-			open: true
 		};
 	case types.SHOPPINGLISTS_CREATED_SUCCESSFULY:
 		return {
-			...state, shoppinglists:action.response,
-			isCreatingNewShoppingList:false, open: false, message: action.message
+			...state, shoppinglists:action.response, shoppinglistCreated: true,
+			isCreatingNewShoppingList:false, openSb: true, 
+			message: action.message, addFab: false
 		};
 	case types.SHOPPINGLISTS_DELETED_SUCCESSFULY:
 		return {
-			...state, shoppinglists:action.response, message: action.message
+			...state, shoppinglists:action.response, message: action.message, openSb: true,
 		};
 	case types.SHOPPINGLISTS_UPDATED_SUCCESSFULY:
 		return {
@@ -52,12 +53,11 @@ export default function(state = initState, action){
 		};
 	case types.ERROR_ENCOUNTERED:
 		return{
-			...state, isLoading:false, error: action.error
+			...state, isLoading:false, isCreatingNewShoppingList:false, error: action.error, openSb: true,
 		};
 	case types.CLEAR_ERRORS:
-		console.log('Clearing errors', state);
 		return{
-			...state, error:false, message: '', openSb: false
+			...state, error:false, message: '', openSb: false, shoppinglistCreated: false,
 		};
 
 	default:
