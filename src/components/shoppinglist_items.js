@@ -4,16 +4,19 @@ import { viewShoppingList } from '../actions/index';
 import { Card, CardHeader, CardText, CardActions, FlatButton } from 'material-ui';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Snackbar from 'material-ui/Snackbar';
 
 import NewShoopingListItem from './new_shoppinglist_item';
 import {activateAddItem, hideSnackBar, resetErrors} from '../actions';
+
 class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
-		this.handleFabClick = this.handleFabClick.bind();
+		this.handleFabClick = this.handleFabClick.bind(this);
 	}
 	componentDidMount(){
-		console.log('am at the Items Component');
+		//send request to shoppinglist api for shoppinglist 
+		// whose id apear in url
 		this.props.viewShoppingList(this.props.match.params.id);
 	}
 	handleFabClick(){
@@ -51,6 +54,7 @@ class ShoppingListItems extends Component{
 		Then Api returned response with an error 
 		*/
 		if(this.props.error !== false){
+			console.log('You Got ',this.props.error);
 			return (
 				<Card key='1'>
 					<CardHeader
@@ -110,6 +114,12 @@ class ShoppingListItems extends Component{
 					    Shoppinglist '{this.props.data.name}'
 					</div>
 					{fab}
+					<Snackbar
+						open={this.props.openSb}
+						message={this.props.message}
+						autoHideDuration={3000}
+						onRequestClose={this.props.hideSnackBar}
+					/>
 				</div>
 			);
 		}
@@ -119,8 +129,10 @@ function mapStateToProps(state){
 	return {
 		data: state.shoppinglist_items.data,
 		isLoading: state.shoppinglist_items.isLoading,
+		error: state.shoppinglist_items.error,
 		openAddItem: state.shoppinglist_items.openAddItem,
 		openSb: state.shoppinglist_items.openSb,
+		message: state.shoppinglist_items.message,
 	};
 }
-export default connect(mapStateToProps, {viewShoppingList})(ShoppingListItems);
+export default connect(mapStateToProps, {viewShoppingList, activateAddItem, hideSnackBar, resetErrors})(ShoppingListItems);
