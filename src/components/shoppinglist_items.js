@@ -5,6 +5,8 @@ import { Card, CardHeader, CardText, CardActions, FlatButton } from 'material-ui
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import NewShoopingListItem from './new_shoppinglist_item';
+import {activateAddItem, hideSnackBar, resetErrors} from '../actions';
 class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
@@ -16,9 +18,15 @@ class ShoppingListItems extends Component{
 	}
 	handleFabClick(){
 		//Open a Dialog to add a new shoppinglist Item
-		console.log('Fabed Me...');
+		//Sets the openAddItem props to true
+		this.props.activateAddItem();
 	}
 	render(){
+		if(this.props.openAddItem){
+			return(
+				<NewShoopingListItem {...this.props}/>
+			);
+		}
 		//Initialize empty cards to hold the shoppinglist items
 		let cards = [];
 		let fab = (
@@ -111,6 +119,8 @@ function mapStateToProps(state){
 	return {
 		data: state.shoppinglist_items.data,
 		isLoading: state.shoppinglist_items.isLoading,
+		openAddItem: state.shoppinglist_items.openAddItem,
+		openSb: state.shoppinglist_items.openSb,
 	};
 }
 export default connect(mapStateToProps, {viewShoppingList})(ShoppingListItems);
