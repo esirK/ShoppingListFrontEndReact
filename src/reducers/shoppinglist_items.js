@@ -5,14 +5,37 @@ const initState = {
 		items: []
 	},
 	isLoading: false,
-	error: false
+	isAdding: false,
+	id:-1,
+	message: '',
+	error: false,
+	openAddItem: false,
+	openSb: false,	
 };
 
 export default (state= initState, action)=>{
 	switch(action.type){
+	case types.ACTIVATE_ADD_ITEM:
+		//Add new Item FAB has been clicked
+		return{
+			...state, openAddItem: true
+		};
+	case types.DEACTIVATE_ADD_ITEM:
+		//Add new Item FAB has been clicked
+		return{
+			...state, openAddItem: false
+		};
+	case types.ADDING_SHOPPINGLIST_ITEM_STARTED:
+		return{
+			...state, isAdding: true
+		};
+	case types.SHOPPINGLIST_ITEM_ADDED:
+		return{
+			...state, isAdding: false, openAddItem: false, openSb:true,message: action.message,
+		};
 	case types.SHOPPINGLIST_ITEMS_LOADED_SUCCESSFULLY:
 		return{
-			...state, data: action.data, isLoading: false
+			...state, data: action.data, id:action.id, isLoading: false
 		};
 	case types.SHOPPINGLIST_ITEMS_LOADING:
 		return{
@@ -21,6 +44,18 @@ export default (state= initState, action)=>{
 	case types.SHOPPINGLIST_ITEMS_FAILED:
 		return{
 			...state, isLoading: false, error: action.error
+		};
+	case types.ERROR_ENCOUNTERED:
+		return{
+			...state, error: action.error
+		};
+	case types.CLEAR_ERRORS:
+		return{
+			...state, error: false, openSb: false
+		};
+	case types.HIDE_SNACK_BAR:
+		return{
+			...state,openSb: false
 		};
 	default:
 		return state;
