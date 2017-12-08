@@ -31,7 +31,6 @@ export function getShoppingLists(){
 }
 //Add a new shopping list function
 export function addNewShoppingList(details){
-	console.log('Got ShoppingList You wanna create');
 	return (dispatch) =>{
 		//clear all errors first
 		dispatch(resetErrors());
@@ -185,6 +184,7 @@ export function openUpdateDialog(){
 	};
 }
 export function closeUpdateDialog(){
+	resetErrors();
 	return(dispatch)=>{
 		dispatch(
 			{type: types.CLOSE_UPDATE_DIALOG}

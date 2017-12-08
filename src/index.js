@@ -44,7 +44,6 @@ if(checkAuthenticationToken()){
 }
 
 const requireLogin = (props)=>{
-	//blablah
 	if(checkAuthenticationToken()){
 		return <ShoppingLists {...props}/>;
 	}

@@ -50,10 +50,9 @@ class ShoppingLists extends Component{
 		this.setState({conf_delete: false});
 	}
 	viewShoppingList(shoppinglist){
-		//Moves to selected shoppinglist items passing the shoppinglist as a state
+		//Moves to selected shoppinglist items
 		this.props.history.push({
-			pathname:`${shoppinglist.id}/shoppinglist_items`,
-			state:{shoppinglist: shoppinglist}
+			pathname:`${shoppinglist.id}/shoppinglist_items`
 		});
 	}
 	deleteList(id){

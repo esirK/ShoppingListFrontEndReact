@@ -18,7 +18,6 @@ form a{
     height: calc(100vh - 99.2px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 .not_found{
     text-align: center;

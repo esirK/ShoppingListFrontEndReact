@@ -54,6 +54,7 @@ export function viewShoppingList(id){
 			console.log('Got catcha ', response, response.data);
 			dispatch(shoppinglistItemsRecieved(response.data, id));
 		}).catch(error=>{
+			console.log('Whall up??', error);
 			dispatch(loadingShoppingListItemsFailed(error.response.data.message));
 			dispatch(errorEncountered(error.response.data.message));
 		});
