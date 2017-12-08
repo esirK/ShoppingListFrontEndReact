@@ -4,6 +4,7 @@ import * as types from '../constants/actiontypes';
 
 export * from './shoppinglist_actions';
 export * from './authentication_actions';
+export * from './shoppinglistitems_actions';
 
 export const URL = 'http://127.0.0.1:5000/v1/';
 
@@ -51,9 +52,8 @@ export function viewShoppingList(id){
 			}
 		}).then((response)=>{
 			console.log('Got catcha ', response, response.data);
-			dispatch(shoppinglistItemsRecieved(response.data));
+			dispatch(shoppinglistItemsRecieved(response.data, id));
 		}).catch(error=>{
-			console.log('Got f** error ', error.response.data.message);
 			dispatch(loadingShoppingListItemsFailed(error.response.data.message));
 			dispatch(errorEncountered(error.response.data.message));
 		});
@@ -71,9 +71,9 @@ function loadingShoppingListItemsFailed(error){
 		error
 	};
 }
-export function shoppinglistItemsRecieved(data){
+export function shoppinglistItemsRecieved(data, id){
 	return {
 		type: types.SHOPPINGLIST_ITEMS_LOADED_SUCCESSFULLY,
-		data
+		data, id
 	};
 }
