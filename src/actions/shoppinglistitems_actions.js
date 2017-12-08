@@ -46,8 +46,12 @@ export function addNewShoppingListItem(details){
 				dispatch(shoppinglistItemCreated(response.data.message));
 			})
 			.catch(function (error) {
-				console.log('wahhh', error.response.data.error);
-				dispatch(errorEncountered(error.response.data.error));
+				console.log('wahhh', error.response);
+				if(error.response.data.error === undefined){
+					dispatch(errorEncountered(error.response.data.message));
+				}else{
+					dispatch(errorEncountered(error.response.data.error));
+				}
 			});
 
 	};

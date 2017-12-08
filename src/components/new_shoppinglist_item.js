@@ -70,10 +70,10 @@ class NewShoppingListItem extends Component{
 			  onClick={this.handleSubmit}
 			/>,
 		];
-		console.log(this.props.error);
 		let nameError = '';
 		let priceError = '';
 		let quantityError = '';
+		let serverError='';
 		if(this.props.error.name !== undefined){
 			nameError=this.props.error.name[0].message;
 		}
@@ -83,12 +83,22 @@ class NewShoppingListItem extends Component{
 		if(this.props.error.quantity !== undefined){
 			quantityError=this.props.error.quantity[0].errors.Quantity;
 		}
+		//server error
+		if(this.props.error !== undefined){
+			serverError=this.props.error;
+		}
+		let error = '';
+		if(nameError){
+			error=nameError;
+		}else if(typeof(serverError) !== 'object'){
+			error=serverError;
+		}
 		const children = [
 			<TextField
 			  hintText="Shoppinglist Item Name"
 			  value={this.state.name}
 			  fullWidth={true}
-			  errorText={nameError}
+			  errorText={error}
 			  onChange={this.handleNameChange}
 			  key='name'
 			/>,
