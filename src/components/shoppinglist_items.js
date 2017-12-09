@@ -4,15 +4,24 @@ import { viewShoppingList } from '../actions/index';
 import { Card, CardHeader, CardText, CardActions, FlatButton } from 'material-ui';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+
+import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
 import NewShoopingListItem from './new_shoppinglist_item';
-import {activateAddItem, hideSnackBar, resetErrors} from '../actions';
+import {activateAddItem, hideSnackBar, deleteShoppinglistItem, resetErrors} from '../actions';
 
 class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
+		this.state={
+			conf_delete: false,
+			id: -1
+		};
 		this.handleFabClick = this.handleFabClick.bind(this);
+		this.confirmDelete = this.confirmDelete.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
 	componentDidMount(){
 		//send request to shoppinglist api for shoppinglist 
@@ -23,6 +32,27 @@ class ShoppingListItems extends Component{
 		//Open a Dialog to add a new shoppinglist Item
 		//Sets the openAddItem props to true
 		this.props.activateAddItem();
+	}
+	confirmDelete(id){
+		this.setState({
+			conf_delete: true,
+			id
+		});
+	}
+	handleDelete(id){
+		console.log('Delete Item ', this.state.id);
+		this.props.deleteShoppinglistItem(this.state.id);
+		this.setState({
+			conf_delete: false,
+			id:-1
+		});
+		//Reload 
+		this.props.viewShoppingList(this.props.match.params.id);
+	}
+	handleClose(){
+		this.setState({
+			conf_delete: false,
+		});
 	}
 	render(){
 		if(this.props.openAddItem){
@@ -104,10 +134,25 @@ class ShoppingListItems extends Component{
 						</CardText>
 						<CardActions>
 							<FlatButton label="Update" primary={true}/>
-							<FlatButton name='delete' label="Delete" secondary={true} />
+							<FlatButton name='delete' label="Delete" secondary={true} onClick={()=>{this.confirmDelete(item.id);}}/>
 						</CardActions>
 					</Card>
 				));
+			/**
+			 * Shoppinglist Delete confirmation
+			 */
+			let actions = [
+				<FlatButton
+					label="Cancel"
+					primary={true}
+					onClick={this.handleClose}
+				/>,
+				<FlatButton
+					label="OK"
+					primary={true}
+					onClick={this.handleDelete}
+				/>,
+			];
 			return(
 				<div>
 					<div>
@@ -120,6 +165,14 @@ class ShoppingListItems extends Component{
 						autoHideDuration={3000}
 						onRequestClose={this.props.hideSnackBar}
 					/>
+					<Dialog
+						actions={actions}
+						modal={false}
+						open={this.state.conf_delete}
+						onRequestClose={this.handleClose}
+					>
+         			Confirm Delete?
+					</Dialog>
 				</div>
 			);
 		}
@@ -135,4 +188,4 @@ function mapStateToProps(state){
 		message: state.shoppinglist_items.message,
 	};
 }
-export default connect(mapStateToProps, {viewShoppingList, activateAddItem, hideSnackBar, resetErrors})(ShoppingListItems);
+export default connect(mapStateToProps, {viewShoppingList, activateAddItem, hideSnackBar, deleteShoppinglistItem, resetErrors})(ShoppingListItems);

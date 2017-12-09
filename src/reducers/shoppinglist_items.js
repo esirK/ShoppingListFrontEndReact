@@ -6,6 +6,7 @@ const initState = {
 	},
 	isLoading: false,
 	isAdding: false,
+	isDeleting: false,
 	id:-1,
 	message: '',
 	error: false,
@@ -32,6 +33,14 @@ export default (state= initState, action)=>{
 	case types.SHOPPINGLIST_ITEM_ADDED:
 		return{
 			...state, isAdding: false, openAddItem: false, openSb:true,message: action.message,
+		};
+	case types.DELETING_ITEM_STARTED:
+		return{
+			...state, isDeleting: true
+		};
+	case types.ITEM_DELETED_SUCCESSFULLY:
+		return{
+			...state, isDeleting: false, message: action.message, openSb:true,
 		};
 	case types.SHOPPINGLIST_ITEMS_LOADED_SUCCESSFULLY:
 		return{

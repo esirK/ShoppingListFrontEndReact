@@ -31,9 +31,9 @@ export function addNewShoppingListItem(details){
 			method: 'post',
 			url: `${URL}${'shoppinglist_items'}`,
 			data:{
-				name: details['name'],
-				price: details['price'],
-				quantity: details['quantity'],
+				name: details['name'].trim(),
+				price: details['price'].trim(),
+				quantity: details['quantity'].trim(),
 				shoppinglist_id: details['shoppinglist_id']
 			},
 			auth: {
@@ -56,6 +56,28 @@ export function addNewShoppingListItem(details){
 
 	};
 }
+export function deleteShoppinglistItem(id){
+	return(dispatch)=>{
+		dispatch(deletingItemStarted());
+		return axios(
+			{
+				method: 'delete',
+				url: `${URL}${'shoppinglist_items/'}${id}`,
+				auth: {
+					username: localStorage.getItem('jwt'),
+					password: ''
+				}
+			}
+		).then(function(response)
+		{
+			console.log('Got this response on deleting an item', response);
+			dispatch(itemDeletedSuccessfully(response.data.message));
+		}
+		).catch(function(error){
+			console.log('Error while trying to delete ', error);
+		});
+	};
+}
 function addingShoppinglistItemStarted(){
 	return{
 		type: types.ADDING_SHOPPINGLIST_ITEM_STARTED
@@ -64,5 +86,16 @@ function addingShoppinglistItemStarted(){
 function shoppinglistItemCreated(message){
 	return{
 		type: types.SHOPPINGLIST_ITEM_ADDED, message
+	};
+}
+function deletingItemStarted(){
+	return{
+		type: types.DELETING_ITEM_STARTED,
+	};
+}
+function itemDeletedSuccessfully(message){
+	return{
+		type: types.ITEM_DELETED_SUCCESSFULLY,
+		message
 	};
 }
