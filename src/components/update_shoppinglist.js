@@ -15,6 +15,7 @@ class UpdateShoppingList extends Component{
 		super(props);
 		/*The update shoppinglist dialog will 
         be open by default once this component is rendered */
+		console.log('Iside Update...');
 		this.state = {
 			name: '',
 			'description': '',
@@ -37,8 +38,8 @@ class UpdateShoppingList extends Component{
 	handleUpdate(){
 		//Sends the update request to the API with the supplied data
 		this.props.updateShoppingList(this.props.id, {
-			'new_name': this.state.name,
-			'description': this.state.description
+			'new_name': this.state.name.trim(),
+			'description': this.state.description.trim()
 		});
 		this.setState({ name: '' });
 		this.setState({ description: ''});

@@ -8,6 +8,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
+
 import NewShoopingListItem from './new_shoppinglist_item';
 import UpdateShoppingListItem from './update_shoppinglist_item';
 import {activateAddItem, activateUpdateItem, hideSnackBar, deleteShoppinglistItem, resetErrors} from '../actions';
@@ -181,7 +182,7 @@ class ShoppingListItems extends Component{
 					</Dialog>
 				</div>
 			);
-		}
+		} 	
 	}
 }
 function mapStateToProps(state){
