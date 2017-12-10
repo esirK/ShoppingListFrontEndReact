@@ -115,7 +115,7 @@ class ShoppingListItems extends Component{
 		else{
 			if(this.props.isOpenUpdateItem){
 				return(
-					<UpdateShoppingListItem {...this.props.item}/>
+					<UpdateShoppingListItem {...this.props}/>
 				);
 			}
 			this.props.data.items.map((item)=>

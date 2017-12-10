@@ -29,3 +29,7 @@ div#fab{
     position: fixed;
     bottom: 20px;
 }
+p:empty {
+    width: 0px;
+    height: 0px;
+}

@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {FlatButton} from 'material-ui';
 import {connect} from 'react-redux';
 
 import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
 
 
-
+import {itemActions, newShoppinglistChildren} from './helpers';
 import {addNewShoppingList, resetErrors, closeFab} from '../actions';
 
 import ShoppingLists from './shoppinglists';
@@ -55,45 +53,15 @@ class AddShoppingList extends Component{
 	}
 	render()
 	{
-		const actions = [
-			<FlatButton
-			  label="Cancel"
-			  primary={true}
-			  onClick={this.handleClose}
-			/>,
-			<FlatButton
-			  label="Submit"
-			  primary={true}
-			  onClick={this.handleSubmit}
-			/>,
-		];
+		const actions = itemActions(this);
+
 		if(this.props.isCreatingNewShoppingList)
 		{
 			//add a circular progress bar bettween the 2 buttons
 			actions.splice(1, 0, <CircularProgress/>);
 		}
-		const children = [
-			<TextField
-			  hintText="Shoppinglist Name"
-			  errorText={this.props.error}
-			  value={this.state.name}
-			  fullWidth={true}
-			  key='name'
-			  onChange={this.handleTitleChange}
-			/>,
-			<TextField
-			  hintText="Description of the shopping list"
-			  multiLine={true}
-			  rows={2}
-			  rowsMax={4}
-			  fullWidth={true}
-			  value={this.state.description}
-			  key='desc'
-			  onChange={this.handleDescChange}
-			/>
-		];
+		const children = newShoppinglistChildren(this);
 		//if the shoppinglist has been created then return to parent
-		console.log('Here.......=>', this.props.shoppinglistCreated);
 		if(this.props.shoppinglistCreated | this.state.exit){
 			return(
 				<ShoppingLists/>

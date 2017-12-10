@@ -3,18 +3,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {deactivateUpdateItem, viewShoppingList, updateShoppingListItem} from '../actions';
+import {itemActions, updateChildren} from './helpers';
+
 import Dialog from 'material-ui/Dialog';
-import {FlatButton} from 'material-ui';
-import TextField from 'material-ui/TextField';
 
 class UpdateShoppingListItem extends Component{
 	constructor(props){
 		super(props);
 		console.log('You here Now ', props);
 		this.state = {
-			name: props.name,
-			price: props.price,
-			quantity: props.quantity,
+			name: props.item.name,
+			price: props.item.price,
+			quantity: props.item.quantity,
 			nameError: '',
 			priceError: '',
 			quantityError: '',
@@ -95,53 +95,13 @@ class UpdateShoppingListItem extends Component{
 				'name': this.state.name,
 				'price': this.state.price,
 				'quantity': this.state.quantity,
-				'item_id': this.props.id
+				'item_id': this.props.item.id
 			});
 		}
 	}
 	render(){
-		const actions = [
-			<FlatButton
-			  label="Cancel"
-			  primary={true}
-			  onClick={this.handleClose}
-			/>,
-			<FlatButton
-			  label="Submit"
-			  primary={true}
-			  onClick={this.handleSubmit}
-			  disabled={this.props.isUpdating}
-			/>,
-		];
-		const children = [
-			<TextField
-			  hintText="New Item Name"
-			  errorText={this.state.nameError}
-			  value={this.state.name}
-			  fullWidth={true}
-			  onChange={this.handleNameChange}
-			  key='name'
-			/>,
-			<TextField
-			  hintText="New Price of the Item"
-			  multiLine={true}
-			  fullWidth={true}
-			  errorText={this.state.priceError}
-			  value={this.state.price}
-			  onChange={this.handlePriceChange}
-			  key='price'
-			/>,
-			<TextField
-			  hintText="Quantity of the Item"
-			  multiLine={true}
-			  fullWidth={true}
-			  errorText={this.state.quantityError}
-			  value={this.state.quantity}
-			  onChange={this.handleQuantityChange}
-			  key='quantity'
-			/>,
-			<p key='error' className='alert alert-danger'>{this.state.error}</p>
-		];
+		const actions = itemActions(this);
+		const children = updateChildren(this);
 		return(
 			<div>
 				<Dialog open={this.props.openUpdateItem}

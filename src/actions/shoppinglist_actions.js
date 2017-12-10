@@ -178,9 +178,7 @@ export function closeFab(){
 }
 export function openUpdateDialog(){
 	return(dispatch)=>{
-		dispatch(
-			{type: types.OPEN_UPDATE_DIALOG}
-		   );
+		dispatch({type: types.OPEN_UPDATE_DIALOG});
 	};
 }
 export function closeUpdateDialog(){

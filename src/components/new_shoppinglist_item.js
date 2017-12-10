@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 
 import Dialog from 'material-ui/Dialog';
-import {FlatButton} from 'material-ui';
 import TextField from 'material-ui/TextField';
 
 import {connect} from 'react-redux';
 
 import {deactivateAddItem, viewShoppingList, addNewShoppingListItem} from '../actions';
+import {itemActions} from './helpers';
+
 
 class NewShoppingListItem extends Component{
 	constructor(props){
-		console.log('Shoppinglist item props', props);
 		super(props);
 		this.state = {
 			name: '',
@@ -58,18 +58,7 @@ class NewShoppingListItem extends Component{
 		this.props.viewShoppingList(this.props.match.params.id);
 	}
 	render(){
-		const actions = [
-			<FlatButton
-			  label="Cancel"
-			  primary={true}
-			  onClick={this.handleClose}
-			/>,
-			<FlatButton
-			  label="Submit"
-			  primary={true}
-			  onClick={this.handleSubmit}
-			/>,
-		];
+		const actions = itemActions(this);
 		let nameError = '';
 		let priceError = '';
 		let quantityError = '';

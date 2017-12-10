@@ -14,8 +14,8 @@ class UpdateShoppingList extends Component{
 	constructor(props){
 		super(props);
 		/*The update shoppinglist dialog will 
-        be open by default once this component is rendered */
-		console.log('Iside Update...');
+		be open by default once this component is rendered */
+		
 		this.state = {
 			name: '',
 			'description': '',
