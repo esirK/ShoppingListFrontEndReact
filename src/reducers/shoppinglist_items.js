@@ -12,6 +12,8 @@ const initState = {
 	error: false,
 	openAddItem: false,
 	openSb: false,	
+	isOpenUpdateItem: false,	
+	item:{},
 };
 
 export default (state= initState, action)=>{
@@ -25,6 +27,16 @@ export default (state= initState, action)=>{
 		//Add new Item FAB has been clicked
 		return{
 			...state, openAddItem: false
+		};
+	case types.ACTIVATE_UPDATE_ITEM:
+		//Change state to show the Update Item dialog
+		return{
+			...state, isOpenUpdateItem: true, item: action.item
+		};
+	case types.DEACTIVATE_UPDATE_ITEM:
+		//Change state to remove the Update Item dialog
+		return{
+			...state, isOpenUpdateItem: false, isUpdating: false
 		};
 	case types.ADDING_SHOPPINGLIST_ITEM_STARTED:
 		return{

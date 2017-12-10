@@ -9,7 +9,7 @@ import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
 import NewShoopingListItem from './new_shoppinglist_item';
-import {activateAddItem, hideSnackBar, deleteShoppinglistItem, resetErrors} from '../actions';
+import UpdateShoppingListItem from './update_shoppinglist_item';
 
 class ShoppingListItems extends Component{
 	constructor(props){
@@ -111,6 +111,11 @@ class ShoppingListItems extends Component{
 			);
 		}
 		else{
+			if(this.props.isOpenUpdateItem){
+				return(
+					<UpdateShoppingListItem {...this.props.item}/>
+				);
+			}
 			this.props.data.items.map((item)=>
 				cards.push(
 					<Card key={item.id}
@@ -133,7 +138,7 @@ class ShoppingListItems extends Component{
 							Quantity: {item.quantity}
 						</CardText>
 						<CardActions>
-							<FlatButton label="Update" primary={true}/>
+							<FlatButton label="Update" primary={true} onClick={()=>{this.props.activateUpdateItem(item);}}/>
 							<FlatButton name='delete' label="Delete" secondary={true} onClick={()=>{this.confirmDelete(item.id);}}/>
 						</CardActions>
 					</Card>
@@ -185,6 +190,7 @@ function mapStateToProps(state){
 		error: state.shoppinglist_items.error,
 		openAddItem: state.shoppinglist_items.openAddItem,
 		openSb: state.shoppinglist_items.openSb,
+		isOpenUpdateItem: state.shoppinglist_items.isOpenUpdateItem,
 		message: state.shoppinglist_items.message,
 	};
 }

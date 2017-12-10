@@ -56,6 +56,27 @@ export function addNewShoppingListItem(details){
 
 	};
 }
+export function activateUpdateItem(item){
+	//Trigers showing the Update Item Dialog
+	return(dispatch)=>{
+		dispatch(
+			{
+				type: types.ACTIVATE_UPDATE_ITEM,
+				item
+			}
+		);
+	};
+}
+export function deactivateUpdateItem(){
+	//Trigers hiding of the Update Item Dialog
+	return(dispatch)=>{
+		dispatch(
+			{type: types.DEACTIVATE_UPDATE_ITEM}
+		);
+	};
+}
+	};
+}
 export function deleteShoppinglistItem(id){
 	return(dispatch)=>{
 		dispatch(deletingItemStarted());
