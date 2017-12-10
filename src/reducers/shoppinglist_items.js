@@ -14,6 +14,7 @@ const initState = {
 	openSb: false,	
 	isOpenUpdateItem: false,	
 	item:{},
+	isUpdating: false
 };
 
 export default (state= initState, action)=>{
@@ -37,6 +38,23 @@ export default (state= initState, action)=>{
 		//Change state to remove the Update Item dialog
 		return{
 			...state, isOpenUpdateItem: false, isUpdating: false
+		};
+	case types.UPDATING_SHOPPINGLIST_ITEM_STARTED:
+		return{
+			...state, isUpdating: true
+		};
+	case types.SHOPPINGLISTS_ITEM_UPDATED_SUCCESSFULY:
+		return{
+			...state, isOpenUpdateItem: false, data: action.data, 
+			isUpdating:false, message:action.message, openSb:true
+		};
+	case types.SHOPPINGLISTS_ITEM_NOT_UPDATED_SUCCESSFULY:
+		return{
+			...state, isUpdating: false
+		};	
+	case types.SHOPPINGLIST_ITEM_UPDATED:
+	    return{
+			...state, isUpdating: false
 		};
 	case types.ADDING_SHOPPINGLIST_ITEM_STARTED:
 		return{

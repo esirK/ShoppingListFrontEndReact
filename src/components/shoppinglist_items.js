@@ -10,6 +10,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import NewShoopingListItem from './new_shoppinglist_item';
 import UpdateShoppingListItem from './update_shoppinglist_item';
+import {activateAddItem, activateUpdateItem, hideSnackBar, deleteShoppinglistItem, resetErrors} from '../actions';
 
 class ShoppingListItems extends Component{
 	constructor(props){
@@ -192,6 +193,7 @@ function mapStateToProps(state){
 		openSb: state.shoppinglist_items.openSb,
 		isOpenUpdateItem: state.shoppinglist_items.isOpenUpdateItem,
 		message: state.shoppinglist_items.message,
+		item: state.shoppinglist_items.item,
 	};
 }
-export default connect(mapStateToProps, {viewShoppingList, activateAddItem, hideSnackBar, deleteShoppinglistItem, resetErrors})(ShoppingListItems);
+export default connect(mapStateToProps, {viewShoppingList, activateAddItem, activateUpdateItem, hideSnackBar, deleteShoppinglistItem, resetErrors})(ShoppingListItems);

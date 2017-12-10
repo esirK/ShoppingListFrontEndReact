@@ -75,6 +75,42 @@ export function deactivateUpdateItem(){
 		);
 	};
 }
+export function updateShoppingListItem(details){
+	console.log('Updatting ',details);
+	return(dispatch)=>{
+		dispatch(updatingShoppinglistStarted());
+		return axios(
+			{
+				method: 'put',
+				url: `${URL}${'shoppinglist_items'}`,
+				data: {
+					id: details['item_id'].trim(),
+					new_name: details['name'].trim(),
+					price: details['price'].trim(),
+					quantity: details['quantity'].trim(),
+				},
+				auth: {
+					username: localStorage.getItem('jwt'),
+					password: ''
+				}
+			}
+		).then((response)=>{
+			console.log(response.data);
+			console.log('Updated that shit', response.data);
+			let data=response.data.data[0];
+			let message=response.data.message;
+			dispatch(shoppinglistItemUpdated(data, message));
+		}).catch((error)=>{
+			console.log('Got  that shity error ',error);
+			dispatch({
+				type: types.SHOPPINGLISTS_ITEM_NOT_UPDATED_SUCCESSFULY
+			});
+			if(error.response.data.error === undefined){
+				dispatch(errorEncountered(error.response.data.message));
+			}else{
+				dispatch(errorEncountered(error.response.data.error));
+			}
+		});
 	};
 }
 export function deleteShoppinglistItem(id){
@@ -107,6 +143,17 @@ function addingShoppinglistItemStarted(){
 function shoppinglistItemCreated(message){
 	return{
 		type: types.SHOPPINGLIST_ITEM_ADDED, message
+	};
+}
+function updatingShoppinglistStarted(){
+	return{
+		type: types.UPDATING_SHOPPINGLIST_ITEM_STARTED
+	};
+}
+function shoppinglistItemUpdated(data, message){
+	return{
+		type: types.SHOPPINGLISTS_ITEM_UPDATED_SUCCESSFULY,
+		data, message
 	};
 }
 function deletingItemStarted(){
