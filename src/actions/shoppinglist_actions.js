@@ -124,6 +124,30 @@ export function updateShoppingList(id, details){
 		});
 	};
 }
+
+export function searchShoppinglist(term){
+	return(dispatch) =>{
+		//http://127.0.0.1:5000/v1/shoppinglists?q=sass
+		return axios(
+			{
+				method: 'get',
+				url: `${URL}${'shoppinglists?q='}${term}`,
+				auth: {
+					username: localStorage.getItem('jwt'),
+					password: ''
+				}
+			}
+		).then((response)=>{
+			console.log('Got... ',response);
+			dispatch(shoppinglistsRecieved(response.data));
+			dispatch(allShoppinglistsRecieved(response.data));	
+		}).catch((error)=>{
+			console.log('Got Error.. ',error.response.status);
+			dispatch(shoppingListNotFound(error.response.data));
+		})
+		;
+	};
+}
 function getShoppingListStarted(){
 	return{
 		type: types.GETTING_SHOPPINGLISTS_STARTED
@@ -170,6 +194,12 @@ function shoppinglistUpdated(message, response){
 	return {
 		type: types.SHOPPINGLISTS_UPDATED_SUCCESSFULY,
 		message, response
+	};
+}
+function shoppingListNotFound(response){
+	return{
+		type: types.SHOPPINGLISTS_NOT_FOUND,
+		response, 
 	};
 }
 export function activateFab(){

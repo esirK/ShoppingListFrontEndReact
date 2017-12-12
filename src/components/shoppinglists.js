@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import {Card, CardActions, CardHeader, CardText, FlatButton} from 'material-ui';
+import TextField from 'material-ui/TextField';
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {connect} from 'react-redux';
@@ -11,7 +13,7 @@ import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
 
-import {addNewShoppingList, getShoppingLists, deleteShoppingList,
+import {addNewShoppingList, getShoppingLists, deleteShoppingList, searchShoppinglist,
 	 updateShoppingList, activateFab, openUpdateDialog, closeUpdateDialog, hideSnackBar, resetErrors} from '../actions';
 
 import AddShoppingList from './new_shoppinglist';
@@ -28,7 +30,8 @@ class ShoppingLists extends Component{
 			id: false,
 			conf_delete: false,
 			page: 1,
-			limit: 4
+			limit: 4,
+			searchTerm: ''
 		};
 		this.props.resetErrors();
 		//Bind methods to this class
@@ -37,6 +40,7 @@ class ShoppingLists extends Component{
 		this.handleFabClick = this.handleFabClick.bind(this);
 		this.handleClose = this.handleClose.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.search = this.search.bind(this);
 	}
 	componentDidMount(){
 		this.setState({conf_delete: false});
@@ -93,6 +97,10 @@ class ShoppingLists extends Component{
 		//and reset the SnackBar too
 		this.props.closeUpdateDialog();
 		this.props.hideSnackBar();
+	}
+	search(event){
+		this.setState({searchTerm: event.target.value});
+		this.props.searchShoppinglist(this.state.searchTerm);
 	}
 	render(){
 		let cards = [];
@@ -197,6 +205,12 @@ class ShoppingLists extends Component{
 			/** */
 			return(
 				<div id="cards">
+					<TextField
+						hintText="Shoppinglist Name"
+						floatingLabelText="Search"
+						fullWidth={true}
+						onChange={this.search}
+					/><br />
 			    {cards}
 					<ul className="pagination pagination-lg pagination-centered">
 						{pages}
@@ -237,5 +251,5 @@ function mapStateToProps(state){
 		openUpdate: state.shoppinglists.openUpdate,
 	};
 }
-export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, 
+export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, searchShoppinglist,
 	deleteShoppingList, updateShoppingList, activateFab, openUpdateDialog, closeUpdateDialog, hideSnackBar, resetErrors}) (ShoppingLists);

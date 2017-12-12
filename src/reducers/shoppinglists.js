@@ -83,6 +83,10 @@ export default function(state = initState, action){
 			...state, shoppinglists:action.response,
 			message: action.message, openSb: true,isUpdatingShoppingList:false
 		};
+	case types.SHOPPINGLISTS_NOT_FOUND:
+		return{
+			...state, shoppinglists:action.response,
+		};
 	case types.ERROR_ENCOUNTERED:
 		return{
 			...state, isLoading:false, isCreatingNewShoppingList:false, isUpdatingShoppingList:false, error: action.error, openSb: true,
