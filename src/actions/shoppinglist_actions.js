@@ -7,12 +7,21 @@ import {errorEncountered, URL, resetErrors, startSubmitting} from './index';
  * ShoppingLists
  */
 
-export function getShoppingLists(){
+export function getShoppingLists(page, limit, all=false){
+	console.log('Get shoppinglist ', limit);
+	let url;
+	if(!all){
+		//If it is the first time to call the shoppinglists, load all of them for accurate pagination
+		url = `${URL}${'shoppinglists?'}${'page='}${page}${'&'}${'limit='}${limit}`;
+	}else{
+		url = `${URL}${'shoppinglists'}`;
+	}
 	return (dispatch) => {
 		dispatch(getShoppingListStarted());
 		return axios({
 			method: 'get',
-			url: `${URL}${'shoppinglists'}`,
+			//http://127.0.0.1:5000/v1/shoppinglists?page=1&limit=2
+			url: url,
 			auth: {
 				username: localStorage.getItem('jwt'),
 				password: ''
@@ -21,6 +30,9 @@ export function getShoppingLists(){
 			.then(function (response) {
 				console.log('Shoppinglists recieved as',response);
 				dispatch(shoppinglistsRecieved(response.data));
+				if(all){
+					dispatch(allShoppinglistsRecieved(response.data));	
+				}
 			})
 			.catch(function (error) {
 				console.log('wahhh', error);
@@ -30,7 +42,7 @@ export function getShoppingLists(){
 	};
 }
 //Add a new shopping list function
-export function addNewShoppingList(details){
+export function addNewShoppingList(details, limit){
 	return (dispatch) =>{
 		//clear all errors first
 		dispatch(resetErrors());
@@ -51,7 +63,7 @@ export function addNewShoppingList(details){
 			.then(function (response){
 				//Dispatch shoppinglist created successfully
 				console.log('Got response when adding', response.data);
-				dispatch(shoppinglistCreated(response.data.data, response.data.message));
+				dispatch(shoppinglistCreated(response.data.data, response.data.message), limit);
 			})
 			.catch(function (error){
 				//Dispatch shoppinglist creation failed
@@ -81,7 +93,7 @@ export function deleteShoppingList(id){
 			}
 		}).then((response)=>{
 			//Dispatch shoppinglist DELETION Successfully
-			dispatch(shoppinglistDeleted(response.data.message, response.data.data));
+			dispatch(shoppinglistDeleted(response.data.message, response.data.data, id));
 			console.log('Got response', response.data.message);
 		}).catch((error)=>{
 			//Dispatch shoppinglist DELETION Failed
@@ -132,6 +144,12 @@ function shoppinglistsRecieved(response){
 		response
 	};
 }
+function allShoppinglistsRecieved(response){
+	return{
+		type: types.ALL_SHOPPINGLISTS_LOADED,
+		response
+	};
+}
 
 function addingShoppinglistStarted(){
 	return {
@@ -139,16 +157,17 @@ function addingShoppinglistStarted(){
 	};
 }
 
-function shoppinglistCreated(response, message){
+function shoppinglistCreated(response, message, limit){
+	//Limit is for the number of shoppinglists per page 
 	return {
 		type: types.SHOPPINGLISTS_CREATED_SUCCESSFULY,
-		response, message
+		response, message, limit
 	};
 }
-function shoppinglistDeleted(message, response){
+function shoppinglistDeleted(message, response, id){
 	return {
 		type: types.SHOPPINGLISTS_DELETED_SUCCESSFULY,
-		message, response
+		message, response, id
 	};
 }
 function updatingShoppinglistStarted(){

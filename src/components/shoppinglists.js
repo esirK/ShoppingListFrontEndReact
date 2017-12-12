@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { NavLink } from 'react-router-dom';
 
 import {Card, CardActions, CardHeader, CardText, FlatButton} from 'material-ui';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -20,14 +20,18 @@ import UpdateShoppingList from './update_shoppinglist';
 class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
+		console.log('All Shoppinglist Props', props);
 		this.state = {
 			name: '',
 			description: '',
 			error: props.error,
 			message: '',
 			id: false,
-			conf_delete: false
+			conf_delete: false,
+			page: 1,
+			limit: 4
 		};
+		this.props.resetErrors();
 		//Bind methods to this class
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.viewShoppingList = this.viewShoppingList.bind(this);
@@ -37,7 +41,18 @@ class ShoppingLists extends Component{
 	}
 	componentDidMount(){
 		this.setState({conf_delete: false});
-		this.props.getShoppingLists();
+		this.props.getShoppingLists(this.state.page, this.state.limit, true);
+		this.props.getShoppingLists(this.state.page, this.state.limit, false);
+	}
+	componentWillReceiveProps(nextprops){
+		const queryString = require('query-string');
+		const parsed = queryString.parse(nextprops.location.search);
+		if(parsed.limit !== undefined){
+			this.setState({page: parsed.page, limit: parsed.limit});
+			if((parsed.limit && parsed.page) !== (this.state.limit&&this.state.page)){
+				this.props.getShoppingLists(parsed.page, parsed.limit, false);
+			}
+		}
 	}
 	handleFabClick(){
 		this.props.activateFab();
@@ -71,6 +86,7 @@ class ShoppingLists extends Component{
 	}
 	render(){
 		let cards = [];
+		let pages = [];
 		//Read fab status from react state
 		if(this.props.addFab){
 			return(
@@ -134,7 +150,24 @@ class ShoppingLists extends Component{
 							</CardActions>
 						</Card>
 					)
-				);};
+				);
+				//Generate the page numbers
+				let spLists = Math.floor(((this.props.all_shoppinglists).length)/this.state.limit);
+				let rem = (this.props.all_shoppinglists).length % this.state.limit;
+				console.log('rem is .... ',this.props.all_shoppinglists);
+				let total =0;
+				if(rem > 0){
+					total = spLists+1;
+				}else{
+					console.log('Total IS ', this.props.all_shoppinglists.length);
+					total = spLists; 
+				}
+				for(var x=0; x<total; x++){
+					pages.push(
+						<li key={x}><NavLink to={`/shoppinglists?page=${x+1}&limit=${this.state.limit}`} activeClassName="active">{x+1}</NavLink></li>
+					);
+				}
+			};
 			
 			/**
 			 * Shoppinglist Delete confirmation
@@ -155,6 +188,9 @@ class ShoppingLists extends Component{
 			return(
 				<div id="cards">
 			    {cards}
+					<ul className="pagination pagination-lg pagination-centered">
+						{pages}
+					</ul>
 					<div id="fab">
 						<FloatingActionButton secondary={true} onClick={this.handleFabClick}>
 							<ContentAdd />
@@ -183,6 +219,7 @@ function mapStateToProps(state){
 	return {
 		isLoading: state.shoppinglists.isLoading,
 		shoppinglists: state.shoppinglists.shoppinglists,
+		all_shoppinglists: state.shoppinglists.all_shoppinglists,
 		error: state.shoppinglists.error,
 		message: state.shoppinglists.message,
 		openSb: state.shoppinglists.openSb,

@@ -35,11 +35,14 @@ class AddShoppingList extends Component{
 	}
 	handleSubmit(){
 		/*Submits user request to create 
-        a new shoppinglist with the required parameters*/
+		a new shoppinglist with the required parameters*/
+		// const queryString = require('query-string');
+		// const parsed = queryString.parse(nextprops.location.search);
+		let limit = this.props.limit;
 		this.props.addNewShoppingList({
 			'name': this.state.name,
 			'description': this.state.description
-		});
+		}, limit);
 		this.setState({ name: '' });
 		this.setState({ description: ''});
 	}
