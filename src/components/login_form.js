@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import {validate} from './helpers';
 import {submitDetails, resetErrors} from '../actions';
@@ -12,12 +13,7 @@ import {submitDetails, resetErrors} from '../actions';
 
 class LoginForm extends Component{
 	componentWillMount() {
-		resetErrors();
-		if(this.props.isAuthenticated){
-		  	return () =>{
-				console.log('executing');
-			};
-		}
+		this.props.resetErrors();
 	}
 	onFormSubmit(values) {
 		this.props.submitDetails(values,() => {
@@ -27,6 +23,11 @@ class LoginForm extends Component{
 
 	render(){
 		const {error, handleSubmit, isSubmitting} = this.props;
+		let submitting;
+		if(isSubmitting){
+			//If User has pressed the Login button show a circular progress
+			submitting =  <CircularProgress />;
+		}
 		return(
 			<div className="row">
 				<div className="col-sm-6 col-sm-offset-3">
@@ -54,6 +55,7 @@ class LoginForm extends Component{
 								{error ? <strong>{error}</strong>: ''}
 							</div>
 							<RaisedButton label="Login" disabled={isSubmitting} type="submit" />
+							{submitting}
 							<Link className="btn btn-danger" to="/register">Cancel</Link>
 						</form>
 					</div>
@@ -90,5 +92,5 @@ export default reduxForm({
 	form: 'LoginForm',
 	validate
 })(
-	connect(mapStateToProps, {submitDetails})(LoginForm)
+	connect(mapStateToProps, {submitDetails, resetErrors})(LoginForm)
 );
