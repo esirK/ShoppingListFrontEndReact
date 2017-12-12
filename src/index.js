@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
 import thunk from 'redux-thunk';
-import reduxPromise from 'redux-promise';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -15,6 +14,7 @@ import AppBar from 'material-ui/AppBar';
 import reducers from './reducers';
 import RegisterForm from './components/register';
 import LoginForm from './components/login_form';
+import Menu from './components/menu';
 import ShoppingLists from './components/shoppinglists';
 import ShoppingListItems from './components/shoppinglist_items';
 
@@ -23,7 +23,7 @@ import {setAuthStatusOfUser} from './actions';
 import jwt from 'jsonwebtoken';
 import {checkAuthenticationToken} from './utils';
 
-const createStoreWithMiddleware = applyMiddleware(reduxPromise, thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 const muiTheme = getMuiTheme({
 	palette: {
@@ -77,7 +77,9 @@ ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
 			<MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-				<AppBar title="Shopping List App" showMenuIconButton={false}/>
+				<AppBar title="Shopping List App" showMenuIconButton={false}
+					iconElementRight={<Menu/>}
+				/>
 				<div className="container">
 					<Switch>
 						<Route exact path="/" render={requireLogin}/>
