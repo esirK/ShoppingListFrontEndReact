@@ -20,7 +20,6 @@ import UpdateShoppingList from './update_shoppinglist';
 class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
-		console.log('All Shoppinglist Props', props);
 		this.state = {
 			name: '',
 			description: '',

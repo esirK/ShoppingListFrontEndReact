@@ -13,7 +13,6 @@ class AddShoppingList extends Component{
 
 	constructor(props){
 		super(props);
-		console.log('You got me', props);
 		this.state = {
 			name: '',
 			description: '',
@@ -36,8 +35,6 @@ class AddShoppingList extends Component{
 	handleSubmit(){
 		/*Submits user request to create 
 		a new shoppinglist with the required parameters*/
-		// const queryString = require('query-string');
-		// const parsed = queryString.parse(nextprops.location.search);
 		let limit = this.props.limit;
 		this.props.addNewShoppingList({
 			'name': this.state.name,

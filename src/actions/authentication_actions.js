@@ -25,6 +25,7 @@ export function setAuthStatusOfUser(user){
 	};
 }
 export function submitDetails(details, callback, route) {
+	//route represents the endpoint to send this details
 	return (dispatch) => {
 		dispatch(startSubmitting());
 		return axios.post(`${URL}${route}`, {
@@ -33,8 +34,6 @@ export function submitDetails(details, callback, route) {
 			'password': details['password']
 		}
 		).then((data) => {
-			console.log('Success1', data.data.message);
-			console.log('Success2 Token', data.data.token);
 			if (data.data.token !== undefined){
 				//Response has token its a login i.e save the token
 				localStorage.setItem('jwt',data.data.token);

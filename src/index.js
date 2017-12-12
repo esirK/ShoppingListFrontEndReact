@@ -43,7 +43,7 @@ if(checkAuthenticationToken()){
 	store.dispatch(setAuthStatusOfUser({}));
 }
 
-const requireLogin = (props)=>{
+const requireLogin = (props, page='')=>{
 	if(checkAuthenticationToken()){
 		return <ShoppingLists {...props}/>;
 	}

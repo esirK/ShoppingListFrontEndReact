@@ -21,6 +21,9 @@ export default function(state = initState, action){
 			...state, isLoading:true, openSb: false, 
 		};
 	case types.SHOPPINGLISTS_LOADED_SUCCESSFULLY:
+		if((action.response).length===undefined){
+			
+		}
 		return{
 			...state, shoppinglists:action.response,
 			isLoading:false
@@ -52,8 +55,11 @@ export default function(state = initState, action){
 	case types.SHOPPINGLISTS_CREATED_SUCCESSFULY:
 	   if(state.shoppinglists.length!== 4){
 		   //add that item to this shoppinglists
+		   if(state.shoppinglists.length===undefined){
+			   state.shoppinglists = [];
+		   }
 		   state.shoppinglists.push(action.response[action.response.length-1]);
-	   }
+		}
 	   return {
 			...state, shoppinglistCreated: true, shoppinglists: state.shoppinglists, all_shoppinglists:action.response,
 			isCreatingNewShoppingList:false, openSb: true, 

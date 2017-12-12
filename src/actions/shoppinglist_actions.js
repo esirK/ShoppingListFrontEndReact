@@ -8,7 +8,6 @@ import {errorEncountered, URL, resetErrors, startSubmitting} from './index';
  */
 
 export function getShoppingLists(page, limit, all=false){
-	console.log('Get shoppinglist ', limit);
 	let url;
 	if(!all){
 		//If it is the first time to call the shoppinglists, load all of them for accurate pagination
@@ -28,14 +27,12 @@ export function getShoppingLists(page, limit, all=false){
 			}
 		})
 			.then(function (response) {
-				console.log('Shoppinglists recieved as',response);
 				dispatch(shoppinglistsRecieved(response.data));
 				if(all){
 					dispatch(allShoppinglistsRecieved(response.data));	
 				}
 			})
 			.catch(function (error) {
-				console.log('wahhh', error);
 				dispatch(errorEncountered(error.message));
 			});
 
@@ -62,18 +59,15 @@ export function addNewShoppingList(details, limit){
 		})
 			.then(function (response){
 				//Dispatch shoppinglist created successfully
-				console.log('Got response when adding', response.data);
 				dispatch(shoppinglistCreated(response.data.data, response.data.message), limit);
 			})
 			.catch(function (error){
 				//Dispatch shoppinglist creation failed
-				console.log(error);
 				if(error.message){
 					dispatch(errorEncountered(error.message));
 				}
 				if(error.response.data.message !== 'undefined'){
-					console.log('Got errorx', error );
-				    dispatch(errorEncountered(error.response.data.message));
+					dispatch(errorEncountered(error.response.data.message));
 				}
 			});
 	};
@@ -94,7 +88,6 @@ export function deleteShoppingList(id){
 		}).then((response)=>{
 			//Dispatch shoppinglist DELETION Successfully
 			dispatch(shoppinglistDeleted(response.data.message, response.data.data, id));
-			console.log('Got response', response.data.message);
 		}).catch((error)=>{
 			//Dispatch shoppinglist DELETION Failed
 			dispatch(errorEncountered(error.message));
@@ -127,13 +120,11 @@ export function updateShoppingList(id, details){
 				dispatch(shoppinglistUpdated(response.data.message, response.data.data));
 			}
 		}).catch((error)=>{
-			console.log('Got Meso', error);
 			dispatch(errorEncountered(error.message));
 		});
 	};
 }
 function getShoppingListStarted(){
-	console.log('Getting started');
 	return{
 		type: types.GETTING_SHOPPINGLISTS_STARTED
 	};
