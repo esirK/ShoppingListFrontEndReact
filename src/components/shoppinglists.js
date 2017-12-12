@@ -59,6 +59,17 @@ class ShoppingLists extends Component{
 	handleDelete(){
 		this.props.deleteShoppingList(this.state.id);
 		this.setState({conf_delete: false});
+		if(this.props.shoppinglists.length ===1){
+			//this is to prevent the page not found error.
+			this.props.history.push({
+				pathname: '/'
+			}
+			);
+		}
+		if(this.props.all_shoppinglists.length===1){
+			//Reload the whole page if all shoppinglsists have been deleted
+			window.location.reload();
+		}
 	}
 	handleClose(){
 		this.setState({conf_delete: false});
