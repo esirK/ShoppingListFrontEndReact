@@ -9,8 +9,8 @@ import {errorEncountered, URL, resetErrors, startSubmitting} from './index';
 
 export function getShoppingLists(page, limit, all=false){
 	let url;
+	//If it is the first time to call the shoppinglists, load all of them for accurate pagination
 	if(!all){
-		//If it is the first time to call the shoppinglists, load all of them for accurate pagination
 		url = `${URL}${'shoppinglists?'}${'page='}${page}${'&'}${'limit='}${limit}`;
 	}else{
 		url = `${URL}${'shoppinglists'}`;
@@ -147,6 +147,44 @@ export function searchShoppinglist(term){
 		})
 		;
 	};
+}
+
+export function shareShoppingList(email, shoppinglistId, callback){
+	//Callback will be called after shoppinglist has been shared
+	console.log('Recieved ....', shoppinglistId);
+	return(dispatch)=>{
+		dispatch(sharingShoppinglist());
+		return axios({
+			method: 'post',
+			url: `${URL}${'shoppinglists/share'}`,
+			data: {
+				'id': `${shoppinglistId}`,
+				'email': `${email}`				
+			},
+			auth: {
+				username: localStorage.getItem('jwt'),
+				password: ''
+			}		
+		}).then((response)=>{
+			dispatch(shoppinglistShared(response.data.message));
+			callback();
+		}).catch((error)=>{
+			console.log('Got an error ', error.response.data.message);
+			dispatch(errorEncountered(error.response.data.message));
+		})
+		;
+	};
+}
+function sharingShoppinglist(){
+	return{
+		type: types.SHARING_SHOPPINGLIST	
+	};
+}
+function shoppinglistShared(message){
+	return {
+		type: types.SHOPPINGLIST_SHARED_SUCCESSFULLY, message
+	};
+
 }
 function getShoppingListStarted(){
 	return{

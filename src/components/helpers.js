@@ -38,7 +38,7 @@ export function itemActions(context){
 		  label="Submit"
 		  primary={true}
 		  onClick={context.handleSubmit}
-		  disabled={context.props.isUpdating||context.props.isCreatingNewShoppingList}
+		  disabled={context.props.isUpdating||context.props.isCreatingNewShoppingList||context.props.isShareling}
 		/>,
 	];
 	return actions;
@@ -71,7 +71,7 @@ export function updateChildren(context){
 	let children = [
 		<TextField
 		  hintText="New Item Name"
-		  errorText={context.state.nameError}
+		  errorText={context.props.error}
 		  value={context.state.name}
 		  fullWidth={true}
 		  onChange={context.handleNameChange}
@@ -96,6 +96,19 @@ export function updateChildren(context){
 		  key='quantity'
 		/>,
 		<p key='error' className='alert alert-danger'>{context.state.error}</p>
+	];
+	return children;
+}
+export function shareShoppinglistChildren(context){
+	let children = [
+		<TextField
+		  hintText="Email address to share with"
+		  errorText={context.props.error}
+		  value={context.state.email}
+		  fullWidth={true}
+		  onChange={context.handleEmailChange}
+		  key='email'
+		/>,
 	];
 	return children;
 }
