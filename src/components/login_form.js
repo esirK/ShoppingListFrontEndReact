@@ -20,7 +20,6 @@ class LoginForm extends Component{
 			this.props.history.replace('/');
 		},'user');
 	}
-
 	render(){
 		const {error, handleSubmit, isSubmitting} = this.props;
 		let submitting;
@@ -58,6 +57,9 @@ class LoginForm extends Component{
 							{submitting}
 							<Link className="btn btn-danger" to="/register">Cancel</Link>
 						</form>
+						<p>Not Registered??? </p>
+						<Link className="btn btn-link" to="/register">Register</Link>
+
 					</div>
 				</div>
 			</div>
