@@ -55,3 +55,16 @@ export function submitDetails(details, callback, route) {
 
 	};
 }
+function userLoggedOut(message){
+	return{
+		type: types.SHOW_SNACK_BAR,
+		message
+	};
+}
+export function Logout(){
+	return(dispatch)=>{
+		localStorage.removeItem('jwt');
+		dispatch(setAuthStatusOfUser({}));
+		dispatch(userLoggedOut('You have Been Logged out.'));
+	};
+}
