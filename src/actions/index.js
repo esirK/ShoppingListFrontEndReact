@@ -15,7 +15,6 @@ export function resetErrors() {
 	};
 }
 export function startSubmitting(){
-	console.log('Started Submitting....');
 	return {
 		type: types.SUBMITTING_STARTED
 	};
@@ -38,7 +37,6 @@ export function hideSnackBar(dispatch){
 
 //View Selected Shoppinglist
 export function viewShoppingList(id){
-	console.log('Looking for the shoppinglist ', id);
 	return (dispatch) =>{
 		//clear all errors first
 		dispatch(resetErrors());
@@ -51,17 +49,14 @@ export function viewShoppingList(id){
 				password: ''
 			}
 		}).then((response)=>{
-			console.log('Got catcha ', response, response.data);
 			dispatch(shoppinglistItemsRecieved(response.data, id));
 		}).catch(error=>{
-			console.log('Whall up??', error);
 			dispatch(loadingShoppingListItemsFailed(error.response.data.message));
 			dispatch(errorEncountered(error.response.data.message));
 		});
 	};
 }
 export function loadingShoppingListItems(){
-	console.log('Loading items dispatched');
 	return {
 		type: types.SHOPPINGLIST_ITEMS_LOADING,
 	};

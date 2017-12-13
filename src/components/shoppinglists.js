@@ -113,7 +113,6 @@ class ShoppingLists extends Component{
 	}
 	handleSubmit(){
 		//Handles submission of email to share shoppinglist with
-		console.log('Submitting ', this.state.email);
 		this.props.shareShoppingList(this.state.email, this.state.id, ()=>{this.setState({shareDialog:false, email:''});});
 	}
 	handleRequestClose(){
@@ -171,7 +170,6 @@ class ShoppingLists extends Component{
 		}
 		else{
 			if(this.props.shoppinglists.message !== undefined){
-				console.log('Wabudabu is', (this.props.shoppinglists.message));
 				cards.push(
 					<Card key='1'>
 						<CardText>
@@ -224,12 +222,10 @@ class ShoppingLists extends Component{
 				//Generate the page numbers
 				let spLists = Math.floor(((this.props.all_shoppinglists).length)/this.state.limit);
 				let rem = (this.props.all_shoppinglists).length % this.state.limit;
-				console.log('rem is .... ',this.props.all_shoppinglists);
 				let total =0;
 				if(rem > 0){
 					total = spLists+1;
 				}else{
-					console.log('Total IS ', this.props.all_shoppinglists.length);
 					total = spLists; 
 				}
 				for(var x=0; x<total; x++){

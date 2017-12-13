@@ -12,7 +12,6 @@ export function submissionSuccessful(message){
 	};
 }
 export function submissionFailed(error) {
-	console.log('Submission Failed', error);
 	return{
 		type: types.SUBMISSION_ERROR,
 		error
@@ -38,7 +37,6 @@ export function submitDetails(details, callback, route) {
 				//Response has token its a login i.e save the token
 				localStorage.setItem('jwt',data.data.token);
 				dispatch(setAuthStatusOfUser(jwt.decode(data.data.token)));
-				console.log('Decoded Token', jwt.decode(data.data.token));
 			}
 			callback();
 			dispatch(submissionSuccessful(data.data.message));
@@ -47,7 +45,6 @@ export function submitDetails(details, callback, route) {
 				return dispatch(submissionFailed(error.response.data.message));
 			}
 			if(!error.status){
-				console.log('heretoo');
 				//network error
 				return dispatch(submissionFailed(error.message));
 			}

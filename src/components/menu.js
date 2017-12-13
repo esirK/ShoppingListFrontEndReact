@@ -13,7 +13,6 @@ import {Logout} from '../actions';
 class Menu extends Component{
 	constructor(props){
 		super(props);
-		console.log(' Your props are ',this.props);
 		this.state ={
 			conf_logout: false,
 		};
@@ -23,7 +22,6 @@ class Menu extends Component{
 	}
 	logout(){
 		this.setState({conf_logout: true});
-		console.log('I want to log You Out...');
 	}
 	handleLogout(){
 		this.props.Logout();
@@ -50,7 +48,7 @@ class Menu extends Component{
 		if(checkAuthenticationToken()){
 			return(
 				<div>
-					<MenuItem primaryText="Logout" onClick={this.logout}/>
+					<MenuItem primaryText="Logout" onClick={this.logout} style={{color: '#ffffff'}}/>
 					<Dialog
 						actions={actions}
 						modal={false}
