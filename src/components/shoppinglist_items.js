@@ -85,8 +85,7 @@ class ShoppingListItems extends Component{
 		If the Redux error state has changed(Default: false)
 		Then Api returned response with an error 
 		*/
-		if(this.props.error !== false){
-			console.log('You Got ',this.props.error);
+		if(this.props.error !== false && !this.props.isOpenUpdateItem){
 			return (
 				<Card key='1'>
 					<CardHeader

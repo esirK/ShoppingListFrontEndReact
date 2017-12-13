@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
 
-import {deactivateUpdateItem, viewShoppingList, updateShoppingListItem} from '../actions';
+import {deactivateUpdateItem, viewShoppingList, updateShoppingListItem, resetErrors} from '../actions';
 import {itemActions, updateChildren} from './helpers';
 
 import Dialog from 'material-ui/Dialog';
@@ -10,7 +10,6 @@ import Dialog from 'material-ui/Dialog';
 class UpdateShoppingListItem extends Component{
 	constructor(props){
 		super(props);
-		console.log('You here Now ', props);
 		this.state = {
 			name: props.item.name,
 			price: props.item.price,
@@ -55,7 +54,6 @@ class UpdateShoppingListItem extends Component{
 			this.setState({priceError: 'Only Numbers allowed For shoppinglist price'});
 		}
 		else{
-			console.log('WWWW', parseFloat(this.state.price));
 			this.setState({
 				priceError: ''
 			});
@@ -82,6 +80,7 @@ class UpdateShoppingListItem extends Component{
 		//Invoked when the cancle button is clicked
 		//Sets the openAddItem props to false
 		this.props.deactivateUpdateItem();
+		this.props.resetErrors();
 	}
 	handleSubmit(){
 		//Invoked When a User presses the create new shoppinglist item button
@@ -121,4 +120,4 @@ function mapStateToProps(state){
 		error: state.shoppinglist_items.error,
 	};
 }
-export default connect(mapStateToProps, {deactivateUpdateItem, viewShoppingList, updateShoppingListItem})(UpdateShoppingListItem);
+export default connect(mapStateToProps, {deactivateUpdateItem, viewShoppingList, updateShoppingListItem, resetErrors})(UpdateShoppingListItem);
