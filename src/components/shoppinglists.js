@@ -41,6 +41,7 @@ class ShoppingLists extends Component{
 		this.handleClose = this.handleClose.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.search = this.search.bind(this);
+		this.handleSearch = this.handleSearch.bind(this);
 	}
 	componentDidMount(){
 		this.setState({conf_delete: false});
@@ -98,9 +99,19 @@ class ShoppingLists extends Component{
 		this.props.closeUpdateDialog();
 		this.props.hideSnackBar();
 	}
-	search(event){
-		this.setState({searchTerm: event.target.value});
+	handleSearch(){
 		this.props.searchShoppinglist(this.state.searchTerm);
+	}
+	search(event){
+		//Do not search for empty string
+		if(event.target.value.trim() !== ''){
+			this.setState({searchTerm: event.target.value}, this.handleSearch);			
+		}
+		else{
+			//Reload shoppinglists inorder to maintain pagination
+			this.props.getShoppingLists(1,4,true);
+			this.props.getShoppingLists(1,4,false);
+		}
 	}
 	render(){
 		let cards = [];
