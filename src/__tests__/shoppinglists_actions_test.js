@@ -40,4 +40,18 @@ describe('shoppinglists actions', ()=>{
 			expect(store.getActions()).toMatchSnapshot();
 		});
 	});
+	it('Returns only specified number in limit of Shoppinglists when all parameter in getShoppingLists is set to false',()=>{
+		store.clearActions();//Remove the login actions
+		return store.dispatch(
+			actions.getShoppingLists(1,4,false)).then(()=>{
+			expect(store.getActions()).toMatchSnapshot();
+		});
+	});
+	it('Returns 404 if page specified is not found ', ()=>{
+		store.clearActions();//Remove the previous actions
+		return store.dispatch(
+			actions.getShoppingLists(10,4,false)).then(()=>{
+			expect(store.getActions()).toMatchSnapshot();
+		});
+	});
 });

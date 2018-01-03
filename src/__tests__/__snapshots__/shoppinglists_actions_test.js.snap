@@ -428,6 +428,18 @@ Array [
 ]
 `;
 
+exports[`shoppinglists actions Returns 404 if page specified is not found  1`] = `
+Array [
+  Object {
+    "type": "GETTING_SHOPPINGLISTS_STARTED",
+  },
+  Object {
+    "error": "Request failed with status code 404",
+    "type": "ERROR_ENCOUNTERED",
+  },
+]
+`;
+
 exports[`shoppinglists actions Returns all Shoppinglists when all parameter in getShoppingLists is set to true 1`] = `
 Array [
   Object {
@@ -852,6 +864,145 @@ Array [
       },
     ],
     "type": "ALL_SHOPPINGLISTS_LOADED",
+  },
+]
+`;
+
+exports[`shoppinglists actions Returns only specified number in limit of Shoppinglists when all parameter in getShoppingLists is set to false 1`] = `
+Array [
+  Object {
+    "type": "GETTING_SHOPPINGLISTS_STARTED",
+  },
+  Object {
+    "response": Array [
+      Object {
+        "description": "Beasts exists",
+        "id": "166",
+        "items": Array [
+          Object {
+            "id": "32",
+            "name": "Monster",
+            "price": "200.0",
+            "quantity": "2.5",
+          },
+          Object {
+            "id": "39",
+            "name": "Jerry Smith",
+            "price": "2.0",
+            "quantity": "1.0",
+          },
+        ],
+        "name": "Real Beast",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+      Object {
+        "description": "I am an Evil Morty",
+        "id": "78",
+        "items": Array [
+          Object {
+            "id": "21",
+            "name": "Jerry Smiths",
+            "price": "200.0",
+            "quantity": "1.0",
+          },
+          Object {
+            "id": "24",
+            "name": "Waga",
+            "price": "5.0",
+            "quantity": "-4.0",
+          },
+          Object {
+            "id": "19",
+            "name": "Sima",
+            "price": "20.0",
+            "quantity": "4.0",
+          },
+          Object {
+            "id": "25",
+            "name": "trison",
+            "price": "5.0",
+            "quantity": "6.0",
+          },
+          Object {
+            "id": "20",
+            "name": "Hahah",
+            "price": "2.0",
+            "quantity": "3.0",
+          },
+          Object {
+            "id": "18",
+            "name": "Uji",
+            "price": "25.0",
+            "quantity": "5.0",
+          },
+          Object {
+            "id": "22",
+            "name": "ugali",
+            "price": "2.0",
+            "quantity": "3.0",
+          },
+        ],
+        "name": "Evil Morty",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+      Object {
+        "description": "1000 years of me and mortty",
+        "id": "79",
+        "items": Array [
+          Object {
+            "id": "16",
+            "name": "Jerry",
+            "price": "100.0",
+            "quantity": "1.0",
+          },
+          Object {
+            "id": "17",
+            "name": "Vans",
+            "price": "2500.0",
+            "quantity": "1.0",
+          },
+          Object {
+            "id": "29",
+            "name": "Beth",
+            "price": "2.0",
+            "quantity": "3.0",
+          },
+        ],
+        "name": "Rick Sanchez",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+      Object {
+        "description": "Things to buy when am hedding back to school",
+        "id": "168",
+        "items": Array [
+          Object {
+            "id": "56",
+            "name": "Transmara",
+            "price": "4.0",
+            "quantity": "5.0",
+          },
+          Object {
+            "id": "52",
+            "name": "Book",
+            "price": "10.0",
+            "quantity": "2.0",
+          },
+          Object {
+            "id": "49",
+            "name": "Biros",
+            "price": "20.0",
+            "quantity": "5.0",
+          },
+        ],
+        "name": "Back to school",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+    ],
+    "type": "SHOPPINGLISTS_LOADED_SUCCESSFULLY",
   },
 ]
 `;
