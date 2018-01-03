@@ -17,8 +17,8 @@ class UpdateShoppingList extends Component{
 		be open by default once this component is rendered */
 		
 		this.state = {
-			name: '',
-			'description': '',
+			name: this.props.name,
+			'description': this.props.description,
 		};
 		this.handleTitleChange = this.handleTitleChange.bind(this);
 		this.handleDescChange = this.handleDescChange.bind(this);

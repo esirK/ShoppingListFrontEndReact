@@ -98,8 +98,10 @@ class ShoppingLists extends Component{
 		this.setState({conf_delete: true});
 		this.setState({id});
 	}
-	handleUpdateShoppingList(id){
+	handleUpdateShoppingList(id, name, description){
 		this.setState({id});
+		this.setState({name});
+		this.setState({description});
 		this.props.openUpdateDialog();
 	}
 	shareShoppingList(id){
@@ -204,7 +206,7 @@ class ShoppingLists extends Component{
 									rippleColor='#00C853'
 								/>
 
-								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}
+								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id, shoppinglist.name, shoppinglist.description)}
 									style={{color:'#FFC107'}} rippleColor='#1B5E20'
 								/>
 								
