@@ -8,13 +8,12 @@ import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
 
 
 import reducers from './reducers';
 import RegisterForm from './components/register';
 import LoginForm from './components/login_form';
-import Menu from './components/menu';
+import MyAppBar from './components/my_appbar';
 import ShoppingLists from './components/shoppinglists';
 import ShoppingListItems from './components/shoppinglist_items';
 
@@ -35,7 +34,6 @@ const muiTheme = getMuiTheme({
 });
 const store = createStoreWithMiddleware(reducers);
 
-console.log('getting JWT Token', checkAuthenticationToken(), this.props);
 if(checkAuthenticationToken()){
 	//If Token is valid
 	store.dispatch(setAuthStatusOfUser(jwt.decode(localStorage.getItem('jwt'))));
@@ -72,14 +70,11 @@ const isLoggedIn = (props)=>{
 		return <LoginForm{...props}/>;
 	}
 };
-
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
 			<MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-				<AppBar title="Shopping List App" showMenuIconButton={false}
-					iconElementRight={<Menu/>}
-				/>
+				<MyAppBar />
 				<div className="container">
 					<Switch>
 						<Route exact path="/" render={requireLogin}/>

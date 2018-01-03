@@ -6,8 +6,10 @@ import {FlatButton} from 'material-ui';
 
 import Dialog from 'material-ui/Dialog';
 
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import {checkAuthenticationToken} from '../utils';
 import {Logout} from '../actions';
 
 class Menu extends Component{
@@ -45,24 +47,29 @@ class Menu extends Component{
 				onClick={this.handleLogout}
 			/>,
 		];
-		if(checkAuthenticationToken()){
-			return(
-				<div>
-					<MenuItem primaryText="Logout" onClick={this.logout} style={{color: '#ffffff'}}/>
-					<Dialog
-						actions={actions}
-						modal={false}
-						open={this.state.conf_logout}
-						onRequestClose={this.handleClose}
-					>
+		return(
+			<div>
+				<IconMenu
+					iconButtonElement={
+						<IconButton><MoreVertIcon /></IconButton>
+					}
+					targetOrigin={{horizontal: 'left', vertical: 'top'}}
+					anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+				>
+					<MenuItem primaryText="Refresh" />
+					<MenuItem primaryText="Help" />
+					<MenuItem primaryText="Sign out" onClick={this.logout}/>
+				</IconMenu>
+				<Dialog
+					actions={actions}
+					modal={false}
+					open={this.state.conf_logout}
+					onRequestClose={this.handleClose}
+				>
          			Confirm Logout?
-					</Dialog>
-				</div>
-			);
-		}
-		else{
-			return(null);
-		}
+				</Dialog>
+			</div>
+		);
 	}
 }
 export default connect(null, {Logout})(Menu);
