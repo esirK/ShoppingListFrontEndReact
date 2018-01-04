@@ -52,6 +52,43 @@ export function submitDetails(details, callback, route) {
 
 	};
 }
+function show_snack(message){
+	return{
+		type: types.SHOW_SNACK_BAR,
+		message: message
+	};
+}
+export function update_profile(details){
+	return(dispatch)=>{
+		dispatch(startSubmitting());
+		return axios({
+			method: 'put',
+			url: `${URL}${'user'}`,
+			data: {
+				name: details['username'],
+				password: details['password']
+			  },
+			auth: {
+				username: localStorage.getItem('jwt'),
+				password: ''
+			}
+		}).then((data)=>{
+			dispatch(show_snack(data.data.message)); 
+		}).catch((error)=>{
+			dispatch(show_snack(error.response.data));
+		});
+	};
+}
+function hideSb() {
+	return{
+		type: types.HIDE_SNACK_BAR,
+	};
+}
+export function hideSnackBar() {
+	return(dispatch)=>{
+		dispatch(hideSb());
+	};
+}
 function userLoggedOut(message){
 	return{
 		type: types.SHOW_SNACK_BAR,
