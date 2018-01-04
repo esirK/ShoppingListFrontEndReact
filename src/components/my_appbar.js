@@ -9,14 +9,14 @@ class MyAppBar extends Component{
 	render(){
 		return(
 			<AppBar title="Shopping List App" showMenuIconButton={false}
-				iconElementRight={this.props.isAuthenticated?<Menu/>:null}
+				iconElementRight={this.props.isAuthenticated?<Menu />:null}
 			/>
 		);
 	};
 }
 function mapStateToProps(state, ownProps) {
 	return{
-		isAuthenticated: state.authentication.isAuthenticated
+		isAuthenticated: state.authentication.isAuthenticated,
 	};
 }
 export default connect(mapStateToProps, null)( MyAppBar);
