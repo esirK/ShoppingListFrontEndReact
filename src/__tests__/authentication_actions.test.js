@@ -1,7 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import fetchMock from 'fetch-mock';
 
 import * as actions from '../actions';
 import * as types from '../constants/actiontypes';
@@ -42,16 +41,12 @@ let mockCallback = ()=>{
 	return 'just a mock function';
 };
 describe('submitDetails actions', () => {
-	afterEach(() => {
-	  fetchMock.reset();
-	  fetchMock.restore();
-	});
 	it('Returns user details when login is successful', ()=>{
 			  const store = mockStore({});
 		  
 			  return store.dispatch(actions.submitDetails({
 			'email': 'ngs@gmail.com',
-			'password': 'Andela1'
+			'password': 'Andela2'
 			  },mockCallback,'user')).then(() => {
 			// return of async actions
 			expect(store.getActions()).toMatchSnapshot();

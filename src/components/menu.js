@@ -17,7 +17,6 @@ import {Logout, update_profile, hideSnackBar} from '../actions';
 class Menu extends Component{
 	constructor(props){
 		super(props);
-		console.log('All props ',props);
 		this.state ={
 			conf_logout: false,
 			open_profile: false,

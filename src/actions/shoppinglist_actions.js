@@ -19,7 +19,6 @@ export function getShoppingLists(page, limit, all=false){
 		dispatch(getShoppingListStarted());
 		return axios({
 			method: 'get',
-			//http://127.0.0.1:5000/v1/shoppinglists?page=1&limit=2
 			url: url,
 			auth: {
 				username: localStorage.getItem('jwt'),
