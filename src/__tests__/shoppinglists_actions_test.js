@@ -29,7 +29,7 @@ describe('shoppinglists actions', ()=>{
 		//Login this User before each test
 		return store.dispatch(actions.submitDetails({
 			'email': 'ngs@gmail.com',
-			'password': 'Andela1'
+			'password': 'Andela2'
 		},mockCallback,'user')).then(()=>{
 		});
 	});

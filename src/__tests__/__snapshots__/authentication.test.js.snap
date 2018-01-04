@@ -8,9 +8,9 @@ Array [
   Object {
     "type": "SWITCH_USER_AUTH_STATUS",
     "user": Object {
-      "expires_at": 1514735505375,
+      "expires_at": 1515031821488,
       "id": 27,
-      "username": "esir",
+      "username": "kim",
     },
   },
   Object {
