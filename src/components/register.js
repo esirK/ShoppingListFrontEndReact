@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import {submitDetails, resetErrors} from '../actions';
 import {validate} from './helpers';
-class RegisterForm extends Component {
+export class RegisterForm extends Component {
 	constructor(props){
 		super(props);
 		this.renderField = this.renderField.bind(this);

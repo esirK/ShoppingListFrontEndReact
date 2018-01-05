@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 
 import Menu from './menu';
 
-class MyAppBar extends Component{
+export class MyAppBar extends Component{
 	render(){
 		return(
 			<AppBar title="Shopping List App" showMenuIconButton={false}

@@ -9,7 +9,7 @@ import {itemActions, newShoppinglistChildren} from './helpers';
 import {addNewShoppingList, resetErrors, closeFab} from '../actions';
 
 import ShoppingLists from './shoppinglists';
-class AddShoppingList extends Component{
+export class AddShoppingList extends Component{
 
 	constructor(props){
 		super(props);

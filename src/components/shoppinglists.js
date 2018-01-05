@@ -20,7 +20,7 @@ import {addNewShoppingList, getShoppingLists, deleteShoppingList, searchShopping
 import AddShoppingList from './new_shoppinglist';
 import UpdateShoppingList from './update_shoppinglist';
 
-class ShoppingLists extends Component{
+export class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
