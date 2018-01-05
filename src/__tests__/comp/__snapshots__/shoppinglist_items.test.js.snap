@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Shopping List items Renders ShoppingListItems component 1`] = `
+<Card
+  expandable={false}
+  expanded={null}
+  initiallyExpanded={false}
+  key="1"
+>
+  <CardHeader
+    avatar={null}
+    title="No Items"
+  />
+  <CardText>
+    You currently Have No Items in Shoppinglist '
+    '
+  </CardText>
+  <div
+    id="cards"
+  >
+    <div
+      id="fab"
+    >
+      <FloatingActionButton
+        disabled={false}
+        mini={false}
+        onClick={[Function]}
+        secondary={true}
+        zDepth={2}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
+    </div>
+  </div>
+</Card>
+`;
