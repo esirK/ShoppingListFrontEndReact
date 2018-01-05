@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shoppinglist component renders Shoppinglist without crashing 1`] = `
+<div
+  id="cards"
+>
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    floatingLabelText="Search"
+    fullWidth={true}
+    hintText="Shoppinglist Name"
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true}
+  />
+  <br />
+  <ul
+    className="pagination pagination-lg pagination-centered"
+  />
+  <div
+    id="fab"
+  >
+    <FloatingActionButton
+      disabled={false}
+      mini={false}
+      onClick={[Function]}
+      secondary={true}
+      zDepth={2}
+    >
+      <ContentAdd />
+    </FloatingActionButton>
+  </div>
+  <Snackbar
+    autoHideDuration={3000}
+    message=""
+    onRequestClose={[Function]}
+    open={false}
+  />
+  <Dialog
+    actions={
+      Array [
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Cancel"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="OK"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+      ]
+    }
+    autoDetectWindowHeight={true}
+    autoScrollBodyContent={false}
+    modal={false}
+    onRequestClose={[Function]}
+    open={false}
+    repositionOnUpdate={true}
+  >
+    Confirm Delete?
+  </Dialog>
+  <Dialog
+    actions={
+      Array [
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Cancel"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Submit"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+      ]
+    }
+    autoDetectWindowHeight={true}
+    autoScrollBodyContent={false}
+    modal={true}
+    onRequestClose={[Function]}
+    open={false}
+    repositionOnUpdate={true}
+    title="Share with"
+  >
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      fullWidth={true}
+      hintText="Email address to share with"
+      key="email"
+      multiLine={false}
+      onChange={[Function]}
+      rows={1}
+      type="text"
+      underlineShow={true}
+      value=""
+    />
+  </Dialog>
+</div>
+`;
