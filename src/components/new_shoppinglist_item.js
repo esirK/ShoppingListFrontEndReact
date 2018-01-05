@@ -9,7 +9,7 @@ import {deactivateAddItem, viewShoppingList, addNewShoppingListItem} from '../ac
 import {itemActions} from './helpers';
 
 
-class NewShoppingListItem extends Component{
+export class NewShoppingListItem extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -45,7 +45,6 @@ class NewShoppingListItem extends Component{
 	handleSubmit(){
 		//Invoked When a User presses the create new shoppinglist item button
 		//submit details Supplied
-		console.log('Submiting....');
 		this.props.addNewShoppingListItem({
 			'name': this.state.name,
 			'price': this.state.price,

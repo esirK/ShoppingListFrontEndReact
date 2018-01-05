@@ -7,7 +7,7 @@ import {itemActions, updateChildren} from './helpers';
 
 import Dialog from 'material-ui/Dialog';
 
-class UpdateShoppingListItem extends Component{
+export class UpdateShoppingListItem extends Component{
 	constructor(props){
 		super(props);
 		this.state = {

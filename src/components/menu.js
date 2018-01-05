@@ -14,7 +14,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import {Logout, update_profile, hideSnackBar} from '../actions';
 
-class Menu extends Component{
+export class Menu extends Component{
 	constructor(props){
 		super(props);
 		this.state ={

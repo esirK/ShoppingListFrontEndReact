@@ -11,7 +11,7 @@ import {validate} from './helpers';
 import {submitDetails, resetErrors} from '../actions';
 
 
-class LoginForm extends Component{
+export class LoginForm extends Component{
 	componentWillMount() {
 		this.props.resetErrors();
 	}

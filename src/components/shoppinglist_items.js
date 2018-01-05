@@ -13,7 +13,7 @@ import NewShoopingListItem from './new_shoppinglist_item';
 import UpdateShoppingListItem from './update_shoppinglist_item';
 import {activateAddItem, activateUpdateItem, hideSnackBar, deleteShoppinglistItem, resetErrors} from '../actions';
 
-class ShoppingListItems extends Component{
+export class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
 		this.state={
