@@ -10,9 +10,6 @@ import fetchMock from 'fetch-mock';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-let mockCallback = ()=>{
-	return 'just a mock function';
-};
 
 const store = mockStore();
 
@@ -30,7 +27,7 @@ describe('shoppinglists actions', ()=>{
 		return store.dispatch(actions.submitDetails({
 			'email': 'ngs@gmail.com',
 			'password': 'Andela2'
-		},mockCallback,'user')).then(()=>{
+		},() =>{},'user')).then(()=>{
 		});
 	});
 	it('Returns all Shoppinglists when all parameter in getShoppingLists is set to true',()=>{
