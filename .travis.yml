@@ -5,5 +5,5 @@ install:
     - npm install
 script:
   - npm test
-after_success:
-  - npm test -- --coverage
+after_script:
+  - REPO_TOKEN=$repo_token npm run coveralls
