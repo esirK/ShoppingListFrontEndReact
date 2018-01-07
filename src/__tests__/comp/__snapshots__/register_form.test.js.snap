@@ -16,6 +16,7 @@ exports[`Register Form Component Renders Register form without clashing 1`] = `
   shouldWarn={[Function]}
   touchOnBlur={true}
   touchOnChange={false}
+  updateUnregisteredFields={false}
   validate={[Function]}
 />
 `;
