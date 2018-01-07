@@ -1,9 +1,11 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-
+import moxios from 'moxios';
+import axios from 'axios';
 import * as actions from '../actions';
 import * as types from '../constants/actiontypes';
+import fetchMock from 'fetch-mock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -11,6 +13,16 @@ const mockStore = configureMockStore(middlewares);
 global.window = {};
 import localStorage from 'mock-local-storage';
 window.localStorage = global.localStorage;
+
+const store = mockStore();
+
+beforeEach( () => {
+	moxios.install();
+});
+
+afterEach( () => {
+	moxios.uninstall();
+});
 
 describe('authentication actions', ()=>{
 	it('should create an action to start loggin ', ()=>{
@@ -35,21 +47,5 @@ describe('authentication actions', ()=>{
 			error
 		};
 		expect(actions.submissionFailed('Network error while submitting')).toEqual(expectedAction);
-	});
-});
-let mockCallback = ()=>{
-	return 'just a mock function';
-};
-describe('submitDetails actions', () => {
-	it('Returns user details when login is successful', ()=>{
-			  const store = mockStore({});
-		  
-			  return store.dispatch(actions.submitDetails({
-			'email': 'ngs@gmail.com',
-			'password': 'Andela2'
-			  },mockCallback,'user')).then(() => {
-			// return of async actions
-			expect(store.getActions()).toMatchSnapshot();
-			  });
 	});
 });
