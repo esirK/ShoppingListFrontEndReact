@@ -38,7 +38,6 @@ exports[`Render Menu from Update profile and Logout Renders Menu component 1`] =
         "vertical": "top",
       }
     }
-    touchTapCloseDelay={200}
     useLayerForClickAway={false}
   >
     <MenuItem
