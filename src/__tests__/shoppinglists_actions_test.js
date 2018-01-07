@@ -5,7 +5,6 @@ import * as types from '../constants/actiontypes';
 import * as actions from '../actions';
 
 import configureMockStore from 'redux-mock-store';
-import fetchMock from 'fetch-mock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -18,15 +17,11 @@ import localStorage from 'mock-local-storage';
 window.localStorage = global.localStorage;
 
 describe('shoppinglists actions', ()=>{
-	afterEach(()=>{
-		fetchMock.reset();
-		fetchMock.restore();
-	});
 	beforeEach(()=>{
 		//Login this User before each test
 		return store.dispatch(actions.submitDetails({
-			'email': 'ngs@gmail.com',
-			'password': 'Andela2'
+			'email': 'kimani@andela.com',
+			'password': 'Andela1'
 		},() =>{},'user')).then(()=>{
 		});
 	});

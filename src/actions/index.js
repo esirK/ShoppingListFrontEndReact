@@ -6,7 +6,7 @@ export * from './shoppinglist_actions';
 export * from './authentication_actions';
 export * from './shoppinglistitems_actions';
 
-export const URL = 'http://127.0.0.1:5000/v1/';
+export const URL = 'https://andela-shopping-list-api.herokuapp.com/v1/';
 
 
 export function resetErrors() {
