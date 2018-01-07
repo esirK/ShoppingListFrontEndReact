@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render Menu form Update profile and Logout Renders Menu component 1`] = `
+exports[`Render Menu from Update profile and Logout Renders Menu component 1`] = `
 <div>
   <IconMenu
     anchorOrigin={
@@ -38,6 +38,7 @@ exports[`Render Menu form Update profile and Logout Renders Menu component 1`] =
         "vertical": "top",
       }
     }
+    touchTapCloseDelay={200}
     useLayerForClickAway={false}
   >
     <MenuItem
