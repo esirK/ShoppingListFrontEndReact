@@ -5,7 +5,6 @@ import moxios from 'moxios';
 import axios from 'axios';
 import * as actions from '../actions';
 import * as types from '../constants/actiontypes';
-import fetchMock from 'fetch-mock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
