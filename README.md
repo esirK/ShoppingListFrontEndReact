@@ -1,7 +1,7 @@
 # Awesome Shoppinglist App
 Awesome shoppinglist app allows registered users of the app to create lists of things they intend to go shopping for.
 It allows users to plan what they will shop and can even share their shopping lists with other members of the app.
-
+[![Build Status](https://travis-ci.org/esirK/ShoppingListFrontEndReact.svg?branch=ft-tests)](https://travis-ci.org/esirK/ShoppingListFrontEndReact)
 ## Getting started 
 To get started using the app, you will need to have the following already installed in your machine
 1. * [**nodejs**](https://nodejs.org)  -  A JavaScript runtime
