@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register Form Component Renders Register form without clashing 1`] = `
+<Connect(Form(Connect(RegisterForm)))
+  destroyOnUnmount={true}
+  enableReinitialize={false}
+  forceUnregisterOnUnmount={false}
+  form="registrationform"
+  getFormState={[Function]}
+  keepDirtyOnReinitialize={false}
+  persistentSubmitErrors={false}
+  pure={true}
+  shouldAsyncValidate={[Function]}
+  shouldError={[Function]}
+  shouldValidate={[Function]}
+  shouldWarn={[Function]}
+  touchOnBlur={true}
+  touchOnChange={false}
+  validate={[Function]}
+/>
+`;

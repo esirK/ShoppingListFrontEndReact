@@ -3,34 +3,10 @@ import {shallow} from 'enzyme';
 import {shallowToJson} from 'enzyme-to-json';
 
 import {ShoppingListItems} from '../../components/shoppinglist_items';
+import {shoppinglist_item_props} from '../../props';
 
 describe('Render Shopping List items',()=>{
-	const props = {
-		activateAddItem:jest.fn(),
-		activateUpdateItem:jest.fn(),
-		deleteShoppinglistItem:jest.fn(),
-		hideSnackBar:jest.fn(),
-		error:false,
-		addFab:false,
-		isOpenUpdateItem:false,
-		match:{
-			isExact: true,
-			params:{id:166},
-			path:'/:id/shoppinglist_items',
-			url:'/166/shoppinglist_items',
-		},
-		data:{
-			items:[]
-		},
-		message:'',
-		openAddItem:'',
-		openSb:false,
-		isLoading: false,
-		resetErrors: jest.fn(),
-		viewShoppingList: jest.fn(),
-	};
-    
-	const shoppinglistItems = shallow(<ShoppingListItems {...props}/>);
+	const shoppinglistItems = shallow(<ShoppingListItems {...shoppinglist_item_props}/>);
 	it('Renders ShoppingListItems component', ()=>{
 		expect(shallowToJson(shoppinglistItems)).toMatchSnapshot();
 	});
