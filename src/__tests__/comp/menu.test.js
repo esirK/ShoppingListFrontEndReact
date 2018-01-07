@@ -4,7 +4,7 @@ import {shallowToJson} from 'enzyme-to-json';
 
 import {Menu} from '../../components/menu';
 
-describe('Render Menu frou Update profile and Logout',()=>{
+describe('Render Menu from Update profile and Logout',()=>{
 	const props = {
 		openSb:false,
 		message:''
