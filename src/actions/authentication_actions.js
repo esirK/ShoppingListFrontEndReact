@@ -74,8 +74,8 @@ export function update_profile(details){
 			}
 		}).then((data)=>{
 			dispatch(show_snack(data.data.message));
-			dispatch(Logout());//Logout user on successful edit
-			window.location.reload();
+			//dispatch(Logout());//Logout user on successful edit
+			//window.location.reload();
 		}).catch((error)=>{
 			dispatch(show_snack(error.response.data.message));
 		});
