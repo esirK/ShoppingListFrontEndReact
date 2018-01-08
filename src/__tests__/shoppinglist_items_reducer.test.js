@@ -57,4 +57,15 @@ describe('shoppinglists_items reducers',()=>{
 			}
 		);
 	});
+	it('Should show a message on item added successfully', () => {
+		expect(reducer([], {
+			type: types.SHOPPINGLIST_ITEM_ADDED,
+			message:'Item X added successfully'
+		})).toEqual(
+			{
+				isAdding: false, openAddItem: false,
+				openSb:true,message: 'Item X added successfully',
+			}
+		);
+	});
 });

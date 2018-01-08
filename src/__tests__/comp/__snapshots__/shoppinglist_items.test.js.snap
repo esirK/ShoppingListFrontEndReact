@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render Shopping List items Renders ShoppingListItems component 1`] = `
+exports[`Render Shopping List items Renders No ShoppingListItems when items prop is empty 1`] = `
 <Card
   expandable={false}
   expanded={null}
