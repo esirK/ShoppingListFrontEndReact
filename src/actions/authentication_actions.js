@@ -73,9 +73,11 @@ export function update_profile(details){
 				password: ''
 			}
 		}).then((data)=>{
-			dispatch(show_snack(data.data.message)); 
+			dispatch(show_snack(data.data.message));
+			dispatch(Logout());//Logout user on successful edit
+			window.location.reload();
 		}).catch((error)=>{
-			dispatch(show_snack(error.response.data));
+			dispatch(show_snack(error.response.data.message));
 		});
 	};
 }
