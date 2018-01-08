@@ -17,6 +17,7 @@ export class RegisterForm extends Component {
 	}
 
 	onFormSubmit(values) {
+		//redirect user to homepage on successful registration
 		this.props.submitDetails(values,() => {
 			this.props.history.replace('/');
 		}, 'register');
@@ -71,6 +72,7 @@ export class RegisterForm extends Component {
 	}
 
 	renderField(field){
+		//Show form errors only when user have interacted with the fields
 		const { meta: { touched, error } } = field;
 		const className = `form-group ${touched && error ? 'has-danger': ''}`;
 		return(

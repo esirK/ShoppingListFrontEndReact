@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 
 
 export function validate(values){
+	//This function does validation of the Redux-form and returns any error if one is found
 	const errors = {};
 	if (!values.username){
 		errors.username = 'Username Required';
@@ -27,6 +28,8 @@ export function validate(values){
 }
 
 export function itemActions(context){
+	//This represents actions for adding a new shoppinglist
+	var {isUpdating, isCreatingNewShoppingList, isShareling} = context.props;
 	let actions = [
 		<FlatButton
 		  label="Cancel"
@@ -37,13 +40,14 @@ export function itemActions(context){
 		  label="Submit"
 		  primary={true}
 		  onClick={context.handleSubmit}
-		  disabled={context.props.isUpdating||context.props.isCreatingNewShoppingList||context.props.isShareling}
+		  disabled={isUpdating||isCreatingNewShoppingList||isShareling}
 		/>,
 	];
 	return actions;
 }
 
 export function newShoppinglistChildren(context){
+	//Children components that will appear when creating a new shopping list 
 	let children = [
 		<TextField
 		  hintText="Shoppinglist Name"
@@ -67,6 +71,7 @@ export function newShoppinglistChildren(context){
 	return children;
 }
 export function updateChildren(context){
+	//Children components that will appear when updating a shoppinglist item
 	let children = [
 		<TextField
 		  hintText="New Item Name"

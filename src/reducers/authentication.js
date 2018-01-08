@@ -9,6 +9,7 @@ const initialState = {
 
 export default function (state = initialState, action){
 	switch (action.type){
+	//Switches authentication status of a user from loggedin to logged out 
 	case SWITCH_USER_AUTH_STATUS:
 		return{
 			...state, isAuthenticated: !_.isEmpty(action.user),

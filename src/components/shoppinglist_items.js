@@ -42,7 +42,6 @@ export class ShoppingListItems extends Component{
 		});
 	}
 	handleDelete(id){
-		console.log('Delete Item ', this.state.id);
 		this.props.deleteShoppinglistItem(this.state.id);
 		this.setState({
 			conf_delete: false,

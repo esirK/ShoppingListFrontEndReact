@@ -102,6 +102,8 @@ export class UpdateShoppingListItem extends Component{
 		const actions = itemActions(this);
 		const children = updateChildren(this);
 		return(
+			//Show the update shoppinglist dialog. using a props method to
+			// allow the dialog to be closed once update is done
 			<div>
 				<Dialog open={this.props.openUpdateItem}
 					title="Update Shoppinglist Item"

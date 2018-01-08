@@ -5,6 +5,7 @@ import authentication from './authentication';
 import shoppinglists from './shoppinglists';
 import shoppinglist_items from './shoppinglist_items';
 
+//Combines all reducers available
 const rootReducer = combineReducers({
 	register: RegisterReducer,
 	authentication,

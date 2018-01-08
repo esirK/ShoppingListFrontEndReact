@@ -38,7 +38,7 @@ export class NewShoppingListItem extends Component{
 	}
 	
 	handleClose(){
-		//Invoked when the cancle button is clicked
+		//Invoked when the cancel button is clicked
 		//Sets the openAddItem props to false
 		this.props.deactivateAddItem();
 	}

@@ -34,6 +34,7 @@ export class Menu extends Component{
 		this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
 	}
 	logout(){
+		// Set conf_logout to true in-order to show the logout dialog 
 		this.setState({conf_logout: true});
 	}
 	profile(){
@@ -53,18 +54,17 @@ export class Menu extends Component{
 		this.setState({username: e.target.value});
 	}
 	handleProfileUpdate(){
+		//Send the update details then clear all the fields
 		this.props.update_profile({username:this.state.username, password:this.state.password});
 		this.setState({open_profile: false});
 		this.setState({'username':''});
 		this.setState({'password':''});
-		this.setState({'old_password':''});
 	}
 	handleClose(){
 		this.setState({conf_logout: false});
 		this.setState({open_profile: false});
 		this.setState({'username':''});
 		this.setState({'password':''});
-		this.setState({'old_password':''});
 		this.props.hideSnackBar();
 	}
 	render(){
@@ -92,6 +92,7 @@ export class Menu extends Component{
 				onClick={this.handleProfileUpdate}
 			/>,
 		];
+		//Text fields for changing username and password
 		const profile_children = [
 			<TextField
 			  hintText="New Username"
@@ -99,15 +100,6 @@ export class Menu extends Component{
 			  fullWidth={true}
 			  key='name'
 			  onChange={this.handleUsernameChange}
-			/>,
-			<TextField
-			  hintText="Old Password"
-			  multiLine={true}
-			  fullWidth={true}
-			  value={this.state.password}
-			  key='old_p'
-			  onChange={this.handlePasswordChange}
-			  type={'password'}
 			/>,
 			<TextField
 			  hintText="New Password"

@@ -7,6 +7,7 @@ import Menu from './menu';
 
 export class MyAppBar extends Component{
 	render(){
+		//Show profile management icon if user is authenticated
 		return(
 			<AppBar title="Shopping List App" showMenuIconButton={false}
 				iconElementRight={this.props.isAuthenticated?<Menu />:null}
