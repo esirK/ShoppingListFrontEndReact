@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Login Form Renders LoginForm component 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-sm-offset-3"
+  >
+    <div
+      className="shoppinglist-dialog"
+    >
+      <h1>
+        Shopping List 
+      </h1>
+      <div
+        className="dialog-body"
+      >
+        <p>
+          Enter your details to login to Shopping list app.
+        </p>
+      </div>
+      <form>
+        <Field
+          component={[Function]}
+          label="Email"
+          name="email"
+          type="email"
+        />
+        <Field
+          component={[Function]}
+          label="Password"
+          name="password"
+          type="password"
+        />
+        <div
+          className="alert alert-danger invisible"
+        />
+        <RaisedButton
+          disabled={false}
+          fullWidth={false}
+          label="Login"
+          labelPosition="after"
+          primary={false}
+          secondary={false}
+          type="submit"
+        />
+        <Link
+          className="btn btn-danger"
+          replace={false}
+          to="/register"
+        >
+          Cancel
+        </Link>
+      </form>
+      <p>
+        Not Registered??? 
+      </p>
+      <Link
+        className="btn btn-link"
+        replace={false}
+        to="/register"
+      >
+        Register
+      </Link>
+    </div>
+  </div>
+</div>
+`;

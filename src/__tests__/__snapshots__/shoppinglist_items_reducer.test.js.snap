@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shoppinglists_items reducers Renders add new ShoppingListItem dialog component 1`] = `
+<Connect(NewShoppingListItem)
+  activateAddItem={[MockFunction]}
+  activateUpdateItem={[MockFunction]}
+  addFab={false}
+  data={
+    Object {
+      "items": Array [],
+    }
+  }
+  deleteShoppinglistItem={[MockFunction]}
+  error={false}
+  hideSnackBar={[MockFunction]}
+  isLoading={false}
+  isOpenUpdateItem={false}
+  match={
+    Object {
+      "isExact": true,
+      "params": Object {
+        "id": 166,
+      },
+      "path": "/:id/shoppinglist_items",
+      "url": "/166/shoppinglist_items",
+    }
+  }
+  message=""
+  openAddItem={true}
+  openSb={false}
+  resetErrors={[MockFunction]}
+  viewShoppingList={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          166,
+        ],
+      ],
+    }
+  }
+/>
+`;

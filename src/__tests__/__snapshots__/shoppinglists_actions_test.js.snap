@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shoppinglists actions Returns 404 if page specified is not found  1`] = `
+Array [
+  Object {
+    "type": "GETTING_SHOPPINGLISTS_STARTED",
+  },
+  Object {
+    "error": "Request failed with status code 404",
+    "type": "ERROR_ENCOUNTERED",
+  },
+]
+`;
+
+exports[`shoppinglists actions Returns all Shoppinglists when all parameter in getShoppingLists is set to true 1`] = `
+Array [
+  Object {
+    "type": "GETTING_SHOPPINGLISTS_STARTED",
+  },
+  Object {
+    "response": Array [
+      Object {
+        "description": "Wabudab",
+        "id": "2",
+        "items": Array [
+          Object {
+            "id": "1",
+            "name": "Snap",
+            "price": "20.0",
+            "quantity": "1.0",
+          },
+        ],
+        "name": "Back to school",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+    ],
+    "type": "SHOPPINGLISTS_LOADED_SUCCESSFULLY",
+  },
+  Object {
+    "response": Array [
+      Object {
+        "description": "Wabudab",
+        "id": "2",
+        "items": Array [
+          Object {
+            "id": "1",
+            "name": "Snap",
+            "price": "20.0",
+            "quantity": "1.0",
+          },
+        ],
+        "name": "Back to school",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+    ],
+    "type": "ALL_SHOPPINGLISTS_LOADED",
+  },
+]
+`;
+
+exports[`shoppinglists actions Returns only specified number in limit of Shoppinglists when all parameter in getShoppingLists is set to false 1`] = `
+Array [
+  Object {
+    "type": "GETTING_SHOPPINGLISTS_STARTED",
+  },
+  Object {
+    "response": Array [
+      Object {
+        "description": "Wabudab",
+        "id": "2",
+        "items": Array [
+          Object {
+            "id": "1",
+            "name": "Snap",
+            "price": "20.0",
+            "quantity": "1.0",
+          },
+        ],
+        "name": "Back to school",
+        "shared": "False",
+        "shared_by": "nobody",
+      },
+    ],
+    "type": "SHOPPINGLISTS_LOADED_SUCCESSFULLY",
+  },
+]
+`;

@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Update Shopping List items Renders UpdateShoppingListItem component 1`] = `
+<div>
+  <Dialog
+    actions={
+      Array [
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Cancel"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Submit"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+      ]
+    }
+    autoDetectWindowHeight={true}
+    autoScrollBodyContent={false}
+    modal={false}
+    open={true}
+    repositionOnUpdate={true}
+    title="Update Shoppinglist Item"
+  >
+    <TextField
+      disabled={false}
+      floatingLabelFixed={false}
+      fullWidth={true}
+      hintText="New Item Name"
+      key="name"
+      multiLine={false}
+      onChange={[Function]}
+      rows={1}
+      type="text"
+      underlineShow={true}
+      value="Monster"
+    />
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      fullWidth={true}
+      hintText="New Price of the Item"
+      key="price"
+      multiLine={true}
+      onChange={[Function]}
+      rows={1}
+      type="text"
+      underlineShow={true}
+      value="200.0"
+    />
+    <TextField
+      disabled={false}
+      errorText=""
+      floatingLabelFixed={false}
+      fullWidth={true}
+      hintText="Quantity of the Item"
+      key="quantity"
+      multiLine={true}
+      onChange={[Function]}
+      rows={1}
+      type="text"
+      underlineShow={true}
+      value="2.5"
+    />
+    <p
+      className="alert alert-danger"
+      key="error"
+    />
+  </Dialog>
+</div>
+`;

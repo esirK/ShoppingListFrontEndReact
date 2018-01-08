@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Update Shopping List Renders updateShoppinglist component 1`] = `
+<Dialog
+  actions={
+    Array [
+      <FlatButton
+        disabled={false}
+        fullWidth={false}
+        label="Cancel"
+        labelPosition="after"
+        labelStyle={Object {}}
+        onClick={[Function]}
+        onKeyboardFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        primary={true}
+        secondary={false}
+      />,
+      <FlatButton
+        disabled={false}
+        fullWidth={false}
+        label="Update"
+        labelPosition="after"
+        labelStyle={Object {}}
+        onClick={[Function]}
+        onKeyboardFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        primary={true}
+        secondary={false}
+      />,
+    ]
+  }
+  autoDetectWindowHeight={true}
+  autoScrollBodyContent={false}
+  modal={false}
+  open={true}
+  repositionOnUpdate={true}
+  title="Update Shoppinglist"
+>
+  <TextField
+    disabled={false}
+    errorText={false}
+    floatingLabelFixed={false}
+    fullWidth={true}
+    hintText="New Shoppinglist Name"
+    key="name"
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true}
+    value="Evil morty"
+  />
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    fullWidth={true}
+    hintText="New Description of the shopping list"
+    key="desc"
+    multiLine={true}
+    onChange={[Function]}
+    rows={2}
+    rowsMax={4}
+    type="text"
+    underlineShow={true}
+    value="I am an Evil Morty"
+  />
+</Dialog>
+`;
