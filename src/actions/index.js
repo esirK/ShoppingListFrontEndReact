@@ -6,7 +6,7 @@ export * from './shoppinglist_actions';
 export * from './authentication_actions';
 export * from './shoppinglistitems_actions';
 
-export const URL = 'http://127.0.0.1:5000/v1/';
+export const URL = 'https://andela-shopping-list-api.herokuapp.com/v1/';
 
 
 export function resetErrors() {
@@ -15,7 +15,6 @@ export function resetErrors() {
 	};
 }
 export function startSubmitting(){
-	console.log('Started Submitting....');
 	return {
 		type: types.SUBMITTING_STARTED
 	};
@@ -26,19 +25,12 @@ export function errorEncountered(error){
 		error
 	};
 }
-
-export function hideSnackBar(dispatch){
-	return(dispatch)=>{
-		dispatch({type: types.HIDE_SNACK_BAR});
-	};
-}
 /**
  * ShoppingList items
  */
 
 //View Selected Shoppinglist
 export function viewShoppingList(id){
-	console.log('Looking for the shoppinglist ', id);
 	return (dispatch) =>{
 		//clear all errors first
 		dispatch(resetErrors());
@@ -51,17 +43,14 @@ export function viewShoppingList(id){
 				password: ''
 			}
 		}).then((response)=>{
-			console.log('Got catcha ', response, response.data);
 			dispatch(shoppinglistItemsRecieved(response.data, id));
 		}).catch(error=>{
-			console.log('Whall up??', error);
 			dispatch(loadingShoppingListItemsFailed(error.response.data.message));
 			dispatch(errorEncountered(error.response.data.message));
 		});
 	};
 }
 export function loadingShoppingListItems(){
-	console.log('Loading items dispatched');
 	return {
 		type: types.SHOPPINGLIST_ITEMS_LOADING,
 	};

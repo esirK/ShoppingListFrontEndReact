@@ -13,7 +13,7 @@ import NewShoopingListItem from './new_shoppinglist_item';
 import UpdateShoppingListItem from './update_shoppinglist_item';
 import {activateAddItem, activateUpdateItem, hideSnackBar, deleteShoppinglistItem, resetErrors} from '../actions';
 
-class ShoppingListItems extends Component{
+export class ShoppingListItems extends Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -42,7 +42,6 @@ class ShoppingListItems extends Component{
 		});
 	}
 	handleDelete(id){
-		console.log('Delete Item ', this.state.id);
 		this.props.deleteShoppinglistItem(this.state.id);
 		this.setState({
 			conf_delete: false,
@@ -85,8 +84,7 @@ class ShoppingListItems extends Component{
 		If the Redux error state has changed(Default: false)
 		Then Api returned response with an error 
 		*/
-		if(this.props.error !== false){
-			console.log('You Got ',this.props.error);
+		if(this.props.error !== false && !this.props.isOpenUpdateItem){
 			return (
 				<Card key='1'>
 					<CardHeader

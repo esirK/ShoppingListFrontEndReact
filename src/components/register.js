@@ -9,14 +9,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import {submitDetails, resetErrors} from '../actions';
 import {validate} from './helpers';
-class RegisterForm extends Component {
-	constructor(){
-		super();
+export class RegisterForm extends Component {
+	constructor(props){
+		super(props);
 		this.renderField = this.renderField.bind(this);
-		resetErrors();
+		this.props.resetErrors();
 	}
 
 	onFormSubmit(values) {
+		//redirect user to homepage on successful registration
 		this.props.submitDetails(values,() => {
 			this.props.history.replace('/');
 		}, 'register');
@@ -24,7 +25,6 @@ class RegisterForm extends Component {
 
 	render() {
 		const {error, handleSubmit} = this.props;
-		console.log('All form State', this.props);
 		return (
 			<div className="row">
 				<div className="col-sm-6 col-sm-offset-3">
@@ -72,6 +72,7 @@ class RegisterForm extends Component {
 	}
 
 	renderField(field){
+		//Show form errors only when user have interacted with the fields
 		const { meta: { touched, error } } = field;
 		const className = `form-group ${touched && error ? 'has-danger': ''}`;
 		return(
@@ -96,4 +97,4 @@ function mapStateToProps(state){
 		isSubmitting: state.form.isSubmitting
 	};
 }
-export default reduxForm({ validate, form: 'registrationform' })(connect(mapStateToProps, {submitDetails})(RegisterForm));
+export default reduxForm({ validate, form: 'registrationform' })(connect(mapStateToProps, {submitDetails, resetErrors})(RegisterForm));

@@ -10,15 +10,15 @@ import ShoppingLists from './shoppinglists';
 import {updateShoppingList, resetErrors, closeUpdateDialog} from '../actions';
 
 
-class UpdateShoppingList extends Component{
+export class UpdateShoppingList extends Component{
 	constructor(props){
 		super(props);
 		/*The update shoppinglist dialog will 
 		be open by default once this component is rendered */
 		
 		this.state = {
-			name: '',
-			'description': '',
+			name: this.props.name,
+			'description': this.props.description,
 		};
 		this.handleTitleChange = this.handleTitleChange.bind(this);
 		this.handleDescChange = this.handleDescChange.bind(this);

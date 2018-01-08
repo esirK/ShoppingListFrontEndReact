@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 
 
 export function validate(values){
+	//This function does validation of the Redux-form and returns any error if one is found
 	const errors = {};
 	if (!values.username){
 		errors.username = 'Username Required';
@@ -21,13 +22,14 @@ export function validate(values){
 		errors.confirm_password = 'Enter confirmation Password';
 	}
 	if(values.password !== values.confirm_password){
-		console.log('Look at me ',values.confirm_password);
 		errors.confirm_password = 'Passwords do not match';
 	}
 	return errors;
 }
 
 export function itemActions(context){
+	//This represents actions for adding a new shoppinglist
+	var {isUpdating, isCreatingNewShoppingList, isShareling} = context.props;
 	let actions = [
 		<FlatButton
 		  label="Cancel"
@@ -38,13 +40,14 @@ export function itemActions(context){
 		  label="Submit"
 		  primary={true}
 		  onClick={context.handleSubmit}
-		  disabled={context.props.isUpdating||context.props.isCreatingNewShoppingList}
+		  disabled={isUpdating||isCreatingNewShoppingList||isShareling}
 		/>,
 	];
 	return actions;
 }
 
 export function newShoppinglistChildren(context){
+	//Children components that will appear when creating a new shopping list 
 	let children = [
 		<TextField
 		  hintText="Shoppinglist Name"
@@ -68,10 +71,11 @@ export function newShoppinglistChildren(context){
 	return children;
 }
 export function updateChildren(context){
+	//Children components that will appear when updating a shoppinglist item
 	let children = [
 		<TextField
 		  hintText="New Item Name"
-		  errorText={context.state.nameError}
+		  errorText={context.props.error}
 		  value={context.state.name}
 		  fullWidth={true}
 		  onChange={context.handleNameChange}
@@ -96,6 +100,19 @@ export function updateChildren(context){
 		  key='quantity'
 		/>,
 		<p key='error' className='alert alert-danger'>{context.state.error}</p>
+	];
+	return children;
+}
+export function shareShoppinglistChildren(context){
+	let children = [
+		<TextField
+		  hintText="Email address to share with"
+		  errorText={context.props.error}
+		  value={context.state.email}
+		  fullWidth={true}
+		  onChange={context.handleEmailChange}
+		  key='email'
+		/>,
 	];
 	return children;
 }

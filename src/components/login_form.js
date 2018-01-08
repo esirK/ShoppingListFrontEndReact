@@ -11,11 +11,13 @@ import {validate} from './helpers';
 import {submitDetails, resetErrors} from '../actions';
 
 
-class LoginForm extends Component{
+export class LoginForm extends Component{
+	// Just before the form mounts clear all errors which might have occured on registration
 	componentWillMount() {
 		this.props.resetErrors();
 	}
 	onFormSubmit(values) {
+		// On successful submission redirect user to home 
 		this.props.submitDetails(values,() => {
 			this.props.history.replace('/');
 		},'user');

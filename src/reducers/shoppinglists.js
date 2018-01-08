@@ -3,6 +3,7 @@ import * as types from '../constants/actiontypes';
 const initState = {
 	isLoading: false,
 	isCreatingNewShoppingList: false,
+	isShoppinglistSharing: false,
 	shoppinglistCreated: false,
 	isUpdatingShoppingList: false,
 	shoppinglists: [],
@@ -87,9 +88,17 @@ export default function(state = initState, action){
 		return{
 			...state, shoppinglists:action.response,
 		};
+	case types.SHARING_SHOPPINGLIST:
+		return{
+			...state, isShoppinglistSharing: true
+		};
+	case types.SHOPPINGLIST_SHARED_SUCCESSFULLY:
+		return{
+			...state, isShoppinglistSharing: false, message:action.message, openSb:true
+		};
 	case types.ERROR_ENCOUNTERED:
 		return{
-			...state, isLoading:false, isCreatingNewShoppingList:false, isUpdatingShoppingList:false, error: action.error, openSb: true,
+			...state, isLoading:false, isCreatingNewShoppingList:false, isUpdatingShoppingList:false, isShoppinglistSharing:false, error: action.error, openSb: true,
 		};
 	case types.CLEAR_ERRORS:
 		return{

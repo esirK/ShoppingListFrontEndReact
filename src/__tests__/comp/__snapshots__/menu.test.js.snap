@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Menu from Update profile and Logout Renders Menu component 1`] = `
+<div>
+  <IconMenu
+    anchorOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+    animated={true}
+    clickCloseDelay={200}
+    iconButtonElement={
+      <IconButton
+        disableTouchRipple={false}
+        disabled={false}
+        iconStyle={Object {}}
+        tooltipPosition="bottom-center"
+        touch={false}
+      >
+        <NavigationMoreVert />
+      </IconButton>
+    }
+    multiple={false}
+    onClick={[Function]}
+    onItemClick={[Function]}
+    onKeyboardFocus={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onRequestChange={[Function]}
+    open={null}
+    targetOrigin={
+      Object {
+        "horizontal": "left",
+        "vertical": "top",
+      }
+    }
+    useLayerForClickAway={false}
+  >
+    <MenuItem
+      anchorOrigin={
+        Object {
+          "horizontal": "right",
+          "vertical": "top",
+        }
+      }
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      onClick={[Function]}
+      primaryText="Profile"
+      targetOrigin={
+        Object {
+          "horizontal": "left",
+          "vertical": "top",
+        }
+      }
+    />
+    <MenuItem
+      anchorOrigin={
+        Object {
+          "horizontal": "right",
+          "vertical": "top",
+        }
+      }
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
+      onClick={[Function]}
+      primaryText="Sign out"
+      targetOrigin={
+        Object {
+          "horizontal": "left",
+          "vertical": "top",
+        }
+      }
+    />
+  </IconMenu>
+  <Dialog
+    actions={
+      Array [
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Cancel"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="OK"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+      ]
+    }
+    autoDetectWindowHeight={true}
+    autoScrollBodyContent={false}
+    modal={false}
+    onRequestClose={[Function]}
+    open={false}
+    repositionOnUpdate={true}
+  >
+    Confirm Logout?
+  </Dialog>
+  <Dialog
+    actions={
+      Array [
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Cancel"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Update"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onClick={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          primary={true}
+          secondary={false}
+        />,
+      ]
+    }
+    autoDetectWindowHeight={true}
+    autoScrollBodyContent={false}
+    modal={false}
+    onRequestClose={[Function]}
+    open={false}
+    repositionOnUpdate={true}
+    title="Update Personal details"
+  >
+    <TextField
+      disabled={false}
+      floatingLabelFixed={false}
+      fullWidth={true}
+      hintText="New Username"
+      key="name"
+      multiLine={false}
+      onChange={[Function]}
+      rows={1}
+      type="text"
+      underlineShow={true}
+      value=""
+    />
+    <TextField
+      disabled={false}
+      floatingLabelFixed={false}
+      fullWidth={true}
+      hintText="New Password"
+      key="new_p"
+      multiLine={true}
+      onChange={[Function]}
+      rows={1}
+      type="password"
+      underlineShow={true}
+    />
+  </Dialog>
+  <Snackbar
+    autoHideDuration={3000}
+    message=""
+    open={false}
+  />
+</div>
+`;

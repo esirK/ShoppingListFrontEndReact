@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Shopping List items Renders newShoppingListItems component 1`] = `
+<Dialog
+  actions={
+    Array [
+      <FlatButton
+        disabled={false}
+        fullWidth={false}
+        label="Cancel"
+        labelPosition="after"
+        labelStyle={Object {}}
+        onClick={[Function]}
+        onKeyboardFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        primary={true}
+        secondary={false}
+      />,
+      <FlatButton
+        disabled={false}
+        fullWidth={false}
+        label="Submit"
+        labelPosition="after"
+        labelStyle={Object {}}
+        onClick={[Function]}
+        onKeyboardFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        primary={true}
+        secondary={false}
+      />,
+    ]
+  }
+  autoDetectWindowHeight={true}
+  autoScrollBodyContent={false}
+  modal={false}
+  open={true}
+  repositionOnUpdate={true}
+  title="Add Shoppinglist Item"
+>
+  <TextField
+    disabled={false}
+    errorText={false}
+    floatingLabelFixed={false}
+    fullWidth={true}
+    hintText="Shoppinglist Item Name"
+    key="name"
+    multiLine={false}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true}
+    value=""
+  />
+  <TextField
+    disabled={false}
+    errorText=""
+    floatingLabelFixed={false}
+    fullWidth={true}
+    hintText="Price of the Item"
+    key="price"
+    multiLine={true}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true}
+    value=""
+  />
+  <TextField
+    disabled={false}
+    errorText=""
+    floatingLabelFixed={false}
+    fullWidth={true}
+    hintText="Quantity of the Item"
+    key="quantity"
+    multiLine={true}
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true}
+    value=""
+  />
+</Dialog>
+`;

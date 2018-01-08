@@ -12,14 +12,15 @@ import {connect} from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 
+import {itemActions, shareShoppinglistChildren} from './helpers';
 
-import {addNewShoppingList, getShoppingLists, deleteShoppingList, searchShoppinglist,
+import {addNewShoppingList, getShoppingLists, deleteShoppingList, searchShoppinglist, shareShoppingList,
 	 updateShoppingList, activateFab, openUpdateDialog, closeUpdateDialog, hideSnackBar, resetErrors} from '../actions';
 
 import AddShoppingList from './new_shoppinglist';
 import UpdateShoppingList from './update_shoppinglist';
 
-class ShoppingLists extends Component{
+export class ShoppingLists extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -31,7 +32,9 @@ class ShoppingLists extends Component{
 			conf_delete: false,
 			page: 1,
 			limit: 4,
-			searchTerm: ''
+			searchTerm: '',
+			shareDialog: false,
+			email:''
 		};
 		this.props.resetErrors();
 		//Bind methods to this class
@@ -40,8 +43,11 @@ class ShoppingLists extends Component{
 		this.handleFabClick = this.handleFabClick.bind(this);
 		this.handleClose = this.handleClose.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.shareShoppingList = this.shareShoppingList.bind(this);
 		this.search = this.search.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
+		this.handleEmailChange = this.handleEmailChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	componentDidMount(){
 		this.setState({conf_delete: false});
@@ -78,6 +84,9 @@ class ShoppingLists extends Component{
 	}
 	handleClose(){
 		this.setState({conf_delete: false});
+		this.setState({shareDialog: false});
+		this.setState({email:''});
+		this.props.resetErrors();
 	}
 	viewShoppingList(shoppinglist){
 		//Moves to selected shoppinglist items
@@ -89,9 +98,24 @@ class ShoppingLists extends Component{
 		this.setState({conf_delete: true});
 		this.setState({id});
 	}
-	handleUpdateShoppingList(id){
+	handleUpdateShoppingList(id, name, description){
 		this.setState({id});
+		this.setState({name});
+		this.setState({description});
 		this.props.openUpdateDialog();
+	}
+	shareShoppingList(id){
+		this.setState({
+			shareDialog:true, id,
+		});
+	}
+	handleEmailChange(event){
+		//Email chache for the share shoppinglist dialog
+		this.setState({email:event.target.value});
+	}
+	handleSubmit(){
+		//Handles submission of email to share shoppinglist with
+		this.props.shareShoppingList(this.state.email, this.state.id, ()=>{this.setState({shareDialog:false, email:''});});
 	}
 	handleRequestClose(){
 		// Call resetErrors to remove a any error or message available 
@@ -132,7 +156,7 @@ class ShoppingLists extends Component{
 			);
 		}
 		//if errors exist and no dialog is floating then show this paragraph
-		if(this.props.error && !this.props.addFab){
+		if(this.props.error && !this.props.addFab && !this.state.shareDialog){
 			return(
 				<div id="cards">
 					<p>Got a {this.props.error} while Loading Your Shoppinglists</p>
@@ -148,7 +172,6 @@ class ShoppingLists extends Component{
 		}
 		else{
 			if(this.props.shoppinglists.message !== undefined){
-				console.log('Wabudabu is', (this.props.shoppinglists.message));
 				cards.push(
 					<Card key='1'>
 						<CardText>
@@ -169,13 +192,31 @@ class ShoppingLists extends Component{
 								actAsExpander={true}
 								showExpandableButton={true}
 							/>
+							<CardText color='#E040FB'
+								style={{
+									float: 'right'}}
+							>
+								{shoppinglist.shared!=='False' ? `${'Shared By '}${shoppinglist.shared_by}` :''}
+							</CardText>
 							<CardText expandable={true}>
         				{shoppinglist.description}
 							</CardText>
 							<CardActions>
-								<FlatButton label="View" primary={true} onClick={()=>{this.viewShoppingList(shoppinglist);}}/>
-								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id)}/>
-								<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}/>
+								<FlatButton label="View" primary={true} onClick={()=>{this.viewShoppingList(shoppinglist);}}
+									rippleColor='#00C853'
+								/>
+
+								<FlatButton label="Update" onClick={()=>this.handleUpdateShoppingList(shoppinglist.id, shoppinglist.name, shoppinglist.description)}
+									style={{color:'#FFC107'}} rippleColor='#1B5E20'
+								/>
+								
+								<FlatButton name='delete' label="Delete" secondary={true} onClick={()=> this.deleteList(shoppinglist.id)}
+									rippleColor='#C62828'
+								/>
+								
+								<FlatButton name='share' label="Share" primary={true} onClick={()=> this.shareShoppingList(shoppinglist.id)}
+									rippleColor='#AA00FF' style={{color:'#64DD17', margin:'75dp'}}
+								/>
 							</CardActions>
 						</Card>
 					)
@@ -183,12 +224,10 @@ class ShoppingLists extends Component{
 				//Generate the page numbers
 				let spLists = Math.floor(((this.props.all_shoppinglists).length)/this.state.limit);
 				let rem = (this.props.all_shoppinglists).length % this.state.limit;
-				console.log('rem is .... ',this.props.all_shoppinglists);
 				let total =0;
 				if(rem > 0){
 					total = spLists+1;
 				}else{
-					console.log('Total IS ', this.props.all_shoppinglists.length);
 					total = spLists; 
 				}
 				for(var x=0; x<total; x++){
@@ -213,6 +252,8 @@ class ShoppingLists extends Component{
 					onClick={this.handleDelete}
 				/>,
 			];
+			const shareActions = itemActions(this);			
+			const children = shareShoppinglistChildren(this);
 			/** */
 			return(
 				<div id="cards">
@@ -245,6 +286,15 @@ class ShoppingLists extends Component{
 					>
          			Confirm Delete?
 					</Dialog>
+					<Dialog
+						actions={shareActions}
+						children={children}
+						modal={true}
+						open={this.state.shareDialog}
+						onRequestClose={this.handleClose}
+						title="Share with"
+					>
+					</Dialog>
 				</div>
 			);
 		}
@@ -262,5 +312,5 @@ function mapStateToProps(state){
 		openUpdate: state.shoppinglists.openUpdate,
 	};
 }
-export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, searchShoppinglist,
+export default connect(mapStateToProps, {addNewShoppingList, getShoppingLists, searchShoppinglist, shareShoppingList,
 	deleteShoppingList, updateShoppingList, activateFab, openUpdateDialog, closeUpdateDialog, hideSnackBar, resetErrors}) (ShoppingLists);

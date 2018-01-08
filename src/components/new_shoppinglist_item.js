@@ -9,7 +9,7 @@ import {deactivateAddItem, viewShoppingList, addNewShoppingListItem} from '../ac
 import {itemActions} from './helpers';
 
 
-class NewShoppingListItem extends Component{
+export class NewShoppingListItem extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -38,14 +38,13 @@ class NewShoppingListItem extends Component{
 	}
 	
 	handleClose(){
-		//Invoked when the cancle button is clicked
+		//Invoked when the cancel button is clicked
 		//Sets the openAddItem props to false
 		this.props.deactivateAddItem();
 	}
 	handleSubmit(){
 		//Invoked When a User presses the create new shoppinglist item button
 		//submit details Supplied
-		console.log('Submiting....');
 		this.props.addNewShoppingListItem({
 			'name': this.state.name,
 			'price': this.state.price,
